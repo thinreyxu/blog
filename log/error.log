@@ -1,0 +1,214 @@
+[Sun Oct 13 2013 07:08:50 GMT+0800 (CST)]/sdf
+ReferenceError: name is not defined
+    at Object.handle (/home/erix/WorkSpace/nodejs/server/blog/routes/routes.js:12:5)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at resume (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/static.js:60:7)
+    at SendStream.error (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/static.js:73:37)
+    at SendStream.EventEmitter.emit (events.js:95:17)
+    at SendStream.error (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/send/lib/send.js:147:51)
+    at SendStream.onStatError (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/send/lib/send.js:248:48)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/send/lib/send.js:320:26
+    at Object.oncomplete (fs.js:107:15)
+[Sun Oct 13 2013 07:09:12 GMT+0800 (CST)]/sdf
+ReferenceError: name is not defined
+    at Object.handle (/home/erix/WorkSpace/nodejs/server/blog/routes/routes.js:12:5)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at resume (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/static.js:60:7)
+    at SendStream.error (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/static.js:73:37)
+    at SendStream.EventEmitter.emit (events.js:95:17)
+    at SendStream.error (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/send/lib/send.js:147:51)
+    at SendStream.onStatError (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/send/lib/send.js:248:48)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/send/lib/send.js:320:26
+    at Object.oncomplete (fs.js:107:15)
+[Sun Oct 13 2013 07:12:14 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:12:19 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:17:42 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:17:50 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:19:20 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:19:21 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:19:21 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:21:51 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:21:55 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:21:58 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:22:00 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:22:01 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:22:59 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:23:03 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:24:10 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17
+[Sun Oct 13 2013 07:24:12 GMT+0800 (CST)]/
+ReferenceError: name is not defined
+    at index (/home/erix/WorkSpace/nodejs/server/blog/routes/index.js:25:5)
+    at callbacks (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:164:37)
+    at param (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:138:11)
+    at pass (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:145:5)
+    at Router._dispatch (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:173:5)
+    at Object.router (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/proto.js:190:15)
+    at next (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:312:9)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/express/node_modules/connect/lib/middleware/session.js:336:9
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/connect-mongo/lib/connect-mongo.js:194:17

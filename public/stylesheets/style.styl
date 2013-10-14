@@ -1,0 +1,143 @@
+// $linkcolor = #ad9c65
+$linkcolor = #58C261
+
+body
+  font: 14px/1.5 Helvetica Neue, Arial, "WenQuanYi Micro Hei", "Microsoft Yahei", "Hiragino Sans GB", STXihei, SimSun, sans-serif
+  color: #666
+  border-top: solid 1px $linkcolor
+
+a
+  color: $linkcolor
+  &:hover
+    color: darken($linkcolor, 15)
+    text-decoration: underline
+
+.container
+  position: relative
+  max-width: 600px
+  padding: 0
+
+.nav
+  position: absolute
+  text-transform: uppercase
+  right: 100%
+  top: 140px
+  width: 160px
+  margin-right: 30px
+  text-align: right
+  font-size: 12px
+  line-height: 14px
+  a
+    box-sizing: content-box
+    float: right
+    clear: right
+    text-decoration: none
+    padding: 4px 2px
+    color: #999
+    height: 14px
+    &:hover
+      color: $linkcolor
+  b
+    display: none
+    font-size: 10px
+    font-weight: normal
+  i
+    margin-left: 0.5em
+    line-height: 1
+
+  &:hover
+    b
+      display: inline
+
+.header
+  margin-bottom: 40px
+
+.footer
+  border-top: solid 1px #eee;
+  padding: 15px 0
+  margin: 50px 0 0 0
+  color: #ccc
+
+  p
+    margin: 0
+
+.content
+  min-height: 150px
+
+.post
+  margin: 0 0 50px
+
+  &:first-child,
+  &>:first-child
+    margin-top: 0
+
+  &:last-child
+  &>:last-child
+    margin-bottom: 0
+
+.post-meta
+  font-size: 12px
+  position: absolute
+  left: 100%
+  top: 140px
+  width: 160px
+  margin-left: 30px
+
+  span
+    display: block
+
+.post-body
+  margin: 0 0 25px
+  padding: 0 15px
+
+.info
+  font-size: 12px
+
+// 编辑与删除功能
+.edit
+  margin: 3px
+  padding: 2px 5px
+  border-radius: 3px
+  background-color: #f3f3f3
+  color: #333
+  font-size: 13px
+  &:hover
+    text-decoration: none
+    background-color: $linkcolor
+    color: #fff
+
+.archive
+  ul
+    list-style: none
+    line-height: 2
+    padding: 0
+  h4
+    text-align: center
+  time
+    display: inline-block
+    width: 6em
+
+.search
+  position: absolute
+  right: 100%
+  top: 23em
+  margin-right: 20px
+  width: 100px
+
+  .keyword
+    width: 88px
+    padding: 3px 5px
+    border: 0
+    border-bottom: solid 1px #f2f2f2
+    height: 14px
+    line-height: 14px
+    box-sizing: content-box
+    outline: none
+    color: #666
+
+.pnf404
+  line-height: 150px
+
+.avatar
+  border-radius: 50%
+  overflow: hidden
