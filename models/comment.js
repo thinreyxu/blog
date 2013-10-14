@@ -1,9 +1,9 @@
 var db = require('./db.js');
 
-function Comment (name, day, title, comment) {
-  this.name = name;
-  this.day = day;
-  this.title = title;
+var ObjectID = db.ObjectID;
+
+function Comment (id, comment) {
+  this.id = id;
   this.comment = comment;
 }
 
@@ -11,9 +11,7 @@ module.exports = Comment;
 
 // 存储一条留言信息
 Comment.prototype.save = function (callback) {
-  var name = this.name
-    , day = this.day
-    , title = this.title
+  var id = this.id
     , comment = this.comment;
 
   db.collection('posts', function (err, collection) {
@@ -23,11 +21,7 @@ Comment.prototype.save = function (callback) {
     }
     // 通过用户名、时间及标题查找文档，并把一条留言对象添加到该文档的 comments 数组
     collection.update(
-      {
-        "name": name,
-        "time.day": day,
-        "title": title
-      },
+      { '_id': new ObjectID(id) },
       {
         $push: { "comments": comment }
       },

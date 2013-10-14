@@ -24,7 +24,7 @@
   <% } %>
   <hr>
   <div class="comment-compose">
-    <form method="POST" class="form-horizontal">
+    <form method="POST" action="/comment/<%= post._id %>" class="form-horizontal">
       <div class="form-group">
         <% if (user) { %>
           <div class="form-group">

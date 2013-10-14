@@ -1,13 +1,15 @@
 var index = require('./index')
   , user = require('./user')
   , post = require('./post')
-  , upload = require('./upload');
+  , upload = require('./upload')
+  , comment = require('./comment');
 
 module.exports = function (app) {
   mapRoutes(index, app);
   mapRoutes(user, app);
   mapRoutes(post, app);
   mapRoutes(upload, app);
+  mapRoutes(comment, app);
 };
 
 function mapRoutes (map, app) {

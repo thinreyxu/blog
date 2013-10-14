@@ -44,16 +44,19 @@ app.use(app.router); // 用于确定 router 中间件的调用顺序
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function (err, req, res, next) {
-  var meta = '[' + new Date() + ']' + req.url + '\n';
-  errorLog.write(meta + err.stack + '\n');
-  next();
-});
-
 // development only
-if ('development' == app.get('env')) {
+if ('development' === app.get('env')) {
   // 在 console 中 打印日志
   app.use(express.errorHandler());
+}
+
+// production only
+if ('production' === app.get('env')) {
+  app.use(function (err, req, res, next) {
+    var meta = '[' + new Date() + ']' + req.url + '\n';
+    errorLog.write(meta + err.stack + '\n');
+    next();
+  });
 }
 
 // 处理 404 页面

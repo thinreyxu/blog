@@ -11,13 +11,22 @@
     <span>评论：<%= post.comments && post.comments.length || 0 %></span>
     <span>转载：<%= post.reprint_info && post.reprint_info.reprint_to && post.reprint_info.reprint_to.length || 0 %></span>
   </div>
-  <div class="post-body markdown-post"><%- post.post %></div>
+  <div class="post-body markdown-post">
+    <%- post.post %>
+
+    <% var oriPost %>
+    <% if (post.reprint_info && (oriPost = post.reprint_info.reprint_from)) { %>
+      <div class="post-origin info">
+        原文：「<a href="/p/<%= oriPost._id %>"><%= oriPost.title %></a>」 - <a href="/u/<%= oriPost.name %>"><%= oriPost.name %></a> <span class="text-muted"><%= oriPost.time.minute %></span></a>
+      </div>
+    <% } %>
+  </div>
 
   <% if (user && user.name === post.name) { %>
     <div class="options text-center">
       <div class="btn-group">
-        <a href="/edit/<%= post.name %>/<%= post.time.day %>/<%= post.title %>" class="btn btn-xs btn-default">编辑</a>
-        <a href="/remove/<%= post.name %>/<%= post.time.day %>/<%= post.title %>" class="btn btn-xs btn-default">删除</a>
+        <a href="/edit/<%= post._id %>" class="btn btn-xs btn-default">编辑</a>
+        <a href="/remove/<%= post._id %>" class="btn btn-xs btn-default">删除</a>
       </div>
     </div>
   <% } %>
@@ -44,7 +53,7 @@
   <% if (reprintable) { %>
     <div class="options text-center">
       <div class="btn-group">
-        <a href="/reprint/<%= post.name %>/<%= post.time.day %>/<%= post.title %>" class="btn btn-xs btn-default">转载</a>
+        <a href="/reprint/<%= post._id %>" class="btn btn-xs btn-default">转载</a>
       </div>
     </div>
   <% } %>

@@ -1,7 +1,10 @@
 var settings = require('../settings')
-  , Db = require('mongodb').Db
-  , Connection = require('mongodb').Connection
-  , Server = require('mongodb').Server;
+  , MongoDB = require('mongodb')
+  , Db = MongoDB.Db
+  , Connection = MongoDB.Connection
+  , Server = MongoDB.Server;
+
+exports.ObjectID = MongoDB.ObjectID;
 
 var mongodb = new Db(
   settings.db,

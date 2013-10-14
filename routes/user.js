@@ -1,8 +1,7 @@
 var common = require('./common')
   , crypto = require('crypto')
   , User = require('../models/user')
-  , Post = require('../models/post')
-  , Comment = require('../models/comment');
+  , Post = require('../models/post');
 
 module.exports = {
   '/login': {
@@ -18,20 +17,6 @@ module.exports = {
   },
   '/u/:name': {
     'get': getUserProfile
-  },
-  '/u/:name/:day/:title': {
-    'get': getUserPost,
-    'post': doComment
-  },
-  '/edit/:name/:day/:title': {
-    'get': [common.checkLogin, edit],
-    'post': [common.checkLogin, doEdit]
-  },
-  '/remove/:name/:day/:title': {
-    'get': [common.checkLogin, remove]
-  },
-  '/reprint/:name/:day/:title': {
-    'get': [common.checkLogin, reprint]
   }
 };
 
@@ -146,142 +131,6 @@ function getUserProfile (req, res) {
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
       });
-    });
-  });
-}
-
-function getUserPost (req, res) {
-  Post.getOne(req.params.name, req.params.day, req.params.title, function (err, post) {
-    if (err) {
-      req.flash('error', err);
-      return res.redirect('/');
-    }
-    res.render('article', {
-      title: req.params.title,
-      post: post,
-      user: req.session.user,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
-    });
-  });
-}
-
-function edit (req, res) {
-  var currentUser = req.session.user;
-  Post.edit(
-    currentUser.name,
-    req.params.day,
-    req.params.title,
-    function (err, post) {
-      if (err) {
-        req.flash('error', err);
-        return res.redirect('back');
-      }
-      res.render('edit', {
-        title: '编辑',
-        post: post,
-        user: req.session.user,
-        success: req.flash('success').toString(),
-        error: req.flash('error').toString()
-      });
-    }
-  );
-}
-
-function doEdit (req, res) {
-  var currentUser = req.session.user;
-  Post.update(
-    currentUser.name,
-    req.params.day,
-    req.params.title,
-    req.body.tags.trim().split(', ').map(function (tag) { return tag.trim() }),
-    req.body.post,
-    function (err) {
-      var url = ['/u', req.params.name, req.params.day, req.params.title].join('/');
-      if (err) {
-        req.flash('error', err);
-        return redirect(url);  // 出错！返回文章页面
-      }
-      req.flash('success', '修改成功！');
-      res.redirect(url);  // 成功！返回文章页面
-    }
-  );
-}
-
-function remove (req, res) {
-  var currentUser = req.session.user;
-  Post.remove(
-    currentUser.name,
-    req.params.day,
-    req.params.title,
-    function (err) {
-      if (err) {
-        req.flash('error', err);
-        res.redirect('back');
-      }
-      req.flash('success', '删除成功！');
-      res.redirect('/u/' + currentUser.name);
-    }
-  );
-}
-
-function doComment (req, res) {
-  var date = new Date()
-    , time = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-        + ' ' + date.getHours() + ':' + date.getMinutes()
-    , md5 = crypto.createHash('md5')
-    , email_md5 = md5.update(req.body.email.toLowerCase()).digest('hex')
-    , avatar = 'http://www.gravatar.com/avatar/' + email_md5 + '?s=48&d=https%3A%2F%2Fidenticons.github.com%2F3632892525abab630a972bc0a368853c.png?s=40';
-
-  var comment = {
-    name: req.body.name,
-    avatar: avatar,
-    email: req.body.email,
-    website: req.body.website,
-    content: req.body.content,
-    time: time
-  };
-
-  var newComment = new Comment(req.params.name, req.params.day, req.params.title, comment);
-  newComment.save(function (err) {
-    if (err) {
-      req.flash('error', err);
-      return res.redirect(req.url);
-    }
-    req.flash('success', '留言成功！');
-    res.redirect(req.url);
-  });
-}
-
-function reprint (req, res) {
-  Post.edit(req.params.name, req.params.day, req.params.title, function (err, post) {
-    if (err) {
-      req.flash('error', err);
-      return res.redirect(back);
-    }
-
-    var currentUser = req.session.user
-      , reprint_from = {
-          name: req.params.name,
-          day: req.params.day,
-          title: req.params.title
-        }
-      , reprint_to = {
-          name: currentUser.name,
-          avatar: currentUser.avatar
-        };
-
-    Post.reprint(reprint_from, reprint_to, function (err, post) {
-      if (err) {
-        req.flash('error', err);
-        return res.redirect(back);
-      }
-
-      req.flash('success', '转载成功！');
-
-      var url = '/u/' + post.name + '/' + post.time.day + '/' + post.title;
-      // 跳转到转载后的文章页面
-      res.redirect(url);
     });
   });
 }

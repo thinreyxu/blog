@@ -76,7 +76,7 @@ function tags (req, res) {
 }
 
 function tag (req, res) {
-  Post.getTag(req.params.tag, function (err, posts) {
+  Post.getByTag(req.params.tag, function (err, posts) {
     if (err) {
       req.flash('error', err);
       return res.redirect('/');
