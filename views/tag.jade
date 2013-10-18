@@ -1,0 +1,11 @@
+extend layout
+block page-header
+  h1= title
+block content
+  div.archive
+    if posts.length
+      ul
+        each post in posts      
+          li
+            time.text-muted= post.time.day
+            a(href='/u/' + post._id)= post.title

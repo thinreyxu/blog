@@ -23,7 +23,7 @@ module.exports = {
 
 function compose (req, res) {
   // res.send('post');
-  res.render('post', {
+  res.render('compose', {
     title: '发表',
     user: req.session.user,
     success: req.flash('success').toString(),
@@ -72,6 +72,7 @@ function post (req, res, next) {
           title: post.title,
           post: post,
           user: req.session.user,
+          cate: 'article',
           success: req.flash('success').toString(),
           error: req.flash('error').toString()
         });

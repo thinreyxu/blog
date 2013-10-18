@@ -10,7 +10,7 @@ module.exports = {
   '/tags': {
     'get': tags
   },
-  '/tags/:tag': {
+  '/tag/:tag': {
     'get': tag
   },
   '/search': {
@@ -34,6 +34,7 @@ function index (req, res) {
       user: req.session.user,
       posts: posts,
       page: page,
+      cate: 'index',
       isFirstPage: page === 1,
       isLastPage: (page - 1) * 5 + posts.length === total,
       success: req.flash('success').toString(),

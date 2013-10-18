@@ -1,7 +1,10 @@
 var db = require('./db')
-  , marked = require('../lib/marked');
+  , marked = require('../lib/marked')
+  , jquery = require('jquery');
 
 var ObjectID = db.ObjectID;
+
+var wordsends = /[\.\:,\.;~\!\[\]\{\}\(\)\?\"\'：”、，。；！？……\s]/
 
 function Post (name, avatar, title, tags, post) {
   this.name = name;
@@ -12,6 +15,19 @@ function Post (name, avatar, title, tags, post) {
 }
 
 module.exports = Post;
+
+function makeSummary (content) {
+  var min = 300
+    , diff = 20
+    , summary = jquery(marked(content)).text();
+  if (summary.length > min) {
+    var stop = summary.substring(min - diff, min + diff).search(wordsends);
+    summary = stop !== -1 ? summary.substring(0, min - diff + stop) : summary.substring(0, min);
+    summary = summary.trim() + ' …';
+    console.log(stop);
+  }
+  return summary;
+}
 
 // 存储一篇文章及其相关信息
 Post.prototype.save = function (callback) {
@@ -32,6 +48,7 @@ Post.prototype.save = function (callback) {
     title: this.title,
     tags: this.tags,
     post: this.post,
+    summary: makeSummary(this.post),
     comments: [],
     reprint_info: {},
     pv: 0 // 浏览量
@@ -319,7 +336,8 @@ Post.update = function (id, title, tags, post, callback) {
         '$set': {
           'title': title,
           'tags': tags,
-          'post': post
+          'post': post,
+          'summary': makeSummary(post)
         }
       },
       function (err, result) {

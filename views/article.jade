@@ -1,0 +1,21 @@
+extend layout
+block page-header
+  h1= title
+block content
+  div.post
+    div.post-meta.small.text-muted
+      span: a(href='/u/' + post.name)= post.name
+      span= post.time.minute
+      if post.tags && post.tags.length
+        span
+          each tag in post.tags
+            a(href='/tag/' + tag)= tag
+            | 
+      if user && user.name === post.name
+        div.post-options
+          div.btn-group
+            a.btn.btn-xs.btn-default(href='/edit/' + post._id) 编辑
+            a.btn.btn-xs.btn-default(href='/remove/' + post._id) 删除
+
+    div.post-body.markdown-post
+      != post.post

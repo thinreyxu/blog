@@ -1,34 +1,204 @@
-// $linkcolor = #ad9c65
-$linkcolor = #58C261
+/* base */
+$linkcolor = #a5c2a7
+$hovercolor = darken($linkcolor, 15)
+$activecolor = darken($linkcolor, 5)
+$basecolor = #2dc460
+$textcolor = #81817d
+$mutedcolor = #b3b3ad
+$background = #f8f7f0
+$headinglink = #4c4c4a
+$headinghover = darken($headinglink, 15)
+$headingactive = darken($headinglink, 5)
+$bordercolor = #f0efe9
+$selectcolor = #d2d9d3
+
+$sansserif = 'Helvetica Neue', Arial, 'WenQuanYi Micro Hei', 'Microsoft Yahei', 'Hiragino Sans GB', STXihei, SimSun, sans-serif
+$serif = 'Droid Serif', 'Times New Roman', SimSun, serif
+
+::-moz-selection
+  background-color: $selectcolor
+  text-shadow: none
+
+::selection
+  background-color: $selectcolor
+  text-shadow: none
+
+::-webkit-scrollbar
+  width: 6px
+  height: 6px
+
+::-webkit-scrollbar-track
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1)
+  background: $background
+  
+::-webkit-scrollbar-thumb
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1)
+  background: $selectcolor
+    
+::-webkit-scrollbar-track:window-inactive
+  -webkit-box-shadow: none
+  background: none
+
+::-webkit-scrollbar-thumb:window-inactive
+  -webkit-box-shadow: none
+  background: none
 
 body
-  font: 14px/1.5 Helvetica Neue, Arial, "WenQuanYi Micro Hei", "Microsoft Yahei", "Hiragino Sans GB", STXihei, SimSun, sans-serif
+  font: 14px/1.8 $sansserif
   color: #666
-  border-top: solid 1px $linkcolor
+  background: $background
 
 a
   color: $linkcolor
+  text-decoration: none
   &:hover
-    color: darken($linkcolor, 15)
+    color: $hovercolor
     text-decoration: underline
+
+.clearfix
+  *zoom: 1
+  &:before, &:after
+    content: ''
+    display: table
+  &:after
+    clear: both
+
+.pull-left
+  float: left !important
+
+.pull-right
+  float: right !important
+
+.hide
+  display: none !important
+
+.show
+  display: block !important
+
+.invisible
+  visibility: hidden
+
+.ir
+  background-color: transparent
+  border: 0
+  overflow: hidden
+  *text-indent: -9999px
+  *white-space: nowrap
+
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+
+.ibw
+  font-size: 0
+  line-height: 0
+  letter-spacing: -5px
+  *letter-spacing: normal
+  *word-spacing: -1px
+
+.ib
+  display: inline-block
+  *zoom: 1
+  *display: inline
+  font-size: 12px
+  line-height: 1.5em
+  letter-spacing: normal
+  word-spacing: normal
+  vertical-align: top
+
+center-block(left = auto, right = auto)
+  display: block
+  margin-left: left
+  margin-right: right
+
+.center-block
+  center-block()
+
+.left-block
+  center-block(0, auto)
+
+.right-block
+  center-block(auto, 0)
+
+.text-left
+  text-align: left
+
+.text-right
+  text-align: right
+
+.text-center
+  text-align: center
+
+h1
+  font-size: 2em
+  margin: 0.67em 0
+
+h2
+  font-size: 1.5em
+  margin: 0.83em 0
+
+h3
+  font-size: 1.17em
+  margin: 1em 0
+
+h4
+  font-size: 1em
+  margin: 1.33em 0
+
+h5
+  font-size: 0.83em
+  margin: 1.67em 0
+
+h6
+  font-size: 0.67em
+  margin: 2.33em 0
+
+.heading
+  font: 24px/1.2 $sansserif
+
+.text
+  font: 16px/2 $serif
+
+.text-muted
+  color: $mutedcolor
+
+.small
+  font-size: 85%
+
+
+/* site */
+.top
+  height: 6px
+  background: #333
+  .flag
+    position: absolute
+    right: 50%
+    width: 150px
+    height: 6px
+    margin-right: 330px
+    background: $linkcolor
 
 .container
   position: relative
-  max-width: 600px
-  padding: 0
+  margin: -1px auto 0
+  padding: 1px 0 0 0
+  width: 600px
 
 .nav
   position: absolute
   text-transform: uppercase
   right: 100%
-  top: 140px
-  width: 160px
+  top: 228px
   margin-right: 30px
+  width: 150px
+
   text-align: right
   font-size: 12px
   line-height: 14px
+  
   a
-    box-sizing: content-box
     float: right
     clear: right
     text-decoration: none
@@ -39,21 +209,41 @@ a
       color: $linkcolor
   b
     display: none
-    font-size: 10px
+    font-size: 12px
     font-weight: normal
   i
+    top: 0
     margin-left: 0.5em
     line-height: 1
+  .sep
+    clear: both
+    display: block
+    height: 14px
 
   &:hover
     b
       display: inline
 
 .header
+  @extend .text-center
+  height: 70px
+  padding: 85px 0 28px
   margin-bottom: 40px
+  background: url(../images/sep.png) center bottom no-repeat
+
+  h1
+    font-size: 36px
+    margin: 0
+    line-height: 70px
+
+  .logo
+    @extend .center-block
+    background: url(../images/logo.png) no-repeat
+    width: 44px
+    height: 70px
 
 .footer
-  border-top: solid 1px #eee;
+  border-top: solid 1px #eee
   padding: 15px 0
   margin: 50px 0 0 0
   color: #ccc
@@ -67,6 +257,10 @@ a
 .post
   margin: 0 0 50px
 
+  header,
+  footer
+    @extend .text-center
+
   &:first-child,
   &>:first-child
     margin-top: 0
@@ -75,23 +269,46 @@ a
   &>:last-child
     margin-bottom: 0
 
-.post-meta
-  font-size: 12px
-  position: absolute
-  left: 100%
-  top: 140px
-  width: 160px
-  margin-left: 30px
+.post-title
+  @extend .heading
+  margin-top: 0
+  margin-bottom: 0
+  a
+    color: $headinglink
 
+.post-meta
   span
     display: block
 
 .post-body
-  margin: 0 0 25px
+  @extend .text
+  margin: 25px 0
   padding: 0 15px
 
-.info
-  font-size: 12px
+.post-options
+  margin-top: 14px
+
+.index
+  .post
+    padding-bottom: 25px
+    background: url(../images/sep2.png) center bottom no-repeat
+
+  .post-last
+    background: none
+    padding-bottom: 0
+
+  .post-body
+    font-size: 14px
+    line-height: 1.8
+
+.article 
+  .post-meta
+    font-size: 12px
+    position: absolute
+    left: 100%
+    top: 228px
+    width: 160px
+    margin-left: 30px
 
 // 编辑与删除功能
 .edit
@@ -134,6 +351,13 @@ a
     box-sizing: content-box
     outline: none
     color: #666
+
+.pager
+  @extend .clearfix
+  .prev
+    @extend .pull-left
+  .next
+    @extend .pull-right
 
 .pnf404
   line-height: 150px

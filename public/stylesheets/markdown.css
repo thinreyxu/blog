@@ -79,6 +79,12 @@
 .markdown-post ol {
   padding-left: 30px;
 }
+.markdown-post ul {
+  list-style: disc;
+}
+.markdown-post ol {
+  list-style: decimal;
+}
 .markdown-post blockquote {
   border-left: 4px solid #ddd;
   color: #777;

@@ -1,0 +1,22 @@
+extend layout
+block page-header
+  h1.logo.ir= title
+block content
+  each post, index in posts
+    section(class='post' + (index === posts.length - 1 ? ' post-last' : ''))
+      header
+        h2.post-title
+          a(href='/p/' + post._id)= post.title
+        div.post-meta.small.text-muted
+          if post.tags && post.tags.length
+            span
+              each tag in post.tags
+                | 
+                a(href='/tag/' + tag)=tag
+                | 
+          span= post.time.minute
+      div.post-body.markdown-post
+        != post.summary || post.post
+      footer
+        a.keepOnReading(href='/p/' + post._id) 继续阅读
+  include pager
