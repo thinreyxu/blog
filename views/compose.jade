@@ -1,20 +1,20 @@
-extend layout
+extends layout
 block page-header
   h1= title
 block content
-  form.form-horizontal(method='POST')
+  form.form-horizontal(method='POST', autocomplete='off')
     div.form-group
       label.col-sm-2.control-label(for='inputTitle') 标题
-      div.col.col-sm-10
+      div.col.col-sm-10.control-wrapper
         input#inputTitle.form-control(type='text', name='title')
     div.form-group
       label.col-sm-2.control-label(for='inputPost') 正文
-      div.col.col-sm-10
-        textarea#inputPost.form-control(name='post', rows='10')
+      div.col.col-sm-10.control-wrapper
+        textarea#inputPost.form-control(name='post', rows='15')
     div.form-group
       label.col-sm-2.control-label(for='inputTags') 标签
-      div.col.col-sm-10
+      div.col.col-sm-10.control-wrapper
         input#inputTags.form-control(type='text', name='tags')
     div.form-group
-      div.col.col-sm-10.col-sm-offset-2
+      div.col.col-sm-10.col-sm-offset-2.opaque-label.control-wrapper
         button.btn.btn-default(type='submit') 发表

@@ -45,7 +45,7 @@ $serif = 'Droid Serif', 'Times New Roman', SimSun, serif
 
 body
   font: 14px/1.8 $sansserif
-  color: #666
+  color: $textcolor
   background: $background
 
 a
@@ -243,48 +243,48 @@ h6
     height: 70px
 
 .footer
-  border-top: solid 1px #eee
+  border-top: solid 1px $bordercolor
   padding: 15px 0
   margin: 50px 0 0 0
-  color: #ccc
-
+  color: #cfcec8
+  position: relative
   p
     margin: 0
+  .foot-logo
+    background: url(../images/logo2.png) no-repeat
+    width: 20px
+    height: 20px
+    position: absolute
+    left: 50%
+    top: -11px
+    margin-left: -10px
 
 .content
   min-height: 150px
 
 .post
   margin: 0 0 50px
-
   header,
   footer
     @extend .text-center
-
   &:first-child,
   &>:first-child
     margin-top: 0
-
   &:last-child
   &>:last-child
     margin-bottom: 0
-
 .post-title
   @extend .heading
   margin-top: 0
   margin-bottom: 0
   a
     color: $headinglink
-
-.post-meta
-  span
-    display: block
-
+.post-meta span
+  display: block
 .post-body
   @extend .text
   margin: 25px 0
   padding: 0 15px
-
 .post-options
   margin-top: 14px
 
@@ -292,14 +292,14 @@ h6
   .post
     padding-bottom: 25px
     background: url(../images/sep2.png) center bottom no-repeat
-
   .post-last
     background: none
     padding-bottom: 0
-
   .post-body
     font-size: 14px
     line-height: 1.8
+  .post-tags a
+    margin: 0 0.3em
 
 .article 
   .post-meta
@@ -309,6 +309,8 @@ h6
     top: 228px
     width: 160px
     margin-left: 30px
+  .post-tags a
+    margin-right: 0.6em
 
 // 编辑与删除功能
 .edit
@@ -365,3 +367,96 @@ h6
 .avatar
   border-radius: 50%
   overflow: hidden
+
+/* ------------------------------- */
+btn-size(pv, ph, bdr)
+  padding: pv ph
+  border-radius: bdr
+
+btn-color(c, bdc, bgc)
+  color: c
+  border-color: bdc
+  background-color: bgc
+  &:hover,
+  &:focus
+    color: darken(c, 15)
+    border-color: darken(bdc, 15)
+    background-cor: lighten(bgc, 15)
+
+.btn
+  position: relative
+  border-style: solid
+  border-width: 1px
+  margin: 0 0.3em
+  line-height: 1
+  z-index: 1
+  outline-color: $linkcolor
+  btn-size(10px, 14px, 4px)
+  btn-color(#81817d, #f0efe9, #fff)
+  &:hover,
+  &:focus
+    z-index: 10
+    text-decoration: none
+
+.btn-xs
+  btn-size(2px, 6px, 3px)
+
+.btn-default
+  btn-color(#81817d, #f0efe9, #fff)
+
+.btn-group
+  .btn
+    margin-left: -1px
+    margin-right: 0
+  .btn:first-child
+    margin-left: 0
+    border-top-right-radius: 0
+    border-bottom-right-radius: 0
+  .btn:last-child
+    border-top-left-radius: 0
+    border-bottom-left-radius: 0
+    border-right-width: 1px
+
+.form-control
+  font-family: $serif
+  width: 100%
+  border: solid 1px $bordercolor
+  border-radius: 4px;
+  background: #fff
+  padding: 10px 10px
+  outline-color: $linkcolor
+  &:hover,
+  &:focus
+    color: darken($textcolor, 15)
+    border-color: darken($bordercolor, 15)
+  box-shadow: inset 1px 1px 1px lighten($bordercolor, 2)
+input.form-control
+  height: 1em
+  line-height: 1
+textarea.form-control
+  line-height: 1.2
+.control-label
+  height: 1em
+  line-height: 1
+  padding: 11px 0
+  text-align: right
+.form-horizontal
+  .form-group
+    margin: 10px 0
+    @extend .clearfix
+  .control-label
+    width: 10%
+    margin-right: 2%
+  .control-wrapper
+    width: 75%
+    &.half
+      width: 35%
+  .control-label,
+  .control-wrapper
+    float: left
+  .opaque-label
+    margin-left: 12%
+  .btn:first-child
+    margin-left: 0
+  .btn:last-child
+    margin-right: 0

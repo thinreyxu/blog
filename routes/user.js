@@ -91,7 +91,7 @@ function doReg (req, res) {
     // 如果不存在则新增用户
     newUser.save(function (err) {
       if (err) {
-        req.flash('error', err);
+        req.flash('error', err.toString());
         return res.redirect('/reg');
       }
       req.session.user = newUser; // 用户信息存入 session

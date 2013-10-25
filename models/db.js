@@ -9,7 +9,7 @@ exports.ObjectID = MongoDB.ObjectID;
 var mongodb = new Db(
   settings.db,
   new Server(settings.host, Connection.DEFAULT_PORT, {}),
-  { w: 1 }
+  { safe: true }
 );
 
 exports.mongodb = mongodb;

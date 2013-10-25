@@ -24,7 +24,6 @@ function makeSummary (content) {
     var stop = summary.substring(min - diff, min + diff).search(wordsends);
     summary = stop !== -1 ? summary.substring(0, min - diff + stop) : summary.substring(0, min);
     summary = summary.trim() + ' …';
-    console.log(stop);
   }
   return summary;
 }
