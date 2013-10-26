@@ -22,13 +22,13 @@ html(lang='zh')
             i.glyphicon.pull-right(class='glyphicon-' + icon)
             b= text
         +navitem('/', '主页', 'home')
-        +navitem('/search', '搜索', 'search')
-        +navitem('/about', '关于', 'user')
+        //- +navitem('/search', '搜索', 'search')
+        //- +navitem('/about', '关于', 'user')
         span.sep
         if user
           +navitem('/compose', '发表', 'plus-sign')
           +navitem('/logout', '退出', 'log-out')
-        else
+        //- else
           +navitem('/login', '登陆', 'log-in')
           +navitem('/reg', '注册', 'user')
       //- article
