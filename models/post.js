@@ -68,59 +68,11 @@ Post.prototype.save = function (callback) {
   });
 };
 
-// 读取文章及其相关信息
-// 获取所有人的所有文章
-/*
-Post.getAll = function (name, callback) {
-  // 打开数据库
-  db.open(function (err, db) {
-    if (err) {
-      return callback(err);
-    }
-    // 读取 posts 集合
-    db.collection('posts', function (err, collection) {
-      if (err) {
-        db.close();
-        return callback(err);
-      }
-
-      var query = {};
-      if (name) {
-        query.name = name;
-      }
-      // 根据 query 对象查询文章
-      collection.find(query).sort({
-        time: -1
-      }).toArray(function (err, docs) {
-        db.close();
-        if (err) {
-          return callback(err);
-        }
-
-        var count = docs.length;
-        if (count) {
-          docs.forEach(function (doc) {
-            marked(doc.post, function (err, content) {
-              count--;
-              if (err) {
-                return callback(err);
-              }
-              doc.post = content;
-              if (count === 0) {
-                callback(null, docs); // 成功，以数组形式返回查询的结果
-              }
-            });
-          });
-        }
-        else {
-          callback(null, docs);
-        }
-      });
-    });
-  });
-};
-*/
-Post.getByPage = function (name, page, callback) {
+Post.getByPage = function (name, page, itemsPerPage, callback) {
+  if (typeof itemsPerPage === 'function') {
+    callback = itemsPerPage;
+    itemsPerPage = 8;
+  }
   db.collection('posts', function (err, collection) {
     if (err) {
       db.close();
@@ -135,7 +87,6 @@ Post.getByPage = function (name, page, callback) {
     collection.count(query, function (err, total) {
       // 根据 query 对象查询，并跳过前 (page - 1) * itemsPerPage 个结果，
       // 返回之后的 itemsPerPage 个结果
-      var itemsPerPage = 5;
       collection
         .find(query, {
           skip: (page - 1) * itemsPerPage,
@@ -171,77 +122,6 @@ Post.getByPage = function (name, page, callback) {
     });
   });
 };
-
-// 读取一篇文章
-/*
-Post.getOne = function (name, day, title, callback) {
-  // 读取 post 集合
-  db.collection('posts', function (err, collection) {
-    if (err) {
-      db.close();
-      return callback(err);
-    }
-
-    // 每访问 1 次， pv 值增加 1
-    collection.update({
-      'name': name,
-      'time.day': day,
-      'title': title
-    }, {
-      $inc: { 'pv': 1 }
-    }, function (err, res) {
-      if (err) {
-        return callback(err);
-      }
-      // 根据用户名、发表日期及文章名进行查询
-      collection.findOne(
-        {
-          'name': name,
-          'time.day': day,
-          'title': title
-        },
-        function (err, doc) {
-          db.close();
-          if (err) {
-            return callback(err);
-          }
-          // 解析 markdown 为 html
-          if (doc) {
-            marked(doc.post, function (err, content) {
-              if (err) {
-                return callback(err);
-              }
-              doc.post = content;
-
-              if (doc.comments && doc.comments.length) {
-                var count = doc.comments.length;
-                doc.comments.forEach(function (comment) {
-                  marked(comment.content, function (err, content) {
-                    count--;
-                    if (err) {
-                      return callback(err);
-                    }
-                    comment.content = content;
-                    if (count === 0) {
-                      callback(null, doc); // 返回查询的一篇文章
-                    }
-                  });
-                });
-              }
-              else {
-                callback(null, doc); // 返回查询的一篇文章
-              }
-            });
-          }
-          else {
-            callback(null, doc);
-          }
-        }
-      );
-    });
-  });
-};
-*/
 
 Post.getById = function (id, callback) {
   db.collection('posts', function (err, collection) {
