@@ -93,7 +93,7 @@ function edit (req, res) {
         req.flash('error', err);
         return res.redirect('back');
       }
-      res.render('edit', {
+      res.render('compose', {
         title: '编辑',
         post: post,
         user: req.session.user,

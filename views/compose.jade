@@ -6,15 +6,15 @@ block content
     div.form-group
       label.col-sm-2.control-label(for='inputTitle') 标题
       div.col.col-sm-10.control-wrapper
-        input#inputTitle.form-control(type='text', name='title')
+        input#inputTitle.form-control(type='text', name='title', value=(post && post.title || ''))
     div.form-group
       label.col-sm-2.control-label(for='inputPost') 正文
       div.col.col-sm-10.control-wrapper
-        textarea#inputPost.form-control(name='post', rows='15')
+        textarea#inputPost.form-control(name='post', rows='15')= (post && post.post || '')
     div.form-group
       label.col-sm-2.control-label(for='inputTags') 标签
       div.col.col-sm-10.control-wrapper
-        input#inputTags.form-control(type='text', name='tags')
+        input#inputTags.form-control(type='text', name='tags', value=(post && post.tags ? post.tags.join(', ') : ''))
     div.form-group
-      div.col.col-sm-10.col-sm-offset-2.opaque-label.control-wrapper
-        button.btn.btn-default(type='submit') 发表
+      div.col.col-sm-10.col-sm-offset-2.opaque-label.control-wrapper.text-center
+        button.btn.btn-default(type='submit')= post ? '保存' : '发表'
