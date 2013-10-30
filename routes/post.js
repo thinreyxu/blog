@@ -33,9 +33,23 @@ function compose (req, res) {
 
 function doCompose (req, res) {
   var currentUser = req.session.user
-    , tags = req.body.tags.trim().split(',').map(function (tag) { return tag.trim(); })
-    , post = new Post(currentUser.name, currentUser.avatar, req.body.title, tags, req.body.post);
 
+  var tags = req.body.tags.trim();
+  if (tags) {
+    tags = tags.split(',').map(function (tag) { return tag.trim(); });
+  }
+  else {
+    tags = [];
+  }
+
+  var post = new Post(
+    currentUser.name,
+    currentUser.avatar,
+    req.body.title,
+    tags,
+    req.body.post
+  );
+  
   post.save(function (err, post) {
     if (err) {
       req.flash('error', err);
@@ -106,10 +120,17 @@ function edit (req, res) {
 
 function doEdit (req, res) {
   var currentUser = req.session.user;
+  var tags = req.body.tags.trim();
+  if (tags) {
+    tags = tags.split(',').map(function (tag) { return tag.trim(); });
+  }
+  else {
+    tags = [];
+  }
   Post.update(
     req.params.id,
     req.body.title,
-    req.body.tags.trim().split(',').map(function (tag) { return tag.trim(); }),
+    tags,
     req.body.post,
     function (err) {
       if (err) {
