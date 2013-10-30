@@ -94,7 +94,7 @@
   font-size: 1em;
 }
 .markdown-post table {
-  font-size: 14px;
+  font-size: 1em;
   table-layout: auto;
   border-collapse: collapse;
 }
@@ -128,6 +128,7 @@
   background: #f8f8f8;
   border-radius: 3px;
   font-family: 'Dejavu Sans Mono', 'Monaco', monospace;
+  font-size: 0.85em;
 }
 .markdown-post code {
   color: #6d6d6d;
@@ -142,7 +143,6 @@
   background: #fff;
   border-radius: 3px;
   border: 1px solid #f2f2f2;
-  font-size: 13px;
   line-height: 22px;
   overflow: auto;
   padding: 6px 10px;
