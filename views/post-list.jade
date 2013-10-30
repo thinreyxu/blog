@@ -1,0 +1,22 @@
+div.post-list
+  each post, index in posts
+    - var last = index === posts.length - 1 || posts.length % 2 === 0 && index === posts.length - 2 ? ' post-last' : ''
+    - var hl = isFirstPage && index < 2 ? ' post-hl' : ''
+    - var oe = !hl ? index % 2 ? ' post-even' : ' post-odd' : ''
+    section(class='post' + last + hl + oe)
+      header
+        h2.post-title
+          a(href='/p/' + post._id)= post.title
+        div.post-meta.small.text-muted
+          span.post-tags
+            if post.tags && post.tags.length
+              each tag in post.tags
+                a(href='/tag/' + tag)=tag
+            else
+              &nbsp;
+          span.post-time= post.time.minute
+      div.post-body.markdown-post
+        != post.summary || post.post
+      footer
+        a.keepOnReading(href='/p/' + post._id) 继续阅读
+include pager

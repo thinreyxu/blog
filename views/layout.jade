@@ -2,35 +2,38 @@
 html(lang='zh')
   head
     meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1.0,user-scalable=no')
     title= title
     link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic')
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic')
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700')
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Neuton:200,300,400,700')
     link(rel='stylesheet', href='/stylesheets/glyphicon.css')
     link(rel='stylesheet', href='/stylesheets/common.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/style.css', media='screen')
     link(rel='stylesheet', href='/stylesheets/markdown.css')
-  body(class=cate || '')
+  body
     div.top
       span.flag
     div.container
-      //- site header
-      header.header
-        block page-header
       //- navigation
       nav.nav
         mixin navitem(url, text, icon)
           a(href=url title=text)
-            i.glyphicon.pull-right(class='glyphicon-' + icon)
+            i.glyphicon(class='glyphicon-' + icon)
             b= text
         +navitem('/', '主页', 'home')
         //- +navitem('/search', '搜索', 'search')
         //- +navitem('/about', '关于', 'user')
-        span.sep
         if user
           +navitem('/compose', '发表', 'plus-sign')
           +navitem('/logout', '退出', 'log-out')
         //- else
           +navitem('/login', '登陆', 'log-in')
           +navitem('/reg', '注册', 'user')
+      //- site header
+      header.header
+        block page-header
       //- article
       article.content
         if success

@@ -24,8 +24,9 @@ module.exports = {
 function index (req, res) {
   // 判断是否是第一页，并把请求的页数转换成 number 类型
   var page = req.query.p ? parseInt(req.query.p) : 1;
-  // 查询并返回第 page 页的 10 篇文章
-  Post.getByPage(null, page, function (err, posts, total) {
+  var itemsPerPage = 8;
+  // 查询并返回第 page 页的 n 篇文章
+  Post.getByPage(null, page, itemsPerPage, function (err, posts, total) {
     if (err) {
       posts = [];
     }
@@ -36,7 +37,7 @@ function index (req, res) {
       page: page,
       cate: 'index',
       isFirstPage: page === 1,
-      isLastPage: (page - 1) * 5 + posts.length === total,
+      isLastPage: (page - 1) * itemsPerPage + posts.length === total,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
     });
