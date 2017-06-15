@@ -2,3 +2,4 @@ doc/
 log/access.log
 log/error.log
 node_modules/
+package-lock.json
