@@ -1,8 +1,10 @@
 module.exports = {
+  app_name: 'blog',
   // cookie 加密串
   cookieSecret: 'blog',
   // 数据库名
-  db: 'blog',
+  db_name: 'blog',
   // 数据库服务器
-  host: 'localhost'
+  db_host: 'localhost',
+  db_port: '27017'
 };
