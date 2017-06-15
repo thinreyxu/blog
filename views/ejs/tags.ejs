@@ -1,0 +1,9 @@
+<%- include header %>
+<div class="tags text-center">
+<% posts.forEach(function (tag) { %>
+  <% if (tag) { %>
+    <a href="/tags/<%= tag %>" class="btn btn-xs btn-default tag"><%= tag %></a>
+  <% } %>
+<% }) %>
+</div>
+<%- include footer %>

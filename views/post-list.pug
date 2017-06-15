@@ -13,7 +13,7 @@ div.post-list
               each tag in post.tags
                 a(href='/tag/' + tag)=tag
             else
-              &nbsp;
+              | &nbsp;
           span.post-time= post.time.minute
       div.post-body.markdown-post
         != post.summary || post.post
