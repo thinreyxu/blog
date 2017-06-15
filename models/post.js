@@ -1,10 +1,11 @@
-var db = require('./db')
-  , marked = require('../lib/marked')
-  , jquery = require('jquery');
+const db = require('./db')
+    , marked = require('../lib/marked')
+    , { JSDOM } = require('jsdom')
+    ;
 
-var ObjectID = db.ObjectID;
+let ObjectID = db.ObjectID;
 
-var wordsends = /[\.\:,\.;~\!\[\]\{\}\(\)\?\"\'：”、，。；！？……\s]/
+let wordsends = /[\.\:,\.;~\!\[\]\{\}\(\)\?\"\'：”、，。；！？……\s]/
 
 function Post (name, avatar, title, tags, post) {
   this.name = name;
@@ -17,11 +18,15 @@ function Post (name, avatar, title, tags, post) {
 module.exports = Post;
 
 function makeSummary (content) {
-  var min = 300
+  let min = 300
     , diff = 20
-    , summary = jquery(marked(content)).text();
+    ;
+  let dom = new JSDOM(marked(content))
+    , summary = dom.window.document.body.textContent
+    ;
+    console.log(dom);
   if (summary.length > min) {
-    var stop = summary.substring(min - diff, min + diff).search(wordsends);
+    let stop = summary.substring(min - diff, min + diff).search(wordsends);
     summary = stop !== -1 ? summary.substring(0, min - diff + stop) : summary.substring(0, min);
     summary = summary.trim() + ' …';
   }
@@ -30,9 +35,9 @@ function makeSummary (content) {
 
 // 存储一篇文章及其相关信息
 Post.prototype.save = function (callback) {
-  var date = new Date();
+  let date = new Date();
   // 存储各种时间格式，方便以后扩展
-  var time = {
+  let time = {
     date: date,
     year: date.getFullYear(),
     month: date.getFullYear() + '/' + (date.getMonth() + 1),
@@ -40,7 +45,7 @@ Post.prototype.save = function (callback) {
     minute: date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes()
   };
   // 要存入数据库的文档
-  var post = {
+  let post = {
     name: this.name,
     avatar: this.avatar,
     time: time,
@@ -60,9 +65,9 @@ Post.prototype.save = function (callback) {
     collection.insert(
       post,
       { safe: true },
-      function (err, post) {
+      function (err, {ops: [post]}) {
         db.close();
-        callback(err, post[0]);
+        callback(err, post);
       }
     );
   });
@@ -79,7 +84,7 @@ Post.getByPage = function (name, page, itemsPerPage, callback) {
       return callback(err);
     }
 
-    var query = {};
+    let query = {};
     if (name) {
       query.name = name;
     }
@@ -100,7 +105,7 @@ Post.getByPage = function (name, page, itemsPerPage, callback) {
           if (err) {
             return callback(err);
           }
-          var count = docs.length;
+          let count = docs.length;
           if (count) {
             docs.forEach(function (doc) {
               marked(doc.post, function (err, content) {
@@ -129,7 +134,7 @@ Post.getById = function (id, callback) {
       db.close();
       return callback(err);
     }
-    var _id = new ObjectID(id);
+    let _id = new ObjectID(id);
     collection.findOne({
       '_id': _id
     }, function (err, doc) {
@@ -154,7 +159,7 @@ Post.getById = function (id, callback) {
             doc.post = content;
 
             if (doc.comments && doc.comments.length) {
-              var count = doc.comments.length;
+              let count = doc.comments.length;
               doc.comments.forEach(function (comment) {
                 marked(comment.content, function (err, content) {
                   count--;
@@ -234,7 +239,7 @@ Post.remove = function (id, callback) {
       return callback(err);
     }
 
-    var _id = new ObjectID(id);
+    let _id = new ObjectID(id);
 
     collection.findOne(
       { '_id': _id },
@@ -249,7 +254,7 @@ Post.remove = function (id, callback) {
           // 更新原文章所在的文档的 reprint_to
           collection.update(
             { '_id': new ObjectID(doc.reprint_info.reprint_from.id) },
-            { 
+            {
               $pull: {
                 'reprint_info.reprint_to': {
                   'id': id
@@ -264,7 +269,7 @@ Post.remove = function (id, callback) {
 
               // 删除转载来的文章所在的文档
               collection.remove(
-                { '_id': _id }, 
+                { '_id': _id },
                 { w: 1 }, // TODO:这个又是做什么用的呢？
                 function (err, result) {
                   db.close();
@@ -277,7 +282,7 @@ Post.remove = function (id, callback) {
         // 直接删除非转载文章
         else {
           collection.remove(
-            { '_id': _id }, 
+            { '_id': _id },
             { w: 1 }, // TODO:这个又是做什么用的呢？
             function (err, result) {
               db.close();
@@ -355,7 +360,7 @@ Post.getByTag = function (tag, callback) {
 Post.search = function (keyword, callback) {
   db.collection('posts', function (err, collection) {
     // 通过正则表达式查找包含 keyword 的 文档
-    var pattern = new RegExp('^.*(' + keyword.trim().split('\s+').join('|') + ').*$', 'i');
+    let pattern = new RegExp('^.*(' + keyword.trim().split('\s+').join('|') + ').*$', 'i');
     collection
       .find({
           'title': pattern/*,
@@ -381,7 +386,7 @@ Post.reprint = function (reprint_from, reprint_to, callback) {
       return callback(err);
     }
 
-    var id = reprint_from.id
+    let id = reprint_from.id
       , _id = new ObjectID(id);
     // 找到被转载的原文档
     collection.findOne(
@@ -394,8 +399,8 @@ Post.reprint = function (reprint_from, reprint_to, callback) {
 
         reprint_from.name = doc.name;
 
-        var date = new Date();
-        var time = {
+        let date = new Date();
+        let time = {
           date: date,
           year: date.getFullYear(),
           month: date.getFullYear() + '/' + (date.getMonth() + 1),

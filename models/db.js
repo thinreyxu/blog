@@ -1,32 +1,18 @@
-var settings = require('../settings')
-  , MongoDB = require('mongodb')
-  , Db = MongoDB.Db
-  , Connection = MongoDB.Connection
-  , Server = MongoDB.Server;
+const settings = require('../settings')
+    , {db_name, db_host, db_port} = settings
+    , MongoDB = require('mongodb')
+    , Db = MongoDB.Db
+    , Server = MongoDB.Server
+    , mongodb = new Db(db_name, new Server(db_host, db_port));
 
 exports.ObjectID = MongoDB.ObjectID;
-
-var mongodb = new Db(
-  settings.db,
-  new Server(settings.host, Connection.DEFAULT_PORT, {}),
-  { safe: true }
-);
-
 exports.mongodb = mongodb;
 
-exports.close = function () {
-  mongodb.close();
-};
+exports.close = () => mongodb.close();
 
-exports.collection = function (name, callback) {
-  mongodb.open(function (err, db) {
-    if (err) {
-      return callback(err);
-    }
-
-    db.collection(name, function (err, collection) {
-      callback(err, collection);
-    })
+exports.collection = (name, callback) => {
+  mongodb.open((err, db) => {
+    if (err) { return callback(err); }
+    db.collection(name, (err, collection) => callback(err, collection))
   })
 }
-  

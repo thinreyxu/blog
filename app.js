@@ -1,66 +1,75 @@
+// blog app
+const express = require('express')
+    , routes = require('./routes/routes')
+    , http = require('http')
+    , path = require('path')
+    , settings = require('./settings')
+    , flash = require('connect-flash')
+    , stylus = require('stylus')
+    , fs = require('fs')
+    , bodyParser = require('body-parser')
+    , multer = require('multer')
+    , favicon = require('serve-favicon')
+    , logger = require('morgan')
+    , methodOverride = require('method-override')
+    , cookieParser = require('cookie-parser')
+    , session = require('express-session')
+    , MongoStore = require('connect-mongo')(session)
+    , sstatic = require('serve-static')
+    , errorHandler = require('errorhandler')
+    ;
 
-/**
- * Module dependencies.
- */
+const accessLog = fs.createWriteStream('./log/access.log', { flags: 'a' })
+    , errorLog = fs.createWriteStream('./log/error.log', { flags: 'a' });
 
-var express = require('express')
-  , routes = require('./routes/routes')
-  , http = require('http')
-  , path = require('path')
-  , MongoStore = require('connect-mongo')(express)
-  , settings = require('./settings')
-  , flash = require('connect-flash')
-  , fs = require('fs');
-
-var accessLog = fs.createWriteStream('./log/access.log', { flags: 'a' })
-  , errorLog = fs.createWriteStream('./log/error.log', { flags: 'a' });
-
-var app = express();
+const app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
+
 app.use(flash());
-// app.use(express.favicon());
-app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
-app.use(express.logger('dev'));  // 在终端现实日志信息
-app.use(express.logger({ stream: accessLog }));  // 将访问信息记录入文件
-app.use(express.bodyParser({
-  keepExtensions: true,  // 保留文件的扩展名
-  uploadDir: './public/upload'  // 文件上传的目录
-}));  // 用来解析请求体
-app.use(express.methodOverride());  // 伪装PUT、DELETE
-app.use(express.cookieParser());  // cookie解析中间件
-app.use(express.session({
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
+app.use(logger('dev'));  // 在终端现实日志信息
+// app.use(logger('default', { stream: accessLog }));  // 将访问信息记录入文件
+app.use(methodOverride());  // 伪装PUT、DELETE
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));  // 用来解析请求体
+// app.use(multer({ dest: './public/upload' }));
+app.use(cookieParser());  // cookie解析中间件
+app.use(session({
   secret: settings.cookieSecret,  //用来防止篡改 cookie
-  key: settings.db,  // cookie的名字
+  transformId: settings.app_name,  // cookie的名字
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },  // cookie的生存期30天
+  autoRemove: 'native',
+  resave: false,
+  saveUninitialized: false,
   store: new MongoStore({
-    db: settings.db
+    url: `mongodb://${settings.db_host}:${settings.db_port}/${settings.db_name}`
   })
 }));
-app.use(app.router); // 用于确定 router 中间件的调用顺序
-app.use(require('stylus').middleware(__dirname + '/public'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(routes);
+app.use(stylus.middleware(__dirname + '/public/stylesheets'));
+app.use(sstatic(path.join(__dirname, 'public')));
 
 // development only
 if ('development' === app.get('env')) {
   // 在 console 中 打印日志
-  app.use(express.errorHandler());
+  app.use(errorHandler());
 }
 
 // production only
 if ('production' === app.get('env')) {
-  app.use(function (err, req, res, next) {
-    var meta = '[' + new Date() + ']' + req.url + '\n';
+  app.use((err, req, res, next) => {
+    let meta = `[${new Date()}] ${req.url}\n`;
     errorLog.write(meta + err.stack + '\n');
     next();
   });
 }
 
 // 处理 404 页面
-app.use(function (req, res) {
+app.use((req, res) => {
   res.render('404', {
     title: "404",
     user: req.session.user,
@@ -69,8 +78,10 @@ app.use(function (req, res) {
   });
 });
 
-routes(app);
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+// app.get('/', (req, res, next) => {
+//   res.send("sdfdf");
+// });
+const server = http.createServer(app);
+server.listen(app.get('port'), () =>
+  console.log('Express server listening on port ' + app.get('port'))
+);

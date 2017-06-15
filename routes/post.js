@@ -1,5 +1,6 @@
-var common = require('./common')
-  , Post = require('../models/post.js');
+const common = require('./common')
+    , Post = require('../models/post.js')
+    ;
 
 module.exports = {
   '/compose': {
@@ -32,9 +33,9 @@ function compose (req, res) {
 }
 
 function doCompose (req, res) {
-  var currentUser = req.session.user
+  let currentUser = req.session.user
 
-  var tags = req.body.tags.trim();
+  let tags = req.body.tags.trim();
   if (tags) {
     tags = tags.split(',').map(function (tag) { return tag.trim(); });
   }
@@ -42,26 +43,27 @@ function doCompose (req, res) {
     tags = [];
   }
 
-  var post = new Post(
+  let post = new Post(
     currentUser.name,
     currentUser.avatar,
     req.body.title,
     tags,
     req.body.post
   );
-  
+
   post.save(function (err, post) {
     if (err) {
       req.flash('error', err);
       return res.redirect('/');
     }
     req.flash('success', '发布成功！');
+    console.log(post);
     res.redirect('/p/' + post._id);
   });
 }
 
 function post (req, res, next) {
-  var id = req.params.id;
+  let id = req.params.id;
   Post.getById(id, function (err, post) {
     if (err) {
       req.flash('error', err);
@@ -69,7 +71,7 @@ function post (req, res, next) {
     }
     if (post) {
       !function (callback) {
-        var reprint_from
+        let reprint_from
         if (post.reprint_info && (reprint_from = post.reprint_info.reprint_from)) {
           Post.getById(reprint_from.id, function (err, oriPost) {
             if (oriPost) {
@@ -99,7 +101,7 @@ function post (req, res, next) {
 }
 
 function edit (req, res) {
-  var currentUser = req.session.user;
+  let currentUser = req.session.user;
   Post.edit(
     req.params.id,
     function (err, post) {
@@ -119,8 +121,8 @@ function edit (req, res) {
 }
 
 function doEdit (req, res) {
-  var currentUser = req.session.user;
-  var tags = req.body.tags.trim();
+  let currentUser = req.session.user;
+  let tags = req.body.tags.trim();
   if (tags) {
     tags = tags.split(',').map(function (tag) { return tag.trim(); });
   }
@@ -144,7 +146,7 @@ function doEdit (req, res) {
 }
 
 function remove (req, res) {
-  var currentUser = req.session.user;
+  let currentUser = req.session.user;
   Post.remove(
     req.params.id,
     function (err) {
@@ -165,7 +167,7 @@ function reprint (req, res) {
       return res.redirect('back');
     }
 
-    var currentUser = req.session.user
+    let currentUser = req.session.user
       , reprint_from = { id: req.params.id }
       , reprint_to = {
           name: currentUser.name,
