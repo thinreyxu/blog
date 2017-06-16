@@ -21,7 +21,7 @@ function mapRoutes (map, router) {
       if (typeof routes === 'function') {
         router[method](path, routes);
       }
-      else if (Object.getPrototypeOf(routes) === 'Array') {
+      else if (routes instanceof Array) {
         routes.forEach(route => router[method](path, route));
       }
     }
