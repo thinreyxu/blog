@@ -1,6 +1,6 @@
-var db = require('./db.js');
+const { db, ObjectID } = require('./db');
 
-var ObjectID = db.ObjectID;
+const COLLECTION_NAME = ''
 
 function Comment (id, comment) {
   this.id = id;

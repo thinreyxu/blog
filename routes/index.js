@@ -1,4 +1,4 @@
-var Post = require('../models/post');
+var Post = require('../models/post')
 
 module.exports = {
   '/': {
@@ -19,36 +19,32 @@ module.exports = {
   '/links': {
     'get': links
   }
-};
+}
 
-function index (req, res) {
+async function index (req, res) {
   // 判断是否是第一页，并把请求的页数转换成 number 类型
-  var page = req.query.p ? parseInt(req.query.p) : 1;
-  var itemsPerPage = 8;
+  let page = req.query.p ? parseInt(req.query.p) : 1
+  let itemsPerPage = 8
   // 查询并返回第 page 页的 n 篇文章
-  Post.getByPage(null, page, itemsPerPage, function (err, posts, total) {
-    if (err) {
-      posts = [];
-    }
-    res.render('index', {
-      title: '}{',
-      user: req.session.user,
-      posts: posts,
-      page: page,
-      cate: 'index',
-      isFirstPage: page === 1,
-      isLastPage: (page - 1) * itemsPerPage + posts.length === total,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
-    });
-  });
+  let { posts, total } = await Post.getByPage({ page, itemsPerPage })
+  res.render('index', {
+    title: '}{',
+    user: req.session.user,
+    posts: posts,
+    page: page,
+    cate: 'index',
+    isFirstPage: page === 1,
+    isLastPage: (page - 1) * itemsPerPage + posts.length === total,
+    success: req.flash('success').toString(),
+    error: req.flash('error').toString()
+  })
 }
 
 function archive (req, res) {
   Post.getArchive(function (err, posts) {
     if (err) {
-      req.flash('error', err);
-      return res.redirect('/');
+      req.flash('error', err)
+      return res.redirect('/')
     }
     res.render('archive', {
       title: '存档',
@@ -56,15 +52,15 @@ function archive (req, res) {
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
-    });
+    })
   })
 }
 
 function tags (req, res) {
   Post.getTags(function (err, posts) {
     if (err) {
-      req.flash('error', err);
-      return res.redirect('/');
+      req.flash('error', err)
+      return res.redirect('/')
     }
 
     res.render('tags', {
@@ -73,15 +69,15 @@ function tags (req, res) {
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
-    });
-  });
+    })
+  })
 }
 
 function tag (req, res) {
   Post.getByTag(req.params.tag, function (err, posts) {
     if (err) {
-      req.flash('error', err);
-      return res.redirect('/');
+      req.flash('error', err)
+      return res.redirect('/')
     }
 
     res.render('tag', {
@@ -90,23 +86,23 @@ function tag (req, res) {
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
-    });
-  });
+    })
+  })
 }
 
 function search (req, res) {
   Post.search(req.query.keyword, function (err, posts) {
     if (err) {
-      req.flash('error', err);
-      return res.redirect('/');
+      req.flash('error', err)
+      return res.redirect('/')
     }
     res.render('search', {
-      title: "搜索：" + req.query.keyword,
+      title: '搜索：' + req.query.keyword,
       posts: posts,
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
-    });
+    })
   })
 }
 
@@ -116,5 +112,5 @@ function links (req, res) {
     user: req.session.user,
     success: req.flash('success').toString(),
     error: req.flash('error').toString()
-  });
+  })
 }

@@ -1,29 +1,28 @@
-const { db, ObjectID } = require('./db');
-const marked = require('../lib/marked');
-const { JSDOM } = require('jsdom');
-const COLLECTION_NAME = 'posts';
-const SENTENCE_ENDS = /[\.\:,\.;~\!\[\]\{\}\(\)\?\"\'：”、，。；！？……\s]/
+const { db, ObjectID } = require('./db')
+const marked = require('../lib/marked')
+const { JSDOM } = require('jsdom')
+const COLLECTION_NAME = 'posts'
+const SENTENCE_ENDS = /[.:,.;~![\]{}()?"'：”、，。；！？……\s]/
 
-function Post ({name, avatar, title, tags, post}) {
-  this.name = name;
-  this.avatar = avatar;
-  this.title = title;
-  this.tags = tags;
-  this.post = post;
+function Post ({ name, avatar, title, tags, post }) {
+  this.name = name
+  this.avatar = avatar
+  this.title = title
+  this.tags = tags
+  this.post = post
 }
 
-
 async function makeSummary (content) {
-  let min = 300, theta = 20;
+  let min = 300
+  let theta = 20
   let dom = new JSDOM(await marked(content))
-    , summary = dom.window.document.body.textContent
-    ;
+  let summary = dom.window.document.body.textContent
   if (summary.length > min) {
-    let stop = summary.substring(min - theta, min + theta).search(SENTENCE_ENDS);
-    summary = stop !== -1 ? summary.substring(0, min - theta + stop) : summary.substring(0, min);
-    summary = summary.trim() + ' …';
+    let stop = summary.substring(min - theta, min + theta).search(SENTENCE_ENDS)
+    summary = stop !== -1 ? summary.substring(0, min - theta + stop) : summary.substring(0, min)
+    summary = summary.trim() + ' …'
   }
-  return summary;
+  return summary
 }
 
 // 存储各种时间格式，方便以后扩展
@@ -34,14 +33,14 @@ function makeTime (date = new Date()) {
     month: date.getFullYear() + '/' + (date.getMonth() + 1),
     day: date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate(),
     minute: date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes()
-  };
+  }
 }
 
 // 存储一篇文章及其相关信息
 Post.prototype.save = async function () {
-  let time = makeTime(new Date());
+  let time = makeTime()
   // 要存入数据库的文档
-  let summary = await makeSummary(this.post);
+  let summary = await makeSummary(this.post)
   let post = {
     name: this.name,
     avatar: this.avatar,
@@ -53,181 +52,213 @@ Post.prototype.save = async function () {
     comments: [],
     reprint: {},
     pv: 0 // 浏览量
-  };
-
-  let r;
-  try {
-    await db.open();
-    let col = await db.collection(COLLECTION_NAME);
-    r = await col.insertOne(post, { safe: true });
   }
-  catch (e) { throw e; }
-  finally { await db.close(); }
-  return r;
-};
+
+  let r
+  try {
+    await db.open()
+    let col = await db.collection(COLLECTION_NAME)
+    r = await col.insertOne(post, {
+      safe: true
+    })
+  } catch (e) {
+    throw e
+  } finally {
+    await db.close()
+  }
+  return r
+}
 
 Post.getByPage = async function ({ name, page, itemsPerPage = 8 }) {
-  let posts, total;
-  let query = name ? { name } : {};
+  let posts, total
+  let query = name ? { name } : {}
   try {
-    await db.open();
-    let col = await db.collection(COLLECTION_NAME);
-    total = await col.count(query);
-    posts = await col.find(query).sort({time: -1}).toArray();
+    await db.open()
+    let col = await db.collection(COLLECTION_NAME)
+    total = await col.count(query)
+    posts = await col.find(query).sort({ time: -1 }).toArray()
 
-    posts.map(post => {
-      post.post = await marked(post.post);
-      return post;
-    });
+    posts.map(async post => {
+      post.post = await marked(post.post)
+      return post
+    })
+  } catch (e) {
+    throw e
+  } finally {
+    await db.close()
   }
-  catch (e) { throw e }
-  finally { await db.close() }
-  return { posts, total };
-};
+  return { posts, total }
+}
 
-Post.getById = async function ({ id }) {
-  let _id = new ObjectID(id);
-  let data = { 'pv': 1 };
-  let r;
+Post.getById = async function ({
+  id
+}) {
+  let _id = new ObjectID(id)
+  let data = {
+    'pv': 1
+  }
+  let r
   try {
-    await db.open();
+    await db.open()
 
-    let col = await db.collection(COLLECTION_NAME);
-    let r = await col.findOneAndUpdate({ _id }, { $inc: data });
-    r.post = await marked(post.post);
-    post.comments.map(comment => {
-      comment.content = await marked(comment.content);
-      return comment;
-    });
+    let col = await db.collection(COLLECTION_NAME)
+    let r = await col.findOneAndUpdate({ _id }, { $inc: data })
+    r.post = await marked(r.post)
+    r.comments.map(async comment => {
+      comment.content = await marked(comment.content)
+      return comment
+    })
+  } catch (e) {
+    throw e
+  } finally {
+    await db.close()
   }
-  catch (e) { throw e }
-  finally { await db.close() }
-  return r;
+  return r
 }
 
 Post.edit = async function ({ id }) {
-  let r;
-  let _id = new ObjectID(id);
+  let r
+  let _id = new ObjectID(id)
   try {
-    await db.open();
-    r = await db.collection(COLLECTION_NAME).findOne({ _id });
+    await db.open()
+    r = await db.collection(COLLECTION_NAME).findOne({ _id })
+  } catch (e) {
+    throw (e)
+  } finally {
+    await db.close()
   }
-  catch (e) { throw(e); }
-  finally { await db.close(); }
-  return r;
-};
+  return r
+}
 
 Post.update = async function ({ id, title, tags, post }) {
-  let r;
-  let _id = new ObjectID(id);
-  let summary = await makeSummary(post);
-  let data = { title, tags, post, summary }；
+  let r
+  let _id = new ObjectID(id)
+  let summary = await makeSummary(post)
+  let data = { title, tags, post, summary }
+
   try {
-    await db.open();
-    let col = await db.collection('posts');
-    r = await col.findOneAndUpdate({ _id }, { '$set': data });
+    await db.open()
+    let col = await db.collection('posts')
+    r = await col.findOneAndUpdate({ _id }, { '$set': data })
+  } catch (e) {
+    throw (e)
+  } finally {
+    await db.close()
   }
-  catch (e) { throw(e); }
-  finally { await db.close(); }
-  return r;
-};
+  return r
+}
 
 Post.remove = async function (id) {
-  let _id = new ObjectID(id);
-  let r;
+  let r
+  let _id = new ObjectID(id)
 
-  try{
-    await db.open();
-    let col = await db.collection(COLLECTION_NAME);
-    let r = await col.findOneAndDelete({ _id });
+  try {
+    await db.open()
+    let col = await db.collection(COLLECTION_NAME)
+    let r = await col.findOneAndDelete({ _id })
     // update reprint info
     if (r.reprint && r.reprint.from) {
-      let _id = new ObjectID(r.reprint.from.id);
-      let data = { 'reprint.to' : { id } };
-      await col.findOneAndUpdate({ _id }, { '$pull': data });
+      let _id = new ObjectID(r.reprint.from.id)
+      let data = { 'reprint.to': { id } }
+      await col.findOneAndUpdate({ _id }, { '$pull': data })
     }
+  } catch (e) {
+    throw (e)
+  } finally {
+    await db.close()
   }
-  catch (e) { throw(e); }
-  finally { await db.close(); }
-  return r;
-};
+  return r
+}
 
 // 返回所有文章的存档信息
 Post.getArchive = async function () {
-  let r;
+  let r
   try {
-    await db.open();
-    r = await db.collection(COLLECTION_NAME).find().sort({ 'time': -1 }).toArray();
+    await db.open()
+    r = await db.collection(COLLECTION_NAME).find()
+                .sort({ 'time': -1 }).toArray()
+  } catch (e) {
+    throw (e)
+  } finally {
+    await db.close()
   }
-  catch (e) { throw(e); }
-  finally { await db.close(); }
-  return r;
-};
+  return r
+}
 
 // 获取标签
 // TODO: 标签可以有多个
 Post.getTags = async function () {
-  let r;
+  let r
   try {
-    await db.open();
-    r = await db.collection(COLLECTION_NAME).distinct('tags');
+    await db.open()
+    r = await db.collection(COLLECTION_NAME).distinct('tags')
+  } catch (e) {
+    throw (e)
+  } finally {
+    await db.close()
   }
-  catch (e) { throw(e); }
-  finally { await db.close(); }
-  return r;
-};
+  return r
+}
 
 // 获取含有指定标签的所有文章
 // TODO: tags 是个数组
-Post.getByTag = function (tag) {
-  let r;
+Post.getByTag = async function (tag) {
+  let r
   try {
-    await db.open();
+    await db.open()
     r = await db.collection(COLLECTION_NAME).find({ 'tags': tag })
-              .sort({ 'time': -1 }).toArray();
+                .sort({ 'time': -1 }).toArray()
+  } catch (e) {
+    throw (e)
+  } finally {
+    await db.close()
   }
-  catch (e) { throw(e); }
-  finally { await db.close(); }
-  return r;
-};
+  return r
+}
 
 // 搜索
 Post.search = async function (keyword) {
-  let r;
-  let pattern = new RegExt('^.*(' + keyword.trim().split('\s+').join('|') +').*$', 'i');
-  let query = { 'title': pattern };
-  try {
-    await db.open();
-    r = await db.collection(COLLECTION_NAME).find(query)
-              .sort({ 'time': -1 }).toArray();
+  let r
+  let pattern = new RegExp('^.*(' + keyword.trim().split(/\s+/).join('|') + ').*$', 'i')
+  let query = {
+    'title': pattern
   }
-  catch (e) { throw(e); }
-  finally { await db.close(); }
-  return r;
+  try {
+    await db.open()
+    r = await db.collection(COLLECTION_NAME).find(query)
+                .sort({ 'time': -1 }).toArray()
+  } catch (e) {
+    throw (e)
+  } finally {
+    await db.close()
+  }
+  return r
 }
 
 // 转载
-Post.reprint = function (from, to) {
-  let r;
-  let id = from.id;
-  let _id = new ObjectID(id);
+Post.reprint = async function (from, to) {
+  let r
+  let id = from.id
+  let _id = new ObjectID(id)
   try {
-    await db.open();
-    let col = await db.collection(COLLECTION_NAME);
+    await db.open()
+    let col = await db.collection(COLLECTION_NAME)
 
     // 存储新博客
-    let origin = await col.findOne({ _id });
+    let origin = await col.findOne({ _id })
     let copy = Object.assign({}, origin, {
-          'name': to.name,
-          'avatar': to.avatar,
-          'time': makeTime(new Date()),
-          'title': (oritin.title.search(/[转载]/) > -1) ? origin.title : '[转载]' + doc.title;
-          'comment': [],
-          'reprint': { from },
-          'pv': 0
-        });
-    Reflect.deleteProperty(copy, '_id');
-    r = await col.insetOne(copy, { 'safe': true });
+      'name': to.name,
+      'avatar': to.avatar,
+      'time': makeTime(new Date()),
+      'title': (origin.title.search(/[转载]/) > -1) ? origin.title : '[转载]' + origin.title,
+      'comment': [],
+      'reprint': {
+        from
+      },
+      'pv': 0
+    })
+    Reflect.deleteProperty(copy, '_id')
+    r = await col.insetOne(copy, { 'safe': true })
 
     // 更新被转发的博客的信息
     let data = {
@@ -237,11 +268,12 @@ Post.reprint = function (from, to) {
       }
     }
     await col.findOneAndUpdate({ _id }, { '$push': data })
+  } catch (e) {
+    throw (e)
+  } finally {
+    await db.close()
   }
-  catch (e) { throw(e); }
-  finally { await db.close(); }
-  return r;
-};
+  return r
+}
 
-
-module.exports = Post;
+module.exports = Post
