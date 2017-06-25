@@ -42,10 +42,11 @@ async function index (req, res) {
 
 async function archive (req, res) {
   try {
-    let posts = await Post.getArchive()
+    let postsByYear = await Post.getArchive()
+    console.log(postsByYear);
     res.render('archive', {
       title: '存档',
-      posts: posts,
+      postsByYear,
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()

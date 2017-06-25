@@ -57,7 +57,7 @@ Post.prototype.save = async function () {
   let r
   try {
     await db.open()
-    let col = await db.collection(COLLECTION_NAME)
+    let col = db.collection(COLLECTION_NAME)
     r = await col.insertOne(post, {
       safe: true
     })
@@ -74,7 +74,7 @@ Post.getByPage = async function ({ name, page, itemsPerPage = 8 }) {
   let query = name ? { name } : {}
   try {
     await db.open()
-    let col = await db.collection(COLLECTION_NAME)
+    let col = db.collection(COLLECTION_NAME)
     total = await col.count(query)
     posts = await col.find(query).sort({ time: -1 }).toArray()
 
@@ -90,9 +90,7 @@ Post.getByPage = async function ({ name, page, itemsPerPage = 8 }) {
   return { posts, total }
 }
 
-Post.getById = async function ({
-  id
-}) {
+Post.getById = async function ({ id }) {
   let _id = new ObjectID(id)
   let data = {
     'pv': 1
@@ -101,7 +99,7 @@ Post.getById = async function ({
   try {
     await db.open()
 
-    let col = await db.collection(COLLECTION_NAME)
+    let col = db.collection(COLLECTION_NAME)
     let r = await col.findOneAndUpdate({ _id }, { $inc: data })
     r.post = await marked(r.post)
     r.comments.map(async comment => {
@@ -138,7 +136,7 @@ Post.update = async function ({ id, title, tags, post }) {
 
   try {
     await db.open()
-    let col = await db.collection('posts')
+    let col = db.collection(COLLECTION_NAME)
     r = await col.findOneAndUpdate({ _id }, { '$set': data })
   } catch (e) {
     throw (e)
@@ -154,7 +152,7 @@ Post.remove = async function (id) {
 
   try {
     await db.open()
-    let col = await db.collection(COLLECTION_NAME)
+    let col = db.collection(COLLECTION_NAME)
     let r = await col.findOneAndDelete({ _id })
     // update reprint info
     if (r.reprint && r.reprint.from) {
@@ -172,11 +170,22 @@ Post.remove = async function (id) {
 
 // 返回所有文章的存档信息
 Post.getArchive = async function () {
-  let r
+  let r = {}
   try {
     await db.open()
-    r = await db.collection(COLLECTION_NAME).find()
-                .sort({ 'time': -1 }).toArray()
+    let col = db.collection(COLLECTION_NAME)
+    let years = await col.distinct('time.year')
+    years.sort().reverse()
+    let queryPromises = []
+    for (let year of years) {
+      let promise = col.find({ 'time.year': { '$eq': year } }, { 'title': 1 })
+                        .sort({ 'time': -1 }).toArray()
+      queryPromises.push(promise)
+    }
+    let queryResults = await Promise.all(queryPromises)
+    for (let i = 0; i < queryResults.length; i++) {
+      r[years[i]] = queryResults[i]
+    }
   } catch (e) {
     throw (e)
   } finally {
@@ -242,7 +251,7 @@ Post.reprint = async function (from, to) {
   let _id = new ObjectID(id)
   try {
     await db.open()
-    let col = await db.collection(COLLECTION_NAME)
+    let col = db.collection(COLLECTION_NAME)
 
     // 存储新博客
     let origin = await col.findOne({ _id })
