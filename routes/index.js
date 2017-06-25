@@ -40,12 +40,9 @@ async function index (req, res) {
   })
 }
 
-function archive (req, res) {
-  Post.getArchive(function (err, posts) {
-    if (err) {
-      req.flash('error', err)
-      return res.redirect('/')
-    }
+async function archive (req, res) {
+  try {
+    let posts = await Post.getArchive()
     res.render('archive', {
       title: '存档',
       posts: posts,
@@ -53,7 +50,10 @@ function archive (req, res) {
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
     })
-  })
+  } catch (e) {
+    req.flash('error', e)
+    res.redirect('/')
+  }
 }
 
 function tags (req, res) {

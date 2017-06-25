@@ -1,45 +1,44 @@
 // blog app
 const express = require('express')
-    , routes = require('./routes/routes')
-    , http = require('http')
-    , path = require('path')
-    , settings = require('./settings')
-    , flash = require('connect-flash')
-    , stylus = require('stylus')
-    , fs = require('fs')
-    , bodyParser = require('body-parser')
-    , multer = require('multer')
-    , favicon = require('serve-favicon')
-    , logger = require('morgan')
-    , methodOverride = require('method-override')
-    , cookieParser = require('cookie-parser')
-    , session = require('express-session')
-    , MongoStore = require('connect-mongo')(session)
-    , sstatic = require('serve-static')
-    , errorHandler = require('errorhandler')
-    ;
+const routes = require('./routes/routes')
+const settings = require('./settings')
+const flash = require('connect-flash')
+const stylus = require('stylus')
+const bodyParser = require('body-parser')
+const multer = require('multer')
+const favicon = require('serve-favicon')
+const logger = require('morgan')
+const methodOverride = require('method-override')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
+const sstatic = require('serve-static')
+const rfs = require('rotating-file-stream')
 
-const accessLog = fs.createWriteStream('./log/access.log', { flags: 'a' })
-    , errorLog = fs.createWriteStream('./log/error.log', { flags: 'a' });
+const logfileOptions = {
+  interval: '1d',
+  path: './log'
+}
+const accessLog = rfs('access.log', logfileOptions)
+const errorLog = rfs('error.log', logfileOptions)
 
-const app = express();
+const app = express()
 
-// all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'pug');
+app.set('port', process.env.PORT || 3000)
+app.set('views', `${__dirname}/views`)
+app.set('view engine', 'pug')
+app.set('upload', multer({ dest: './public/upload' }))
 
-app.use(flash());
-app.use(favicon(__dirname + '/public/images/favicon.ico'));
-app.use(logger('dev'));  // 在终端现实日志信息
-// app.use(logger('default', { stream: accessLog }));  // 将访问信息记录入文件
-app.use(methodOverride());  // 伪装PUT、DELETE
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));  // 用来解析请求体
-// app.use(multer({ dest: './public/upload' }));
-app.use(cookieParser());  // cookie解析中间件
+app.use(flash())
+app.use(favicon(`${__dirname}/public/images/favicon.ico`))
+app.use(logger('dev')) // 终端输出访问信息
+app.use(logger('combined', { stream: accessLog }))  // 将访问信息记录入文件
+app.use(methodOverride())  // 伪装PUT、DELETE
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))  // 用来解析请求体
+app.use(cookieParser())  // cookie解析中间件
 app.use(session({
-  secret: settings.cookieSecret,  //用来防止篡改 cookie
+  secret: settings.cookieSecret,  // 用来防止篡改 cookie
   transformId: settings.app_name,  // cookie的名字
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },  // cookie的生存期30天
   autoRemove: 'native',
@@ -48,40 +47,33 @@ app.use(session({
   store: new MongoStore({
     url: `mongodb://${settings.db_host}:${settings.db_port}/${settings.db_name}`
   })
-}));
-app.use(routes);
-app.use(stylus.middleware(__dirname + '/public/stylesheets'));
-app.use(sstatic(path.join(__dirname, 'public')));
-
-// development only
-if ('development' === app.get('env')) {
-  // 在 console 中 打印日志
-  app.use(errorHandler());
-}
-
-// production only
-if ('production' === app.get('env')) {
-  app.use((err, req, res, next) => {
-    let meta = `[${new Date()}] ${req.url}\n`;
-    errorLog.write(meta + err.stack + '\n');
-    next();
-  });
-}
+}))
+app.use(routes)
+app.use(stylus.middleware(`${__dirname}/public/stylesheets`))
+app.use(sstatic(`${__dirname}/public`))
 
 // 处理 404 页面
-app.use((req, res) => {
+app.use((req, res, next) => {
+  let err = new Error('Not Found')
+  err.status = 404
+  next(err)
+})
+
+// 处理错误
+app.use((err, req, res, next) => {
+  let meta = `[${new Date().toString().padEnd(80, '=')}] ${req.url}`
+  errorLog.write(`${meta}\n${err.stack}\n`)
+  console.error(err)
+
   res.render('404', {
-    title: "404",
+    title: '404',
     user: req.session.user,
     success: req.flash('success').toString(),
     error: req.flash('error').toString()
-  });
-});
+  })
+})
 
-// app.get('/', (req, res, next) => {
-//   res.send("sdfdf");
-// });
-const server = http.createServer(app);
-server.listen(app.get('port'), () =>
+// const server = http.createServer(app)
+app.listen(app.get('port'), () =>
   console.log('Express server listening on port ' + app.get('port'))
-);
+)

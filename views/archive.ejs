@@ -11,7 +11,7 @@
       <ul>
     <% } %>
     <li>
-      <time class="text-muted"><%= post.time.day %></time> 
+      <time class="text-muted"><%= post.time.day %></time>
       <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a>
     </li>
   <% }) %>
@@ -20,3 +20,12 @@
   <% } %>
 </div>
 <%- include footer %>
+
+extends layout
+
+block page-header
+  h1.logo.ir= title
+
+block content
+
+  include post-list
