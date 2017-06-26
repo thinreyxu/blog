@@ -1,18 +1,28 @@
 {
-  "name": "application-name",
+  "name": "blog",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "3.3.7",
-    "ejs": "*",
-    "stylus": "*",
-    "mongodb": "*",
-    "connect-mongo": "*",
-    "connect-flash": "*",
-    "marked": "*",
-    "highlight.js": "*"
+    "body-parser": "^1.17.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^1.3.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "highlight.js": "^9.12.0",
+    "jquery": "^3.2.1",
+    "marked": "^0.3.6",
+    "method-override": "^2.3.9",
+    "mongodb": "^2.2.29",
+    "morgan": "^1.8.2",
+    "multer": "^1.3.0",
+    "rotating-file-stream": "^1.2.2",
+    "serve-favicon": "^2.4.3",
+    "serve-static": "^1.12.3",
+    "stylus": "^0.54.5"
   }
 }
