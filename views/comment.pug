@@ -1,0 +1,17 @@
+.comment
+  .page-header.text-center
+    h4 评论
+  if post.comments && post.comments.length
+    ul.media-list.comment-list
+      each comment in post.comments
+        li.media.comment-item
+          a.avatar.pull-left(href='#')
+            img.media-object(src=comment.avatar, alt='', width='40', height='40')
+          .media-body
+            h5.media-heading.comment-title
+              a(href=comment.website)= comment.name
+              span.info.text-muted= '评论于 comment.time'
+            p.comment-body= comment.content
+  else
+    p.text-muted.text-center '没有评论'
+                

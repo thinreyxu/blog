@@ -1,6 +1,5 @@
 const common = require('./common')
-    , Post = require('../models/post.js')
-    ;
+const Post = require('../models/post')
 
 module.exports = {
   '/compose': {
@@ -20,10 +19,10 @@ module.exports = {
   '/reprint/:id': {
     'get': [common.checkLogin, reprint]
   }
-};
+}
 
 function compose (req, res) {
-  // res.send('post');
+  // res.send('post')
   res.render('compose', {
     title: '发表',
     user: req.session.user,
@@ -35,12 +34,11 @@ function compose (req, res) {
 function doCompose (req, res) {
   let currentUser = req.session.user
 
-  let tags = req.body.tags.trim();
+  let tags = req.body.tags.trim()
   if (tags) {
-    tags = tags.split(',').map(function (tag) { return tag.trim(); });
-  }
-  else {
-    tags = [];
+    tags = tags.split(',').map(function (tag) { return tag.trim() })
+  } else {
+    tags = []
   }
 
   let post = new Post(
@@ -49,65 +47,52 @@ function doCompose (req, res) {
     req.body.title,
     tags,
     req.body.post
-  );
+  )
 
   post.save(function (err, post) {
     if (err) {
-      req.flash('error', err);
-      return res.redirect('/');
+      req.flash('error', err)
+      return res.redirect('/')
     }
-    req.flash('success', '发布成功！');
-    console.log(post);
-    res.redirect('/p/' + post._id);
-  });
+    req.flash('success', '发布成功！')
+    console.log(post)
+    res.redirect('/p/' + post._id)
+  })
 }
 
-function post (req, res, next) {
-  let id = req.params.id;
-  Post.getById(id, function (err, post) {
-    if (err) {
-      req.flash('error', err);
-      return res.redirect('/');
+async function post (req, res, next) {
+  let id = req.params.id
+  try {
+    let post = await Post.getById({ id })
+    let from = post.reprint ? post.reprint.from : undefined
+    if (from) {
+      try {
+        post.reprint.from = await Post.getById(from.id)
+      } catch (e) {}
     }
-    if (post) {
-      !function (callback) {
-        let reprint_from
-        if (post.reprint_info && (reprint_from = post.reprint_info.reprint_from)) {
-          Post.getById(reprint_from.id, function (err, oriPost) {
-            if (oriPost) {
-              post.reprint_info.reprint_from = oriPost;
-              callback();
-            }
-          });
-        }
-        else {
-          callback();
-        }
-      }(function () {
-        res.render('article', {
-          title: post.title,
-          post: post,
-          user: req.session.user,
-          cate: 'article',
-          success: req.flash('success').toString(),
-          error: req.flash('error').toString()
-        });
-      });
-    }
-    else {
-      next();
-    }
-  });
+    res.render('article', {
+      title: post.title,
+      post,
+      user: req.session.user,
+      cate: 'article',
+      success: req.flash('success').toString(),
+      error: req.flash('error').toString()
+    })
+  } catch (e) {
+    req.flash('error')
+    // res.redirect('/')
+    next()
+  }
 }
 
 function edit (req, res) {
-  let currentUser = req.session.user;
+  let currentUser = req.session.user
   Post.edit(
     req.params.id,
     function (err, post) {
       if (err) {
-        req.flash('error', err);
-        return res.redirect('back');
+        req.flash('error', err)
+        return res.redirect('back')
       }
       res.render('compose', {
         title: '编辑',
@@ -115,19 +100,19 @@ function edit (req, res) {
         user: req.session.user,
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
-      });
+      })
     }
-  );
+  )
 }
 
 function doEdit (req, res) {
-  let currentUser = req.session.user;
-  let tags = req.body.tags.trim();
+  let currentUser = req.session.user
+  let tags = req.body.tags.trim()
   if (tags) {
-    tags = tags.split(',').map(function (tag) { return tag.trim(); });
+    tags = tags.split(',').map(function (tag) { return tag.trim() })
   }
   else {
-    tags = [];
+    tags = []
   }
   Post.update(
     req.params.id,
@@ -136,35 +121,35 @@ function doEdit (req, res) {
     req.body.post,
     function (err) {
       if (err) {
-        req.flash('error', err);
-        return redirect(url);  // 出错！返回文章页面
+        req.flash('error', err)
+        return redirect(url)  // 出错！返回文章页面
       }
-      req.flash('success', '修改成功！');
-      res.redirect('/p/' + req.params.id);  // 成功！返回文章页面
+      req.flash('success', '修改成功！')
+      res.redirect('/p/' + req.params.id)  // 成功！返回文章页面
     }
-  );
+  )
 }
 
 function remove (req, res) {
-  let currentUser = req.session.user;
+  let currentUser = req.session.user
   Post.remove(
     req.params.id,
     function (err) {
       if (err) {
-        req.flash('error', err);
-        res.redirect('back');
+        req.flash('error', err)
+        res.redirect('back')
       }
-      req.flash('success', '删除成功！');
-      res.redirect('/u/' + currentUser.name);
+      req.flash('success', '删除成功！')
+      res.redirect('/u/' + currentUser.name)
     }
-  );
+  )
 }
 
 function reprint (req, res) {
   Post.edit(req.params.id, function (err, post) {
     if (err) {
-      req.flash('error', err);
-      return res.redirect('back');
+      req.flash('error', err)
+      return res.redirect('back')
     }
 
     let currentUser = req.session.user
@@ -172,16 +157,16 @@ function reprint (req, res) {
       , reprint_to = {
           name: currentUser.name,
           avatar: currentUser.avatar
-        };
+        }
 
     Post.reprint(reprint_from, reprint_to, function (err, post) {
       if (err) {
-        req.flash('error', err);
-        return res.redirect(back);
+        req.flash('error', err)
+        return res.redirect(back)
       }
-      req.flash('success', '转载成功！');
+      req.flash('success', '转载成功！')
       // 跳转到转载后的文章页面
-      res.redirect('/p/' + post._id);
-    });
-  });
+      res.redirect('/p/' + post._id)
+    })
+  })
 }

@@ -1,0 +1,7 @@
+extends layout.pug
+block page-header
+  h1 #{title}
+block content
+  .tags.text-center
+    each tag in tags
+      a.btn.btn-xs.btn-default.tag(href=`/tags/${tag}`) #{tag}

@@ -16,6 +16,9 @@ module.exports = {
   '/search': {
     'get': search
   },
+  '/search?q=:keyword': {
+    'get': search
+  },
   '/links': {
     'get': links
   }
@@ -43,7 +46,6 @@ async function index (req, res) {
 async function archive (req, res) {
   try {
     let postsByYear = await Post.getArchive()
-    console.log(postsByYear);
     res.render('archive', {
       title: '存档',
       postsByYear,
@@ -57,54 +59,56 @@ async function archive (req, res) {
   }
 }
 
-function tags (req, res) {
-  Post.getTags(function (err, posts) {
-    if (err) {
-      req.flash('error', err)
-      return res.redirect('/')
-    }
-
+async function tags (req, res, next) {
+  try {
+    let tags = await Post.getTags()
     res.render('tags', {
       title: '标签',
-      posts: posts,
+      tags,
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
     })
-  })
+  } catch (e) {
+    req.flash('error', e)
+    next()
+  }
 }
 
-function tag (req, res) {
-  Post.getByTag(req.params.tag, function (err, posts) {
-    if (err) {
-      req.flash('error', err)
-      return res.redirect('/')
-    }
-
+async function tag (req, res, next) {
+  try {
+    let posts = await Post.getByTag(req.params.tag)
     res.render('tag', {
-      title: '标签：' + req.params.tag,
-      posts: posts,
-      user: req.session.user,
+      title: `标签：${req.params.tag}`,
+      posts,
+      user: req.sesstion.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
     })
-  })
+  } catch (e) {
+    req.flash('error', e)
+    next()
+  }
 }
 
-function search (req, res) {
-  Post.search(req.query.keyword, function (err, posts) {
-    if (err) {
-      req.flash('error', err)
-      return res.redirect('/')
-    }
+async function search (req, res) {
+  let posts
+  let keyword = req.query.q
+  try {
+    if (keyword) posts = await Post.search({ keyword })
+    else posts = []
+  } catch (e) {
+    posts = []
+    req.flash('error', e)
+  } finally {
     res.render('search', {
-      title: '搜索：' + req.query.keyword,
-      posts: posts,
+      title: `搜索${keyword ? '：' + keyword : ''}`,
+      posts,
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
     })
-  })
+  }
 }
 
 function links (req, res) {

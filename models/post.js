@@ -91,27 +91,34 @@ Post.getByPage = async function ({ name, page, itemsPerPage = 8 }) {
 }
 
 Post.getById = async function ({ id }) {
-  let _id = new ObjectID(id)
-  let data = {
-    'pv': 1
-  }
   let r
   try {
+    let _id = new ObjectID(id)
+    let data = {
+      'pv': 1
+    }
+
     await db.open()
 
     let col = db.collection(COLLECTION_NAME)
-    let r = await col.findOneAndUpdate({ _id }, { $inc: data })
-    r.post = await marked(r.post)
-    r.comments.map(async comment => {
-      comment.content = await marked(comment.content)
-      return comment
-    })
+    // update page view count
+    r = await col.findOneAndUpdate({ _id }, { $inc: data })
+
+    // markdownify post content
+    r.value.post = await marked(r.value.post)
+
+    // markdownify comments content
+    let commentPromises = []
+    for (let comment of r.value.comments) {
+      commentPromises.push(marked(comment.content))
+    }
+    r.value.comments = await Promise.all(commentPromises)
   } catch (e) {
     throw e
   } finally {
     await db.close()
   }
-  return r
+  return r.value
 }
 
 Post.edit = async function ({ id }) {
@@ -146,7 +153,7 @@ Post.update = async function ({ id, title, tags, post }) {
   return r
 }
 
-Post.remove = async function (id) {
+Post.remove = async function ({ id }) {
   let r
   let _id = new ObjectID(id)
 
@@ -176,9 +183,15 @@ Post.getArchive = async function () {
     let col = db.collection(COLLECTION_NAME)
     let years = await col.distinct('time.year')
     years.sort().reverse()
+    let option = {
+      'fields': {
+        'title': 1,
+        'time': 1
+      }
+    }
     let queryPromises = []
     for (let year of years) {
-      let promise = col.find({ 'time.year': { '$eq': year } }, { 'title': 1 })
+      let promise = col.find({ 'time.year': year }, option)
                         .sort({ 'time': -1 }).toArray()
       queryPromises.push(promise)
     }
@@ -211,7 +224,7 @@ Post.getTags = async function () {
 
 // 获取含有指定标签的所有文章
 // TODO: tags 是个数组
-Post.getByTag = async function (tag) {
+Post.getByTag = async function ({ tag }) {
   let r
   try {
     await db.open()
@@ -226,7 +239,7 @@ Post.getByTag = async function (tag) {
 }
 
 // 搜索
-Post.search = async function (keyword) {
+Post.search = async function ({ keyword }) {
   let r
   let pattern = new RegExp('^.*(' + keyword.trim().split(/\s+/).join('|') + ').*$', 'i')
   let query = {
@@ -245,7 +258,7 @@ Post.search = async function (keyword) {
 }
 
 // 转载
-Post.reprint = async function (from, to) {
+Post.reprint = async function ({ from, to }) {
   let r
   let id = from.id
   let _id = new ObjectID(id)

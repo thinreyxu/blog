@@ -1,14 +1,16 @@
-var fs = require('fs');
-var common = require('./common');
-var uploadDir = './public/upload';
-var dirExist = false;
+const fs = require('fs')
+const common = require('./common')
+const multer = require('multer')
+const uploadDir = './public/uploads'
+const uploader = multer({ dest: uploadDir })
+const uploadMultiple = uploader.array('file')
 
 module.exports = {
   '/upload': {
     'get': [ common.checkLogin, upload ],
-    'post': [ common.checkLogin, doUpload ]
+    'post': [ common.checkLogin, uploadMultiple, doUpload ]
   }
-};
+}
 
 function upload (req, res) {
   res.render('upload', {
@@ -16,66 +18,21 @@ function upload (req, res) {
     user: req.session.user,
     success: req.flash('success').toString(),
     error: req.flash('error').toString()
-  });
+  })
 }
 
 function doUpload (req, res) {
-  // if (!dirExist) {
-  //   fs.readdir(uploadDir, function (err, files) {
-  //     if (err) {
-  //       createDir(uploadDir, function (err) {
-  //         if (!err) {
-  //           dirExist = true;
-  //           doUpload(req, res);
-  //         }
-  //       });
-  //     }
-  //     else {
-  //       dirExist = true;
-  //       doUpload(req, res);
-  //     }
-  //   })
-  //   return;
-  // }
-  for (var i in req.files) {
-    if (req.files[i].size == 0) {
-      // 使用同步方式删除一个文件
-      fs.unlinkSync(req.files[i].path);
-      console.log('Successfully removed an empy file!');
-    }
-    else {
-      var target_path = './public/upload/' + req.files[i].name;
-      // 使用同步的方式重命名一个文件
-      fs.renameSync(req.files[i].path, target_path);
-      console.log('Successfully renamed a file!');
+  let files = req.files
+  for (let file of files) {
+    if (file.size === 0) {
+      fs.unlinkSync(file.path)
+      console.log('Successfully removed an empty file!')
+    } else {
+      let targetPath = uploadDir + '/' + file.originalname.toLowerCase()
+      fs.renameSync(file.path, targetPath)
+      console.log('Successfully renamed a file!')
     }
   }
-  req.flash('success', '文件上传成功！');
-  res.redirect('/upload');
-}
-
-function createDir (path, callback) {
-  var paths = typeof path === 'string' ? path.split('/') : path;
-
-  path = paths.shift();
-  if (path.length) {
-    fs.readdir(path, function (err, files) {
-      if (err) {
-        fs.mkdir(path, function (err) {
-          if (!err) {
-            createDir(paths, callback);
-          }
-          else {
-            callback(err);
-          }
-        });
-      }
-      else {
-        createDir(paths, callback);
-      }
-    });
-  }
-  else {
-    callback(null);
-  }
+  req.flash('success', '文件上传成功！')
+  res.redirect('/upload')
 }
