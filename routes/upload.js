@@ -2,8 +2,9 @@ const fs = require('fs')
 const common = require('./common')
 const multer = require('multer')
 const uploadDir = './public/uploads'
+const fieldname = 'file'
 const uploader = multer({ dest: uploadDir })
-const uploadMultiple = uploader.array('file')
+const uploadMultiple = uploader.array(fieldname)
 
 module.exports = {
   '/upload': {
