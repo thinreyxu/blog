@@ -6,13 +6,6 @@ const fieldname = 'file'
 const uploader = multer({ dest: uploadDir })
 const uploadMultiple = uploader.array(fieldname)
 
-module.exports = {
-  '/upload': {
-    'get': [ common.checkLogin, upload ],
-    'post': [ common.checkLogin, uploadMultiple, doUpload ]
-  }
-}
-
 function upload (req, res) {
   res.render('upload', {
     title: '上传文件',
@@ -37,3 +30,8 @@ function doUpload (req, res) {
   req.flash('success', '文件上传成功！')
   res.redirect('/upload')
 }
+
+module.exports = [
+  [ '/upload', 'get', [ common.checkLogin, upload ] ],
+  [ '/upload', 'post', [ common.checkLogin, uploadMultiple, doUpload ] ]
+]

@@ -36,7 +36,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))  // 用来解析请求体
 app.use(cookieParser())  // cookie解析中间件
 app.use(session({
-  secret: settings.cookieSecret,  // 用来防止篡改 cookie
+  secret: settings.enc_salt,  // 用来防止篡改 cookie
   transformId: settings.app_name,  // cookie的名字
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },  // cookie的生存期30天
   autoRemove: 'native',

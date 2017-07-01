@@ -1,41 +1,49 @@
 const { db } = require('./db')
-const crypto = require('crypto')
+const { makeAvatar } = require('../lib/avatar')
+const { makeTime } = require('../lib/time')
 
 const COLLECTION_NAME = 'users'
 
-function User ({ name, password, email }) {
-  this.name = name
-  this.password = password
-  this.email = email
+class User {
+
+  constructor (userObj) {
+    /*
+    userObj = {
+      name, password, email, avatar, time
+    }
+    */
+    Object.assign(this, userObj)
+    this.avatar = this.avatar || makeAvatar(this.email)
+    this.time = this.time || makeTime()
+  }
+
+  // 存储用户信息
+  async save () {
+    try {
+      await db.open()
+      await db.collection(COLLECTION_NAME).insertOne(this, { w: 1 })
+    } catch (e) { throw e } finally { await db.close() }
+    return this
+  }
+
+  // 根据用户名读取用户信息
+  static async getByName ({ name }) {
+    let r
+    try {
+      await db.open()
+      r = await db.collection(COLLECTION_NAME).findOne({ name })
+    } catch (e) { throw e } finally { await db.close() }
+    return r
+  }
+
+  static async getByEmail ({ email }) {
+    let r
+    try {
+      await db.open()
+      r = await db.collection(COLLECTION_NAME).findOne({ email })
+    } catch (e) { throw e } finally { await db.close() }
+    return r
+  }
 }
 
 module.exports = User
-
-// 存储用户信息
-User.prototype.save = async function (callback) {
-  let md5 = crypto.createHash('md5')
-  let emailMd5 = md5.update(this.email.toLowerCase()).digest('hex')
-  let avatar = `http://www.gravatar.com/avatar/${emailMd5}?s=48&d=https%3A%2F%2Fidenticons.github.com%2F3632892525abab630a972bc0a368853c.png?s=40`
-  // 要存入数据库的用户文档
-  let user = {
-    name: this.name,
-    password: this.password,
-    email: this.email,
-    avatar
-  }
-  try {
-    await db.open()
-    await db.collection(COLLECTION_NAME).insertOne(user, { 'safe': true })
-  } catch (e) { throw e } finally { await db.close() }
-  return this
-}
-
-// 读取用户信息
-User.get = async function ({ name }) {
-  let r
-  try {
-    await db.open()
-    r = await db.collection(COLLECTION_NAME).findOne({ name })
-  } catch (e) { throw e } finally { await db.close() }
-  return r
-}

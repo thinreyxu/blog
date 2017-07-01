@@ -21,7 +21,7 @@ block content
               a.btn.btn-xs.btn-default(href='/remove/' + post._id) 删除
 
       .post-body.markdown-post
-        != post.post
+        != post.content
       
       - var oriPost
       if post.reprint && (oriPost = post.reprint.from)

@@ -1,68 +1,49 @@
-const { db, ObjectID } = require('./db')
-const marked = require('../lib/marked')
-const { JSDOM } = require('jsdom')
+const { db, ObjectId } = require('./db')
+const { makeMd, makeSummary } = require('../lib/marked')
+const { makeTime } = require('../lib/time')
 const COLLECTION_NAME = 'posts'
-const SENTENCE_ENDS = /[.:,.;~![\]{}()?"'：”、，。；！？……\s]/
 
 class Post {
 
   constructor (postObj) {
-    // let { name, avatar, title, tags, post } = postObj
+    /*
+    postObj = {
+      name,
+      avatar,
+      time,
+      title,
+      tags,
+      content,
+      summary,
+      comments,
+      reprint,
+      pv // 浏览量
+    }
+    */
     Object.assign(this, postObj)
+    this.comments = this.comments || []
+    this.tags = this.tags || []
+    this.reprint = this.reprint || {}
+    this.pv = this.pv || 0
+    this.time = this.time || makeTime()
   }
+
+  // get id () {
+  //   return this._id.toString()
+  // }
+  //
+  // set id (id) {
+  //   this._id = new ObjectId(id)
+  // }
 
   // 存储一篇文章及其相关信息
   async save () {
-    let post = {
-      name: this.name,
-      avatar: this.avatar,
-      time: this.time || Post.makeTime(),
-      title: this.title,
-      tags: this.tags || [],
-      post: this.post,
-      summary: await Post.makeSummary(this.post),
-      comments: this.comments || [],
-      reprint: this.reprint || {},
-      pv: this.pv || 0 // 浏览量
-    }
-
-    let r
     try {
+      this.summary = this.summary || await makeSummary(this.content)
       await db.open()
-      let col = db.collection(COLLECTION_NAME)
-      r = await col.insertOne(post, {
-        safe: true
-      })
-    } catch (e) {
-      throw e
-    } finally {
-      await db.close()
-    }
-    return r
-  }
-
-  static async makeSummary (content) {
-    let min = 300
-    let theta = 20
-    let dom = new JSDOM(await marked(content))
-    let summary = dom.window.document.body.textContent
-    if (summary.length > min) {
-      let stop = summary.substring(min - theta, min + theta).search(SENTENCE_ENDS)
-      summary = stop !== -1 ? summary.substring(0, min - theta + stop) : summary.substring(0, min)
-      summary = summary.trim() + ' …'
-    }
-    return summary
-  }
-
-  // 存储各种时间格式，方便以后扩展
-  static makeTime (date = new Date()) {
-    return {
-      date,
-      year: date.getFullYear(),
-      month: date.getFullYear() + '/' + (date.getMonth() + 1),
-      day: date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate(),
-      minute: date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes()
-    }
+      await db.collection(COLLECTION_NAME).insertOne(this, { w: 1 })
+    } catch (e) { throw e } finally { await db.close() }
+    return this
   }
 
   static async getByPage ({ name, page, itemsPerPage = 8 }) {
@@ -75,7 +56,7 @@ class Post {
       posts = await col.find(query).sort({ time: -1 }).toArray()
 
       posts.map(async post => {
-        post.post = await marked(post.post)
+        post.content = await makeMd(post.content)
         return post
       })
     } catch (e) {
@@ -89,7 +70,7 @@ class Post {
   static async getById ({ id }) {
     let r
     try {
-      let _id = new ObjectID(id)
+      let _id = new ObjectId(id)
       let data = {
         'pv': 1
       }
@@ -101,12 +82,12 @@ class Post {
       r = await col.findOneAndUpdate({ _id }, { $inc: data })
 
       // markdownify post content
-      r.value.post = await marked(r.value.post)
+      r.value.content = await makeMd(r.value.content)
 
       // markdownify comments content
       let commentPromises = []
       for (let comment of r.value.comments) {
-        commentPromises.push(marked(comment.content))
+        commentPromises.push(makeMd(comment.content))
       }
       r.value.comments = await Promise.all(commentPromises)
     } catch (e) {
@@ -119,7 +100,7 @@ class Post {
 
   static async edit ({ id }) {
     let r
-    let _id = new ObjectID(id)
+    let _id = new ObjectId(id)
     try {
       await db.open()
       r = await db.collection(COLLECTION_NAME).findOne({ _id })
@@ -133,7 +114,7 @@ class Post {
 
   static async update ({ id, title, tags, post }) {
     let r
-    let _id = new ObjectID(id)
+    let _id = new ObjectId(id)
     let summary = await Post.makeSummary(post)
     let data = { title, tags, post, summary }
 
@@ -151,24 +132,20 @@ class Post {
 
   static async remove ({ id }) {
     let r
-    let _id = new ObjectID(id)
+    let _id = new ObjectId(id)
 
     try {
       await db.open()
       let col = db.collection(COLLECTION_NAME)
       let r = await col.findOneAndDelete({ _id })
       // update reprint info
-      if (r.reprint && r.reprint.from) {
-        let _id = new ObjectID(r.reprint.from.id)
+      if (r.value.reprint && r.value.reprint.from) {
+        let _id = new ObjectId(r.value.reprint.from.id)
         let data = { 'reprint.to': { id } }
         await col.findOneAndUpdate({ _id }, { '$pull': data })
       }
-    } catch (e) {
-      throw (e)
-    } finally {
-      await db.close()
-    }
-    return r
+    } catch (e) { throw (e) } finally { await db.close() }
+    return r.value
   }
 
   // 返回所有文章的存档信息
@@ -257,7 +234,7 @@ class Post {
   static async reprint ({ from, to }) {
     let r
     let id = from.id
-    let _id = new ObjectID(id)
+    let _id = new ObjectId(id)
     try {
       await db.open()
       let col = db.collection(COLLECTION_NAME)
@@ -267,7 +244,7 @@ class Post {
       let copy = Object.assign({}, origin, {
         'name': to.name,
         'avatar': to.avatar,
-        'time': Post.makeTime(new Date()),
+        'time': makeTime(new Date()),
         'title': (origin.title.search(/[转载]/) > -1) ? origin.title : '[转载]' + origin.title,
         'comment': [],
         'reprint': {
@@ -276,7 +253,7 @@ class Post {
         'pv': 0
       })
       Reflect.deleteProperty(copy, '_id')
-      r = await col.insetOne(copy, { 'safe': true })
+      r = await col.insetOne(copy)
 
       // 更新被转发的博客的信息
       let data = {

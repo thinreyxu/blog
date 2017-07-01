@@ -29,8 +29,8 @@ html(lang='zh')
           +navitem('/archive', '存档', 'book')
           +navitem('/tags', '标签', 'tags')
           +navitem('/links', '链接', 'link')
-          +navitem('/about', '关于', 'user')
           if user
+            +navitem(`/u/${user.name}`, `${user.name}`, 'user')
             +navitem('/compose', '发表', 'plus-sign')
             +navitem('/logout', '退出', 'log-out')
           else
