@@ -15,13 +15,13 @@ class Post {
       tags,
       content,
       summary,
-      comments,
+      - comments,
       reprint,
       pv // 浏览量
     }
     */
     Object.assign(this, postObj)
-    this.comments = this.comments || []
+    // this.comments = this.comments || []
     this.tags = this.tags || []
     this.reprint = this.reprint || {}
     this.pv = this.pv || 0
@@ -46,24 +46,24 @@ class Post {
     return this
   }
 
-  static async getByPage ({ name, page, itemsPerPage = 8 }) {
+  static async getByPage ({ name, page = 1, itemsPerPage = 8 }) {
     let posts, total
-    let query = name ? { name } : {}
     try {
       await db.open()
       let col = db.collection(COLLECTION_NAME)
+      let query = name ? { name } : {}
       total = await col.count(query)
-      posts = await col.find(query).sort({ time: -1 }).toArray()
+      posts = await col.find(query)
+        .sort({ time: -1 })
+        .skip((page - 1) * itemsPerPage)
+        .limit(itemsPerPage)
+        .toArray()
 
-      posts.map(async post => {
-        post.content = await makeMd(post.content)
-        return post
-      })
-    } catch (e) {
-      throw e
-    } finally {
-      await db.close()
-    }
+      // posts.map(async post => {
+      //   post.content = await makeMd(post.content)
+      //   return post
+      // })
+    } catch (e) { throw e } finally { await db.close() }
     return { posts, total }
   }
 
@@ -71,31 +71,23 @@ class Post {
     let r
     try {
       let _id = new ObjectId(id)
-      let data = {
-        'pv': 1
-      }
-
       await db.open()
-
-      let col = db.collection(COLLECTION_NAME)
       // update page view count
-      r = await col.findOneAndUpdate({ _id }, { $inc: data })
-
+      r = await db.collection(COLLECTION_NAME)
+          .findOne({ _id })
       // markdownify post content
-      r.value.content = await makeMd(r.value.content)
+      r.content = await makeMd(r.content)
+    } catch (e) { throw e } finally { await db.close() }
+    return r
+  }
 
-      // markdownify comments content
-      let commentPromises = []
-      for (let comment of r.value.comments) {
-        commentPromises.push(makeMd(comment.content))
-      }
-      r.value.comments = await Promise.all(commentPromises)
-    } catch (e) {
-      throw e
-    } finally {
-      await db.close()
-    }
-    return r.value
+  static async incPageView ({ id }) {
+    try {
+      let _id = ObjectId(id)
+      await db.open()
+      await db.collection(COLLECTION_NAME)
+        .updateOne({ _id }, { $inc: { 'pv': 1 } })
+    } catch (e) { throw e } finally { await db.close() }
   }
 
   static async edit ({ id }) {
@@ -104,48 +96,34 @@ class Post {
     try {
       await db.open()
       r = await db.collection(COLLECTION_NAME).findOne({ _id })
-    } catch (e) {
-      throw (e)
-    } finally {
-      await db.close()
-    }
+    } catch (e) { throw (e) } finally { await db.close() }
     return r
   }
 
   static async update ({ id, title, tags, post }) {
-    let r
-    let _id = new ObjectId(id)
-    let summary = await Post.makeSummary(post)
-    let data = { title, tags, post, summary }
-
     try {
+      let _id = new ObjectId(id)
+      let summary = await Post.makeSummary(post)
+      let data = { title, tags, post, summary }
       await db.open()
-      let col = db.collection(COLLECTION_NAME)
-      r = await col.findOneAndUpdate({ _id }, { '$set': data })
-    } catch (e) {
-      throw (e)
-    } finally {
-      await db.close()
-    }
-    return r
+      await db.collection(COLLECTION_NAME)
+          .updateOne({ _id }, { '$set': data })
+    } catch (e) { throw (e) } finally { await db.close() }
   }
 
   static async remove ({ id }) {
-    let r
-    let _id = new ObjectId(id)
-
     try {
+      let _id = new ObjectId(id)
       await db.open()
       let col = db.collection(COLLECTION_NAME)
-      let r = await col.findOneAndDelete({ _id })
+      let { value: post } = await col.findOneAndDelete({ _id })
       // update reprint info
-      if (r.value.reprint && r.value.reprint.from) {
-        let _id = new ObjectId(r.value.reprint.from.id)
+      if (post.reprint && post.reprint.from) {
+        let _id = new ObjectId(post.reprint.from.id)
         let data = { 'reprint.to': { id } }
         await col.findOneAndUpdate({ _id }, { '$pull': data })
       }
     } catch (e) { throw (e) } finally { await db.close() }
-    return r.value
   }
 
   // 返回所有文章的存档信息
@@ -172,11 +150,7 @@ class Post {
       for (let i = 0; i < queryResults.length; i++) {
         r[years[i]] = queryResults[i]
       }
-    } catch (e) {
-      throw (e)
-    } finally {
-      await db.close()
-    }
+    } catch (e) { throw (e) } finally { await db.close() }
     return r
   }
 
@@ -187,11 +161,7 @@ class Post {
     try {
       await db.open()
       r = await db.collection(COLLECTION_NAME).distinct('tags')
-    } catch (e) {
-      throw (e)
-    } finally {
-      await db.close()
-    }
+    } catch (e) { throw (e) } finally { await db.close() }
     return r
   }
 
@@ -203,11 +173,7 @@ class Post {
       await db.open()
       r = await db.collection(COLLECTION_NAME).find({ 'tags': tag })
                   .sort({ 'time': -1 }).toArray()
-    } catch (e) {
-      throw (e)
-    } finally {
-      await db.close()
-    }
+    } catch (e) { throw (e) } finally { await db.close() }
     return r
   }
 
@@ -222,11 +188,7 @@ class Post {
       await db.open()
       r = await db.collection(COLLECTION_NAME).find(query)
                   .sort({ 'time': -1 }).toArray()
-    } catch (e) {
-      throw (e)
-    } finally {
-      await db.close()
-    }
+    } catch (e) { throw (e) } finally { await db.close() }
     return r
   }
 
@@ -253,8 +215,9 @@ class Post {
         'pv': 0
       })
       Reflect.deleteProperty(copy, '_id')
-      r = await col.insetOne(copy)
-
+      let { result, ops: [ value ] } = await col.insetOne(copy)
+      if (result.ok !== 1) throw new Error('插入转发文章失败！')
+      r = value
       // 更新被转发的博客的信息
       let data = {
         'reprint.to': {
@@ -263,11 +226,7 @@ class Post {
         }
       }
       await col.findOneAndUpdate({ _id }, { '$push': data })
-    } catch (e) {
-      throw (e)
-    } finally {
-      await db.close()
-    }
+    } catch (e) { throw (e) } finally { await db.close() }
     return r
   }
 

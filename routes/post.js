@@ -1,5 +1,6 @@
 const { checkLogin } = require('./common')
 const Post = require('../models/post')
+const Comment = require('../models/comment')
 
 function compose (req, res) {
   // res.send('post')
@@ -20,10 +21,9 @@ async function doCompose (req, res) {
       tags = []
     }
 
-    let currentUser = req.session.user
     let post = new Post({
-      name: currentUser.name,
-      avatar: currentUser.avatar,
+      name: req.session.user.name,
+      avatar: req.session.user.avatar,
       title: req.body.title,
       content: req.body.content,
       tags
@@ -41,7 +41,12 @@ async function doCompose (req, res) {
 async function post (req, res, next) {
   let id = req.params.id
   try {
-    let post = await Post.getById({ id })
+    let actions = [
+      Post.getById({ id }),
+      Comment.getByPost({ post: id }),
+      Post.incPageView({ id })
+    ]
+    let [ post, comments ] = await Promise.all(actions)
     let from = post.reprint ? post.reprint.from : undefined
     if (from) {
       try {
@@ -51,15 +56,14 @@ async function post (req, res, next) {
     res.render('post', {
       title: post.title,
       post,
+      comments,
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
     })
   } catch (e) {
-    console.log(e)
     req.flash('error', '无法找到该文章')
-    // res.redirect('/')
-    next()
+    res.redirect('/')
   }
 }
 
@@ -101,45 +105,30 @@ async function doEdit (req, res) {
   }
 }
 
-function remove (req, res) {
-  let currentUser = req.session.user
-  Post.remove(
-    req.params.id,
-    function (err) {
-      if (err) {
-        req.flash('error', err)
-        res.redirect('back')
-      }
-      req.flash('success', '删除成功！')
-      res.redirect('/u/' + currentUser.name)
-    }
-  )
+async function remove (req, res) {
+  try {
+    await Post.remove({ id: req.params.id })
+    await Comment.removeByPost({ post: req.params.id })
+    req.flash('success', '删除成功！')
+    res.redirect('/')
+  } catch (e) {
+    req.flash('error', '无法删除文章！')
+    res.redirect('back')
+  }
 }
 
-function reprint (req, res) {
-  Post.edit(req.params.id, function (err, post) {
-    if (err) {
-      req.flash('error', err)
-      return res.redirect('back')
-    }
-
-    let currentUser = req.session.user
-      , reprint_from = { id: req.params.id }
-      , reprint_to = {
-          name: currentUser.name,
-          avatar: currentUser.avatar
-        }
-
-    Post.reprint(reprint_from, reprint_to, function (err, post) {
-      if (err) {
-        req.flash('error', err)
-        return res.redirect('back')
-      }
-      req.flash('success', '转载成功！')
-      // 跳转到转载后的文章页面
-      res.redirect('/p/' + post._id)
-    })
-  })
+async function reprint (req, res) {
+  try {
+    let user = req.session.user
+    let from = { id: req.params.id }
+    let to = { name: user.name, avatar: user.avatar }
+    let post = await Post.reprint(from, to)
+    req.flash('success', '转载成功！')
+    req.redirect(`/p/${post._id}`)
+  } catch (e) {
+    req.flash('error', '无法转载文章！')
+    res.redirect('back')
+  }
 }
 
 module.exports = [

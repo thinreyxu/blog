@@ -44,27 +44,6 @@ class Comment {
     return r
   }
 
-  // static async getByIds ({ ids }) {
-  //   let r
-  //   try {
-  //     await db.open()
-  //     let _ids = ids.map(id => new ObjectId(id))
-  //     let comments = await db.collection(COLLECTION_NAME)
-  //         .find({ _id: { '$in': _ids } })
-  //         .sort({ time: -1 }).toArray()
-  //     let contentPromises = []
-  //     for (let comment of comments) {
-  //       contentPromises.push(makeMd(comment.content))
-  //     }
-  //     let contents = await Promise.all(contentPromises)
-  //     for (let [index, content] of contents.entries()) {
-  //       comments[index].content = content
-  //     }
-  //     r = comments
-  //   } catch (e) { throw e } finally { await db.close() }
-  //   return r
-  // }
-
   static async getByPost ({ post }) {
     let r
     try {
@@ -72,7 +51,8 @@ class Comment {
       let _id = new ObjectId(post)
       let comments = await db.collection(COLLECTION_NAME)
           .find({ post: _id })
-          .sort({ time: -1 }).toArray()
+          .sort({ time: -1 })
+          .toArray()
       let contentPromises = []
       for (let comment of comments) {
         contentPromises.push(makeMd(comment.content))
@@ -87,14 +67,21 @@ class Comment {
   }
 
   static async removeById ({ id }) {
-    let r
     try {
       await db.open()
       let _id = new ObjectId(id)
-      r = await db.collection(COLLECTION_NAME)
-          .findOneAndDelete({ _id })
+      await db.collection(COLLECTION_NAME)
+          .deleteOne({ _id })
     } catch (e) { throw e } finally { await db.close() }
-    return r.value
+  }
+
+  static async removeByPost ({ post }) {
+    try {
+      await db.open()
+      let _id = new ObjectId(post)
+      await db.collection(COLLECTION_NAME)
+          .deleteMany({ post: _id })
+    } catch (e) { throw e } finally { await db.close() }
   }
 }
 
