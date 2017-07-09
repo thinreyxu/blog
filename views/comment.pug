@@ -1,6 +1,25 @@
 .comment
   .page-header.text-center
     h4 评论
+  .comment-compose
+    form.form-horizontal(method='POST', action=`/comment/post._id`)
+      if user
+        .form-group
+          label.col-sm-2.control-label(for='inputName') 姓名
+          .col.col-sm-8
+            span.form-control-static #{user.name}
+            input.form-control(name='name', type='hidden', value=`${user.name}`)
+        .form-group
+          label.col-sm-2.control-label(for='inputEmail') 邮箱
+          .col.col-sm-8
+            span.form-control-static #{user.email}
+            input.form-control(name='email', type='hidden', value=`$(user.email)`)
+        .form-group
+          label.col-sm-2.control-label(for='inputWebsite') 网站
+          .col.col-sm-8
+            a.form-control-static /u/#{user.name}
+            input.form-control(name='website', type='hidden', value=`/u/${user.name}`)
+          
   if comments && comments.length
     ul.media-list.comment-list
       each comment in comments

@@ -50,23 +50,24 @@ async function tags (req, res, next) {
       error: req.flash('error').toString()
     })
   } catch (e) {
-    req.flash('error', e)
+    req.flash('error', '无法读取标签')
     next()
   }
 }
 
 async function tag (req, res, next) {
   try {
-    let posts = await Post.getByTag(req.params.tag)
+    let tag = req.params.tag
+    let posts = await Post.getByTag({ tag })
     res.render('tag', {
-      title: `标签：${req.params.tag}`,
+      title: `标签：${tag}`,
       posts,
-      user: req.sesstion.user,
+      user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
     })
   } catch (e) {
-    req.flash('error', e)
+    req.flash('error', '无法获取文章')
     next()
   }
 }

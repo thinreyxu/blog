@@ -16,7 +16,7 @@ block content
                 a(href='/tag/' + tag)=tag
           span.post-time= post.time.minute
       div.post-body.markdown-post
-        != post.summary || post.post
+        != post.summary || post.content
       footer
         a.keepOnReading(href='/p/' + post._id) 继续阅读
   include pager

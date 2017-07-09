@@ -1,4 +1,4 @@
-const { db, ObjectId } = require('./db')
+const { db, ObjectID } = require('./db')
 const { makeMd, makeSummary } = require('../lib/marked')
 const { makeTime } = require('../lib/time')
 const COLLECTION_NAME = 'posts'
@@ -33,7 +33,7 @@ class Post {
   // }
   //
   // set id (id) {
-  //   this._id = new ObjectId(id)
+  //   this._id = new ObjectID(id)
   // }
 
   // 存储一篇文章及其相关信息
@@ -70,7 +70,7 @@ class Post {
   static async getById ({ id }) {
     let r
     try {
-      let _id = new ObjectId(id)
+      let _id = new ObjectID(id)
       await db.open()
       // update page view count
       r = await db.collection(COLLECTION_NAME)
@@ -83,16 +83,16 @@ class Post {
 
   static async incPageView ({ id }) {
     try {
-      let _id = ObjectId(id)
+      let _id = new ObjectID(id)
       await db.open()
       await db.collection(COLLECTION_NAME)
-        .updateOne({ _id }, { $inc: { 'pv': 1 } })
+        .updateOne({ _id }, { '$inc': { 'pv': 1 } })
     } catch (e) { throw e } finally { await db.close() }
   }
 
   static async edit ({ id }) {
     let r
-    let _id = new ObjectId(id)
+    let _id = new ObjectID(id)
     try {
       await db.open()
       r = await db.collection(COLLECTION_NAME).findOne({ _id })
@@ -102,7 +102,7 @@ class Post {
 
   static async update ({ id, title, tags, post }) {
     try {
-      let _id = new ObjectId(id)
+      let _id = new ObjectID(id)
       let summary = await Post.makeSummary(post)
       let data = { title, tags, post, summary }
       await db.open()
@@ -113,13 +113,13 @@ class Post {
 
   static async remove ({ id }) {
     try {
-      let _id = new ObjectId(id)
+      let _id = new ObjectID(id)
       await db.open()
       let col = db.collection(COLLECTION_NAME)
       let { value: post } = await col.findOneAndDelete({ _id })
       // update reprint info
       if (post.reprint && post.reprint.from) {
-        let _id = new ObjectId(post.reprint.from.id)
+        let _id = new ObjectID(post.reprint.from.id)
         let data = { 'reprint.to': { id } }
         await col.findOneAndUpdate({ _id }, { '$pull': data })
       }
@@ -160,7 +160,8 @@ class Post {
     let r
     try {
       await db.open()
-      r = await db.collection(COLLECTION_NAME).distinct('tags')
+      r = await db.collection(COLLECTION_NAME)
+        .distinct('tags')
     } catch (e) { throw (e) } finally { await db.close() }
     return r
   }
@@ -171,8 +172,10 @@ class Post {
     let r
     try {
       await db.open()
-      r = await db.collection(COLLECTION_NAME).find({ 'tags': tag })
-                  .sort({ 'time': -1 }).toArray()
+      r = await db.collection(COLLECTION_NAME)
+        .find({ 'tags': tag })
+        .sort({ 'time': -1 })
+        .toArray()
     } catch (e) { throw (e) } finally { await db.close() }
     return r
   }
@@ -196,7 +199,7 @@ class Post {
   static async reprint ({ from, to }) {
     let r
     let id = from.id
-    let _id = new ObjectId(id)
+    let _id = new ObjectID(id)
     try {
       await db.open()
       let col = db.collection(COLLECTION_NAME)

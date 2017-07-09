@@ -41,12 +41,9 @@ async function doCompose (req, res) {
 async function post (req, res, next) {
   let id = req.params.id
   try {
-    let actions = [
-      Post.getById({ id }),
-      Comment.getByPost({ post: id }),
-      Post.incPageView({ id })
-    ]
-    let [ post, comments ] = await Promise.all(actions)
+    let post = await Post.getById({ id })
+    let comments = await Comment.getByPost({ post: id })
+    await Post.incPageView({ id })
     let from = post.reprint ? post.reprint.from : undefined
     if (from) {
       try {

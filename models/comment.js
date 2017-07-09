@@ -1,4 +1,4 @@
-const { db, ObjectId } = require('./db')
+const { db, ObjectID } = require('./db')
 const { makeMd } = require('../lib/marked')
 const { makeAvatar } = require('../lib/avatar')
 const { makeTime } = require('../lib/time')
@@ -34,7 +34,7 @@ class Comment {
     let r
     try {
       await db.open()
-      let _id = new ObjectId(id)
+      let _id = new ObjectID(id)
       let comment = await db.collection(COLLECTION_NAME).find({ _id })
       if (comment.content) {
         comment.content = await makeMd(comment.content)
@@ -48,18 +48,20 @@ class Comment {
     let r
     try {
       await db.open()
-      let _id = new ObjectId(post)
+      let _id = new ObjectID(post)
       let comments = await db.collection(COLLECTION_NAME)
           .find({ post: _id })
           .sort({ time: -1 })
           .toArray()
-      let contentPromises = []
-      for (let comment of comments) {
-        contentPromises.push(makeMd(comment.content))
-      }
-      let contents = await Promise.all(contentPromises)
-      for (let [index, value] of contents.entries()) {
-        comments[index].content = value
+      if (comments && comments.length) {
+        let contentPromises = []
+        for (let comment of comments) {
+          contentPromises.push(makeMd(comment.content))
+        }
+        let contents = await Promise.all(contentPromises)
+        for (let [index, value] of contents.entries()) {
+          comments[index].content = value
+        }
       }
       r = comments
     } catch (e) { throw e } finally { await db.close() }
@@ -69,7 +71,7 @@ class Comment {
   static async removeById ({ id }) {
     try {
       await db.open()
-      let _id = new ObjectId(id)
+      let _id = new ObjectID(id)
       await db.collection(COLLECTION_NAME)
           .deleteOne({ _id })
     } catch (e) { throw e } finally { await db.close() }
@@ -78,7 +80,7 @@ class Comment {
   static async removeByPost ({ post }) {
     try {
       await db.open()
-      let _id = new ObjectId(post)
+      let _id = new ObjectID(post)
       await db.collection(COLLECTION_NAME)
           .deleteMany({ post: _id })
     } catch (e) { throw e } finally { await db.close() }
