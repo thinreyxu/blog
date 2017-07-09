@@ -113,15 +113,15 @@ class Post {
 
   static async remove ({ id }) {
     try {
-      let _id = new ObjectID(id)
       await db.open()
       let col = db.collection(COLLECTION_NAME)
+      let _id = new ObjectID(id)
       let { value: post } = await col.findOneAndDelete({ _id })
       // update reprint info
       if (post.reprint && post.reprint.from) {
-        let _id = new ObjectID(post.reprint.from.id)
-        let data = { 'reprint.to': { id } }
-        await col.findOneAndUpdate({ _id }, { '$pull': data })
+        let from = post.reprint.from._id
+        let data = { 'reprint.to': { _id } }
+        await col.updateOne({ _id: from }, { '$pull': data })
       }
     } catch (e) { throw (e) } finally { await db.close() }
   }
@@ -198,38 +198,33 @@ class Post {
   // 转载
   static async reprint ({ from, to }) {
     let r
-    let id = from.id
-    let _id = new ObjectID(id)
     try {
       await db.open()
       let col = db.collection(COLLECTION_NAME)
-
       // 存储新博客
+      let _id = new ObjectID(from.id)
       let origin = await col.findOne({ _id })
       let copy = Object.assign({}, origin, {
         'name': to.name,
         'avatar': to.avatar,
         'time': makeTime(new Date()),
-        'title': (origin.title.search(/[转载]/) > -1) ? origin.title : '[转载]' + origin.title,
-        'comment': [],
+        'title': (origin.title.search(/[转载]/) === 0) ? origin.title : `[转载]${origin.title}`,
         'reprint': {
-          from
+          from: { _id }
         },
         'pv': 0
       })
       Reflect.deleteProperty(copy, '_id')
-      let { result, ops: [ value ] } = await col.insetOne(copy)
+      let { result, ops: [ value ] } = await col.insertOne(copy)
       if (result.ok !== 1) throw new Error('插入转发文章失败！')
       r = value
       // 更新被转发的博客的信息
+
       let data = {
-        'reprint.to': {
-          'id': r._id.toString(),
-          'name': r.name
-        }
+        'reprint.to': { _id: r._id }
       }
-      await col.findOneAndUpdate({ _id }, { '$push': data })
-    } catch (e) { throw (e) } finally { await db.close() }
+      await col.updateOne({ _id }, { '$push': data })
+    } catch (e) { console.log(e); throw e } finally { await db.close() }
     return r
   }
 

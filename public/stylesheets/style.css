@@ -28,7 +28,7 @@
   -webkit-box-shadow: none;
 }
 body {
-  font: 14px/1.8 'Helvetica Neue', Arial, 'WenQuanYi Micro Hei', 'Microsoft Yahei', 'Hiragino Sans GB', STXihei, SimSun, sans-serif;
+  font: 1rem/1.8 'Helvetica Neue', Arial, 'WenQuanYi Micro Hei', 'Microsoft Yahei', 'Hiragino Sans GB', STXihei, SimSun, sans-serif;
   color: #81817d;
   background: #f8f7f5;
 }
@@ -101,7 +101,7 @@ a:hover {
 .post-list .post {
   *zoom: 1;
   *display: inline;
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.8;
   display: inline-block;
   vertical-align: top;
@@ -137,42 +137,42 @@ a:hover {
   text-align: center;
 }
 h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
+  font-size: 2rem;
+  margin: 0.67rem 0;
 }
 h2 {
-  font-size: 1.5em;
-  margin: 0.83em 0;
+  font-size: 1.5rem;
+  margin: 0.83rem 0;
 }
 h3 {
-  font-size: 1.17em;
-  margin: 1em 0;
+  font-size: 1.17rem;
+  margin: 1rem 0;
 }
 h4 {
-  font-size: 1em;
-  margin: 1.33em 0;
+  font-size: 1rem;
+  margin: 1.33rem 0;
 }
 h5 {
-  font-size: 0.83em;
-  margin: 1.67em 0;
+  font-size: 0.83rem;
+  margin: 1.67rem 0;
 }
 h6 {
-  font-size: 0.67em;
-  margin: 2.33em 0;
+  font-size: 0.67rem;
+  margin: 2.33rem 0;
 }
 .heading,
 .post-title {
-  font: 1.71em/1.2 'Helvetica Neue', Arial, 'WenQuanYi Micro Hei', 'Microsoft Yahei', 'Hiragino Sans GB', STXihei, SimSun, sans-serif;
+  font: 1.71rem/1.2 'Helvetica Neue', Arial, 'WenQuanYi Micro Hei', 'Microsoft Yahei', 'Hiragino Sans GB', STXihei, SimSun, sans-serif;
 }
 .text,
 .post-body {
-  font: 300 1.14em/1.8 'Helvetica Neue', Arial, 'WenQuanYi Micro Hei', 'Microsoft Yahei', 'Hiragino Sans GB', STXihei, SimSun, sans-serif;
+  font: 300 1.14rem/1.8 'Helvetica Neue', Arial, 'WenQuanYi Micro Hei', 'Microsoft Yahei', 'Hiragino Sans GB', STXihei, SimSun, sans-serif;
 }
 .text-muted {
   color: #b3b3ad;
 }
 .small {
-  font-size: 0.85em;
+  font-size: 0.85rem;
 }
 /* ------------------------------- */
 .btn {
@@ -186,7 +186,7 @@ h6 {
   line-height: 1;
   position: relative;
   z-index: 1;
-  margin: 0 0.3em;
+  margin: 0 0.3rem;
   outline-color: #a5c2a7;
 }
 .btn:hover,
@@ -246,14 +246,14 @@ h6 {
 }
 input.form-control {
   line-height: 1;
-  height: 1em;
+  height: 1rem;
 }
 textarea.form-control {
   line-height: 1.2;
 }
 .control-label {
   line-height: 1;
-  height: 1em;
+  height: 1rem;
   padding: 11px 0;
   text-align: right;
 }
@@ -303,8 +303,8 @@ textarea.form-control {
 }
 .nav {
   text-transform: uppercase;
-  font-size: 0.85em;
-  line-height: 1.12em;
+  font-size: 0.85rem;
+  line-height: 1.12rem;
   position: absolute;
   top: 228px;
   right: 100%;
@@ -324,7 +324,7 @@ textarea.form-control {
   color: #a5c2a7;
 }
 .nav b {
-  font-size: 12px;
+  font-size: 0.85rem;
   font-weight: normal;
   display: none;
 }
@@ -332,7 +332,7 @@ textarea.form-control {
   line-height: 1;
   top: 0;
   float: right;
-  margin-left: 0.5em;
+  margin-left: 0.5rem;
 }
 .nav .sep {
   display: block;
@@ -348,7 +348,7 @@ textarea.form-control {
   background: url("../images/sep.png") center bottom no-repeat;
 }
 .header h1 {
-  font-size: 2.29em;
+  font-size: 2.29rem;
   line-height: 70px;
   margin: 0;
 }
@@ -391,7 +391,7 @@ textarea.form-control {
   margin-bottom: 0;
 }
 .post-title {
-  font-size: 1.71em;
+  font-size: 1.71rem;
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -417,13 +417,13 @@ textarea.form-control {
   background: none;
 }
 .post-list .post-tags a {
-  margin: 0 0.3em;
+  margin: 0 0.3rem;
 }
 .post-list .post-body {
-  font-size: 1em;
+  font-size: 1rem;
 }
 .article .post-meta {
-  font-size: 0.85em;
+  font-size: 0.85rem;
   position: absolute;
   top: 228px;
   left: 100%;
@@ -431,10 +431,10 @@ textarea.form-control {
   margin-left: 30px;
 }
 .article .post-tags a {
-  margin-right: 0.6em;
+  margin-right: 0.6rem;
 }
 .article .post-body {
-  font-size: 1.14em;
+  font-size: 1.14rem;
 }
 .edit {
   font-size: 13px;
@@ -459,11 +459,11 @@ textarea.form-control {
 }
 .archive time {
   display: inline-block;
-  width: 6em;
+  width: 6rem;
 }
 .search {
   position: absolute;
-  top: 23em;
+  top: 23rem;
   right: 100%;
   width: 100px;
   margin-right: 20px;
@@ -519,9 +519,9 @@ textarea.form-control {
     display: inline;
   }
   .nav i {
-    font-size: 0.85em;
+    font-size: 0.85rem;
     float: none;
-    margin-right: 0.5em;
+    margin-right: 0.5rem;
     margin-left: 0;
   }
   .article .post-meta {
@@ -531,7 +531,7 @@ textarea.form-control {
     text-align: center;
   }
   .article .post-tags a {
-    margin-left: 0.6em;
+    margin-left: 0.6rem;
   }
 }
 @media (min-width: 768px) {
@@ -554,7 +554,7 @@ textarea.form-control {
   }
   .post-list .post-body {
     overflow: hidden;
-    height: 10.8em;
+    height: 10.8rem;
   }
   .post-list .post-hl {
     width: 100%;

@@ -15,6 +15,7 @@ class Comment {
     }
     */
     Object.assign(this, commentObj)
+    this.post = new ObjectID(this.post)
     this.avatar = this.avatar || makeAvatar(this.email)
     this.time = this.time || makeTime()
     this.pro = this.pro || 0

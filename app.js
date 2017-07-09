@@ -46,6 +46,12 @@ app.use(session({
     url: `mongodb://${settings.db_host}:${settings.db_port}/${settings.db_name}`
   })
 }))
+app.use((req, res, next) => {
+  res.locals.user = req.session.user
+  res.locals.success = req.flash('success').toString()
+  res.locals.error = req.flash('error').toString()
+  next()
+})
 app.use(routes)
 app.use(stylus.middleware(`${__dirname}/public/stylesheets`))
 app.use(sstatic(`${__dirname}/public`))

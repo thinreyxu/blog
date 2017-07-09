@@ -5,9 +5,7 @@ const Post = require('../models/post')
 
 function login (req, res) {
   res.render('login', {
-    title: '登录',
-    success: req.flash('success').toString(),
-    error: req.flash('error').toString()
+    title: '登录'
   })
 }
 

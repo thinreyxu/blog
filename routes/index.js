@@ -9,14 +9,11 @@ async function index (req, res, next) {
     let { posts, total } = await Post.getByPage({ page, itemsPerPage })
     res.render('index', {
       title: '}{',
-      user: req.session.user,
       posts: posts,
       page: page,
       cate: 'index',
       isFirstPage: page === 1,
-      isLastPage: (page - 1) * itemsPerPage + posts.length === total,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
+      isLastPage: (page - 1) * itemsPerPage + posts.length === total
     })
   } catch (e) {
     next(e)
@@ -28,10 +25,7 @@ async function archive (req, res) {
     let postsByYear = await Post.getArchive()
     res.render('archive', {
       title: '存档',
-      postsByYear,
-      user: req.session.user,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
+      postsByYear
     })
   } catch (e) {
     req.flash('error', e)
@@ -44,10 +38,7 @@ async function tags (req, res, next) {
     let tags = await Post.getTags()
     res.render('tags', {
       title: '标签',
-      tags,
-      user: req.session.user,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
+      tags
     })
   } catch (e) {
     req.flash('error', '无法读取标签')
@@ -61,10 +52,7 @@ async function tag (req, res, next) {
     let posts = await Post.getByTag({ tag })
     res.render('tag', {
       title: `标签：${tag}`,
-      posts,
-      user: req.session.user,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
+      posts
     })
   } catch (e) {
     req.flash('error', '无法获取文章')
@@ -84,20 +72,14 @@ async function search (req, res) {
   } finally {
     res.render('search', {
       title: `搜索${keyword ? '：' + keyword : ''}`,
-      posts,
-      user: req.session.user,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
+      posts
     })
   }
 }
 
 function links (req, res) {
   res.render('links', {
-    title: '友情链接',
-    user: req.session.user,
-    success: req.flash('success').toString(),
-    error: req.flash('error').toString()
+    title: '友情链接'
   })
 }
 

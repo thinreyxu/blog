@@ -11,10 +11,10 @@ async function doComment (req, res) {
     })
     await comment.save()
     req.flash('success', '评论成功！')
-    res.redirect('p/' + req.params.postId)
+    res.redirect(`/p/${req.params.postId}`)
   } catch (e) {
     req.flash('error', '无法评论')
-    res.redirect('p/' + req.params.postId)
+    res.redirect(`/p/${req.params.postId}`)
   }
 }
 

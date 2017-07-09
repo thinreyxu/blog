@@ -25,10 +25,10 @@ block content
       
       - var oriPost
       if post.reprint && (oriPost = post.reprint.from)
-        .post-origin.info.
-          原文：
+        .post-origin.info
+          | 原文：
           a(href=`/p/${oriPost._id}`) #{oriPost.title}
-          -
+          | -
           a(href=`/u/${oriPost.name}`) #{oriPost.name}
           span.text-muted #{oriPost.time.minute}
       

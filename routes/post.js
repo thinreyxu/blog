@@ -5,10 +5,7 @@ const Comment = require('../models/comment')
 function compose (req, res) {
   // res.send('post')
   res.render('compose', {
-    title: '发表',
-    user: req.session.user,
-    success: req.flash('success').toString(),
-    error: req.flash('error').toString()
+    title: '发表'
   })
 }
 
@@ -44,19 +41,14 @@ async function post (req, res, next) {
     let post = await Post.getById({ id })
     let comments = await Comment.getByPost({ post: id })
     await Post.incPageView({ id })
-    let from = post.reprint ? post.reprint.from : undefined
+    let from = post.reprint && post.reprint.from
     if (from) {
-      try {
-        post.reprint.from = await Post.getById({ id: from.id })
-      } catch (e) {}
+        post.reprint.from = await Post.getById({ id: from._id.toString() })
     }
     res.render('post', {
       title: post.title,
       post,
-      comments,
-      user: req.session.user,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
+      comments
     })
   } catch (e) {
     req.flash('error', '无法找到该文章')
@@ -69,10 +61,7 @@ async function edit (req, res) {
     let post = await Post.edit({ id: req.params.id })
     res.render('compose', {
       title: '编辑',
-      post: post,
-      user: req.session.user,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
+      post: post
     })
   } catch (e) {
     req.flash('error', '无法加载需要编辑的文章')
@@ -105,7 +94,7 @@ async function doEdit (req, res) {
 async function remove (req, res) {
   try {
     await Post.remove({ id: req.params.id })
-    await Comment.removeByPost({ post: req.params.id })
+    // await Comment.removeByPost({ post: req.params.id })
     req.flash('success', '删除成功！')
     res.redirect('/')
   } catch (e) {
@@ -119,9 +108,9 @@ async function reprint (req, res) {
     let user = req.session.user
     let from = { id: req.params.id }
     let to = { name: user.name, avatar: user.avatar }
-    let post = await Post.reprint(from, to)
+    let post = await Post.reprint({ from, to })
     req.flash('success', '转载成功！')
-    req.redirect(`/p/${post._id}`)
+    res.redirect(`/p/${post._id}`)
   } catch (e) {
     req.flash('error', '无法转载文章！')
     res.redirect('back')

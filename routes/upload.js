@@ -8,10 +8,7 @@ const uploadMultiple = uploader.array(fieldname)
 
 function upload (req, res) {
   res.render('upload', {
-    title: '上传文件',
-    user: req.session.user,
-    success: req.flash('success').toString(),
-    error: req.flash('error').toString()
+    title: '上传文件'
   })
 }
 
