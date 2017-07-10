@@ -1,4 +1,4 @@
-const { db, ObjectID } = require('./db')
+const { DBC, ObjectID } = require('./db')
 const { makeMd } = require('../lib/marked')
 const { makeAvatar } = require('../lib/avatar')
 const { makeTime } = require('../lib/time')
@@ -24,17 +24,18 @@ class Comment {
 
   // 存储一条留言信息
   async save () {
+    let db
     try {
-      await db.open()
+      db = await DBC.connect()
       await db.collection(COLLECTION_NAME).insertOne(this, { w: 1 })
     } catch (e) { throw e } finally { await db.close() }
     return this
   }
 
   static async getById ({ id }) {
-    let r
+    let r, db
     try {
-      await db.open()
+      db = await DBC.connect()
       let _id = new ObjectID(id)
       let comment = await db.collection(COLLECTION_NAME).find({ _id })
       if (comment.content) {
@@ -46,9 +47,9 @@ class Comment {
   }
 
   static async getByPost ({ post }) {
-    let r
+    let r, db
     try {
-      await db.open()
+      db = await DBC.connect()
       let _id = new ObjectID(post)
       let comments = await db.collection(COLLECTION_NAME)
           .find({ post: _id })
@@ -70,8 +71,9 @@ class Comment {
   }
 
   static async removeById ({ id }) {
+    let db
     try {
-      await db.open()
+      db = await DBC.connect()
       let _id = new ObjectID(id)
       await db.collection(COLLECTION_NAME)
           .deleteOne({ _id })
@@ -79,8 +81,9 @@ class Comment {
   }
 
   static async removeByPost ({ post }) {
+    let db
     try {
-      await db.open()
+      db = await DBC.connect()
       let _id = new ObjectID(post)
       await db.collection(COLLECTION_NAME)
           .deleteMany({ post: _id })

@@ -1,6 +1,7 @@
 // blog app
 const express = require('express')
 const routes = require('./routes/routes')
+const { CONNECT_STRING } = require('./models/db')
 const settings = require('./settings')
 const flash = require('connect-flash')
 const stylus = require('stylus')
@@ -42,9 +43,7 @@ app.use(session({
   autoRemove: 'native',
   resave: false,
   saveUninitialized: false,
-  store: new MongoStore({
-    url: `mongodb://${settings.db_host}:${settings.db_port}/${settings.db_name}`
-  })
+  store: new MongoStore({ url: CONNECT_STRING })
 }))
 app.use((req, res, next) => {
   res.locals.user = req.session.user

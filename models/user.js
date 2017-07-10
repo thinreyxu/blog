@@ -1,4 +1,4 @@
-const { db } = require('./db')
+const { DBC } = require('./db')
 const { makeAvatar } = require('../lib/avatar')
 const { makeTime } = require('../lib/time')
 
@@ -19,8 +19,9 @@ class User {
 
   // 存储用户信息
   async save () {
+    let db
     try {
-      await db.open()
+      db = await DBC.connect()
       await db.collection(COLLECTION_NAME).insertOne(this, { w: 1 })
     } catch (e) { throw e } finally { await db.close() }
     return this
@@ -28,18 +29,18 @@ class User {
 
   // 根据用户名读取用户信息
   static async getByName ({ name }) {
-    let r
+    let r, db
     try {
-      await db.open()
+      db = await DBC.connect()
       r = await db.collection(COLLECTION_NAME).findOne({ name })
     } catch (e) { throw e } finally { await db.close() }
     return r
   }
 
   static async getByEmail ({ email }) {
-    let r
+    let r, db
     try {
-      await db.open()
+      db = await DBC.connect()
       r = await db.collection(COLLECTION_NAME).findOne({ email })
     } catch (e) { throw e } finally { await db.close() }
     return r

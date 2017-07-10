@@ -407,7 +407,10 @@ textarea.form-control
     width 160px
     margin-left 30px
   .post-tags a
-    margin-right .6rem
+    margin none .6rem
+    &::first-child,
+    &::last-child
+      margin none
   .post-body
     font-size 1.14rem
 
@@ -506,8 +509,9 @@ textarea.form-control
       width auto
       margin-left 0
       text-align center
-    .post-tags a
-      margin-left .6rem
+      >span
+        display inline-block
+        margin 0 .6em
 
 
 @media (min-width 768px)

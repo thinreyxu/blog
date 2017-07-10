@@ -1,4 +1,4 @@
-const { db, ObjectID } = require('./db')
+const { DBC, ObjectID } = require('./db')
 const { makeMd, makeSummary } = require('../lib/marked')
 const { makeTime } = require('../lib/time')
 const COLLECTION_NAME = 'posts'
@@ -38,18 +38,19 @@ class Post {
 
   // 存储一篇文章及其相关信息
   async save () {
+    let db
     try {
       this.summary = this.summary || await makeSummary(this.content)
-      await db.open()
+      db = await DBC.connect()
       await db.collection(COLLECTION_NAME).insertOne(this, { w: 1 })
     } catch (e) { throw e } finally { await db.close() }
     return this
   }
 
   static async getByPage ({ name, page = 1, itemsPerPage = 8 }) {
-    let posts, total
+    let db, posts, total
     try {
-      await db.open()
+      db = await DBC.connect()
       let col = db.collection(COLLECTION_NAME)
       let query = name ? { name } : {}
       total = await col.count(query)
@@ -68,10 +69,10 @@ class Post {
   }
 
   static async getById ({ id }) {
-    let r
+    let r, db
     try {
       let _id = new ObjectID(id)
-      await db.open()
+      db = await DBC.connect()
       // update page view count
       r = await db.collection(COLLECTION_NAME)
           .findOne({ _id })
@@ -82,38 +83,41 @@ class Post {
   }
 
   static async incPageView ({ id }) {
+    let db
     try {
       let _id = new ObjectID(id)
-      await db.open()
+      db = await DBC.connect()
       await db.collection(COLLECTION_NAME)
         .updateOne({ _id }, { '$inc': { 'pv': 1 } })
     } catch (e) { throw e } finally { await db.close() }
   }
 
   static async edit ({ id }) {
-    let r
+    let r, db
     let _id = new ObjectID(id)
     try {
-      await db.open()
+      db = await DBC.connect()
       r = await db.collection(COLLECTION_NAME).findOne({ _id })
     } catch (e) { throw (e) } finally { await db.close() }
     return r
   }
 
   static async update ({ id, title, tags, post }) {
+    let db
     try {
       let _id = new ObjectID(id)
       let summary = await Post.makeSummary(post)
       let data = { title, tags, post, summary }
-      await db.open()
+      db = await DBC.connect()
       await db.collection(COLLECTION_NAME)
           .updateOne({ _id }, { '$set': data })
     } catch (e) { throw (e) } finally { await db.close() }
   }
 
   static async remove ({ id }) {
+    let db
     try {
-      await db.open()
+      db = await DBC.connect()
       let col = db.collection(COLLECTION_NAME)
       let _id = new ObjectID(id)
       let { value: post } = await col.findOneAndDelete({ _id })
@@ -129,8 +133,9 @@ class Post {
   // 返回所有文章的存档信息
   static async getArchive () {
     let r = {}
+    let db
     try {
-      await db.open()
+      db = await DBC.connect()
       let col = db.collection(COLLECTION_NAME)
       let years = await col.distinct('time.year')
       years.sort().reverse()
@@ -157,9 +162,9 @@ class Post {
   // 获取标签
   // TODO: 标签可以有多个
   static async getTags () {
-    let r
+    let r, db
     try {
-      await db.open()
+      db = await DBC.connect()
       r = await db.collection(COLLECTION_NAME)
         .distinct('tags')
     } catch (e) { throw (e) } finally { await db.close() }
@@ -169,9 +174,9 @@ class Post {
   // 获取含有指定标签的所有文章
   // TODO: tags 是个数组
   static async getByTag ({ tag }) {
-    let r
+    let r, db
     try {
-      await db.open()
+      db = await DBC.connect()
       r = await db.collection(COLLECTION_NAME)
         .find({ 'tags': tag })
         .sort({ 'time': -1 })
@@ -182,13 +187,13 @@ class Post {
 
   // 搜索
   static async search ({ keyword }) {
-    let r
+    let r, db
     let pattern = new RegExp('^.*(' + keyword.trim().split(/\s+/).join('|') + ').*$', 'i')
     let query = {
       'title': pattern
     }
     try {
-      await db.open()
+      db = await DBC.connect()
       r = await db.collection(COLLECTION_NAME).find(query)
                   .sort({ 'time': -1 }).toArray()
     } catch (e) { throw (e) } finally { await db.close() }
@@ -197,9 +202,9 @@ class Post {
 
   // 转载
   static async reprint ({ from, to }) {
-    let r
+    let r, db
     try {
-      await db.open()
+      db = await DBC.connect()
       let col = db.collection(COLLECTION_NAME)
       // 存储新博客
       let _id = new ObjectID(from.id)

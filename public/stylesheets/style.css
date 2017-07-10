@@ -431,7 +431,11 @@ textarea.form-control {
   margin-left: 30px;
 }
 .article .post-tags a {
-  margin-right: 0.6rem;
+  margin: none 0.6rem;
+}
+.article .post-tags a::first-child,
+.article .post-tags a::last-child {
+  margin: none;
 }
 .article .post-body {
   font-size: 1.14rem;
@@ -530,8 +534,9 @@ textarea.form-control {
     margin-left: 0;
     text-align: center;
   }
-  .article .post-tags a {
-    margin-left: 0.6rem;
+  .article .post-meta >span {
+    display: inline-block;
+    margin: 0 0.6em;
   }
 }
 @media (min-width: 768px) {
