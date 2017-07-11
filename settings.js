@@ -7,5 +7,6 @@ module.exports = {
   db_port: '27017',
   db_user: 'dbUser',
   db_pwd: 'dbUser',
+  db_auth: 'admin',
   enc_salt: 'just_salt'
 }
