@@ -408,8 +408,8 @@ textarea.form-control
     margin-left 30px
   .post-tags a
     margin none .6rem
-    &::first-child,
-    &::last-child
+    &:first-child,
+    &:last-child
       margin none
   .post-body
     font-size 1.14rem
@@ -526,10 +526,14 @@ textarea.form-control
     .post
       @extend .ib
       width 49%
-    .post-odd
-      margin-right 1%
-    .post-even
-      margin-left 1%
+      &:nth-child(odd)
+        margin-right 1%
+      &:nth-child(even)
+        margin-left 1%
+      &:nth-child(-n+2)
+        width 100%
+        margin-right none
+        margin-left none
     .post-body
       overflow hidden
       height 10.8rem

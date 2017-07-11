@@ -433,8 +433,8 @@ textarea.form-control {
 .article .post-tags a {
   margin: none 0.6rem;
 }
-.article .post-tags a::first-child,
-.article .post-tags a::last-child {
+.article .post-tags a:first-child,
+.article .post-tags a:last-child {
   margin: none;
 }
 .article .post-body {
@@ -551,11 +551,16 @@ textarea.form-control {
   .post-list .post {
     width: 49%;
   }
-  .post-list .post-odd {
+  .post-list .post:nth-child(odd) {
     margin-right: 1%;
   }
-  .post-list .post-even {
+  .post-list .post:nth-child(even) {
     margin-left: 1%;
+  }
+  .post-list .post:nth-child(-n+2) {
+    width: 100%;
+    margin-right: none;
+    margin-left: none;
   }
   .post-list .post-body {
     overflow: hidden;
