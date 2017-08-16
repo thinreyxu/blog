@@ -1,9 +1,8 @@
-const { db_name, db_host, db_port, db_user, db_pwd, db_auth } = require('../settings')
+const { dbName, dbHost, dbPort, dbUser, dbPwd, dbAuth } = require('../settings')
 const { ObjectID, MongoClient } = require('mongodb')
 // const server = new Server(db_host, db_port)
 // const db = new Db(db_name, server)
-const CONNECT_STRING = `mongodb://${db_user}:${db_pwd}@${db_host}:${db_port}/${db_name}?authSource=${db_auth || db_name}`
-
+const CONNECT_STRING = `mongodb://${dbUser}:${dbPwd}@${dbHost}:${dbPort}/${dbName}?authSource=${dbAuth}`
 class DBC extends MongoClient {
   connect () {
     return super.connect(CONNECT_STRING)

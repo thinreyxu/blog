@@ -1,0 +1,553 @@
+[Tue Oct 15 2013 00:47:22 GMT+0800 (CST)]/
+TypeError: /home/erix/WorkSpace/nodejs/server/blog/views/index.ejs:10
+    8|       <% if (post.tags && post.tags.length) { %>
+    9|         &middot; <span>标签：
+ >> 10|           <% post.tags.forEach(function (tag) { %>
+    11|             <a href="/tag/<%= tag %>"><%= tag %></a>
+    12|           <% }) %>
+    13|         </span>
+
+Object sdf
+
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, magni, perspiciatis, porro possimus deserunt veritatis ratione distinctio earum repellat vitae unde praesentium iure tempore. Obcaecati, fuga, doloribus minus explicabo quisquam sunt ullam nobis! Reiciendis, delectus, eius in magnam impedit illo doloremque recusandae sed nihil omnis sit ab praesentium quibusdam aperiam possimus nobis illum optio aliquam nostrum nam esse ipsam et enim consequatur minima qui quisquam assumenda rerum unde laborum id tempore accusamus velit. Quos, ipsa, nam, distinctio voluptatum praesentium vitae hic laborum omnis neque expedita illum soluta esse veritatis quam odio possimus asperiores blanditiis impedit illo debitis ea repudiandae laboriosam. has no method 'forEach'
+    at buf.push.
+.buf (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:31:682)
+    at Array.forEach (native)
+    at eval (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:31:58)
+    at eval (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:35:35)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:249:15
+    at Object.exports.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:287:13)
+    at View.exports.renderFile [as engine] (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:317:20)
+    at View.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/view.js:76:8)
+    at Function.app.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/application.js:506:10)
+    at ServerResponse.res.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/response.js:760:7)
+[Tue Oct 15 2013 00:49:52 GMT+0800 (CST)]/
+TypeError: /home/erix/WorkSpace/nodejs/server/blog/views/index.ejs:10
+    8|       <% if (post.tags && post.tags.length) { %>
+    9|         &middot; <span>标签：
+ >> 10|           <% post.tags.forEach(function (tag) { %>
+    11|             <a href="/tag/<%= tag %>"><%= tag %></a>
+    12|           <% }) %>
+    13|         </span>
+
+Object sdf
+
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, magni, perspiciatis, porro possimus deserunt veritatis ratione distinctio earum repellat vitae unde praesentium iure tempore. Obcaecati, fuga, doloribus minus explicabo quisquam sunt ullam nobis! Reiciendis, delectus, eius in magnam impedit illo doloremque recusandae sed nihil omnis sit ab praesentium quibusdam aperiam possimus nobis illum optio aliquam nostrum nam esse ipsam et enim consequatur minima qui quisquam assumenda rerum unde laborum id tempore accusamus velit. Quos, ipsa, nam, distinctio voluptatum praesentium vitae hic laborum omnis neque expedita illum soluta esse veritatis quam odio possimus asperiores blanditiis impedit illo debitis ea repudiandae laboriosam. has no method 'forEach'
+    at buf.push.
+.buf (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:31:682)
+    at Array.forEach (native)
+    at eval (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:31:58)
+    at eval (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:35:35)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:249:15
+    at Object.exports.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:287:13)
+    at View.exports.renderFile [as engine] (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:317:20)
+    at View.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/view.js:76:8)
+    at Function.app.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/application.js:506:10)
+    at ServerResponse.res.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/response.js:760:7)
+[Tue Oct 15 2013 00:49:55 GMT+0800 (CST)]/
+TypeError: /home/erix/WorkSpace/nodejs/server/blog/views/index.ejs:10
+    8|       <% if (post.tags && post.tags.length) { %>
+    9|         &middot; <span>标签：
+ >> 10|           <% post.tags.forEach(function (tag) { %>
+    11|             <a href="/tag/<%= tag %>"><%= tag %></a>
+    12|           <% }) %>
+    13|         </span>
+
+Object sdf
+
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, magni, perspiciatis, porro possimus deserunt veritatis ratione distinctio earum repellat vitae unde praesentium iure tempore. Obcaecati, fuga, doloribus minus explicabo quisquam sunt ullam nobis! Reiciendis, delectus, eius in magnam impedit illo doloremque recusandae sed nihil omnis sit ab praesentium quibusdam aperiam possimus nobis illum optio aliquam nostrum nam esse ipsam et enim consequatur minima qui quisquam assumenda rerum unde laborum id tempore accusamus velit. Quos, ipsa, nam, distinctio voluptatum praesentium vitae hic laborum omnis neque expedita illum soluta esse veritatis quam odio possimus asperiores blanditiis impedit illo debitis ea repudiandae laboriosam. has no method 'forEach'
+    at buf.push.
+.buf (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:31:682)
+    at Array.forEach (native)
+    at eval (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:31:58)
+    at eval (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:35:35)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:249:15
+    at Object.exports.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:287:13)
+    at View.exports.renderFile [as engine] (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:317:20)
+    at View.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/view.js:76:8)
+    at Function.app.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/application.js:506:10)
+    at ServerResponse.res.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/response.js:760:7)
+[Tue Oct 15 2013 00:49:58 GMT+0800 (CST)]/
+TypeError: /home/erix/WorkSpace/nodejs/server/blog/views/index.ejs:10
+    8|       <% if (post.tags && post.tags.length) { %>
+    9|         &middot; <span>标签：
+ >> 10|           <% post.tags.forEach(function (tag) { %>
+    11|             <a href="/tag/<%= tag %>"><%= tag %></a>
+    12|           <% }) %>
+    13|         </span>
+
+Object sdf
+
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, magni, perspiciatis, porro possimus deserunt veritatis ratione distinctio earum repellat vitae unde praesentium iure tempore. Obcaecati, fuga, doloribus minus explicabo quisquam sunt ullam nobis! Reiciendis, delectus, eius in magnam impedit illo doloremque recusandae sed nihil omnis sit ab praesentium quibusdam aperiam possimus nobis illum optio aliquam nostrum nam esse ipsam et enim consequatur minima qui quisquam assumenda rerum unde laborum id tempore accusamus velit. Quos, ipsa, nam, distinctio voluptatum praesentium vitae hic laborum omnis neque expedita illum soluta esse veritatis quam odio possimus asperiores blanditiis impedit illo debitis ea repudiandae laboriosam. has no method 'forEach'
+    at buf.push.
+.buf (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:31:682)
+    at Array.forEach (native)
+    at eval (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:31:58)
+    at eval (eval at <anonymous> (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:236:14), <anonymous>:35:35)
+    at /home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:249:15
+    at Object.exports.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:287:13)
+    at View.exports.renderFile [as engine] (/home/erix/WorkSpace/nodejs/server/blog/node_modules/ejs/lib/ejs.js:317:20)
+    at View.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/view.js:76:8)
+    at Function.app.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/application.js:506:10)
+    at ServerResponse.res.render (/home/erix/WorkSpace/nodejs/server/blog/node_modules/express/lib/response.js:760:7)
+[Sun Jun 25 2017 07:47:47 GMT+0800 (CST)=========================================] /sdfsdf
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:66:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Sun Jun 25 2017 07:49:48 GMT+0800 (CST)=========================================] /sdfsdf
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:66:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Sun Jun 25 2017 07:49:57 GMT+0800 (CST)=========================================] /sdfsdf
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:60:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Sun Jun 25 2017 07:50:21 GMT+0800 (CST)=========================================] /sdfsdf
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:60:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Sun Jun 25 2017 07:50:53 GMT+0800 (CST)=========================================] /sdfsdf
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:60:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Sun Jun 25 2017 07:52:54 GMT+0800 (CST)=========================================] /sdfsdf
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:59:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Sun Jun 25 2017 08:42:13 GMT+0800 (CST)=========================================] /archive
+Error: Failed to lookup view "archive" in views directory "/home/lex/Workspace/nodejs/server/blog/views"
+    at Function.render (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/application.js:580:17)
+    at ServerResponse.render (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/response.js:971:7)
+    at archive (/home/lex/Workspace/nodejs/server/blog/routes/index.js:47:9)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:169:7)
+[Tue Jun 27 2017 13:11:46 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:11:55 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:13:37 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:16:35 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:18:24 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:19:06 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:20:58 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:21:05 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:22:24 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:23:05 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:26:49 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:27:12 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:27:46 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:28:43 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:30:04 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:44:08 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Tue Jun 27 2017 13:46:14 GMT+0800 (CST)=========================================] /p/5942ce244f3f127ef3660ee7
+Error: Not Found
+    at app.use (/home/lex/Workspace/nodejs/server/blog/app.js:57:13)
+    at Layer.handle [as handle_request] (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:317:13)
+    at /home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/router/index.js:275:10)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/serve-static/index.js:121:7)
+    at emitOne (events.js:115:13)
+    at SendStream.emit (events.js:210:7)
+    at SendStream.error (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:282:17)
+    at SendStream.onStatError (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:433:12)
+    at next (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:743:16)
+    at onstat (/home/lex/Workspace/nodejs/server/blog/node_modules/send/index.js:732:14)
+    at FSReqWrap.oncomplete (fs.js:152:21)
+[Wed Jun 28 2017 12:22:50 GMT+0800 (CST)=========================================] /p/5951f886f8380658f3353db3
+TypeError: /home/lex/Workspace/nodejs/server/blog/views/article.pug:16
+    14|         span= `阅读：post.pv || 0`
+    15|         span= '评论：' + post.comments.length
+  > 16|         span= '转载：' + post.reprint.to.length
+    17|         if user && user.name === post.name
+    18|           .post-options
+    19|             .btn-group
+
+Cannot read property 'to' of undefined
+    at eval (eval at wrap (/home/lex/Workspace/nodejs/server/blog/node_modules/pug-runtime/wrap.js:6:10), <anonymous>:169:77)
+    at template (eval at wrap (/home/lex/Workspace/nodejs/server/blog/node_modules/pug-runtime/wrap.js:6:10), <anonymous>:197:188)
+    at Object.exports.renderFile (/home/lex/Workspace/nodejs/server/blog/node_modules/pug/lib/index.js:428:38)
+    at Object.exports.renderFile (/home/lex/Workspace/nodejs/server/blog/node_modules/pug/lib/index.js:418:21)
+    at View.exports.__express [as engine] (/home/lex/Workspace/nodejs/server/blog/node_modules/pug/lib/index.js:465:11)
+    at View.render (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/view.js:128:8)
+    at tryRender (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/application.js:640:10)
+    at Function.render (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/application.js:592:3)
+    at ServerResponse.render (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/response.js:971:7)
+    at post (/home/lex/Workspace/nodejs/server/blog/routes/post.js:73:9)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:169:7)
+[Wed Jun 28 2017 12:44:59 GMT+0800 (CST)=========================================] /p/5951f886f8380658f3353db3
+Error: /home/lex/Workspace/nodejs/server/blog/views/article.pug:50:15
+    48|           .btn-group
+    49|             a.btn.btn-xs.btn-default(href=`/reprint/${post._id}`)
+  > 50|               转载
+----------------------^
+    51|   include comment.pug
+    52| 
+
+unexpected text "转载
+  "
+    at makeError (/home/lex/Workspace/nodejs/server/blog/node_modules/pug-error/index.js:32:13)
+    at Lexer.error (/home/lex/Workspace/nodejs/server/blog/node_modules/pug-lexer/index.js:58:15)
+    at Lexer.fail (/home/lex/Workspace/nodejs/server/blog/node_modules/pug-lexer/index.js:1304:10)
+    at Lexer.advance (/home/lex/Workspace/nodejs/server/blog/node_modules/pug-lexer/index.js:1364:15)
+    at Lexer.callLexerFunction (/home/lex/Workspace/nodejs/server/blog/node_modules/pug-lexer/index.js:1319:23)
+    at Lexer.getTokens (/home/lex/Workspace/nodejs/server/blog/node_modules/pug-lexer/index.js:1375:12)
+    at lex (/home/lex/Workspace/nodejs/server/blog/node_modules/pug-lexer/index.js:12:42)
+    at Object.lex (/home/lex/Workspace/nodejs/server/blog/node_modules/pug/lib/index.js:99:27)
+    at Function.loadString [as string] (/home/lex/Workspace/nodejs/server/blog/node_modules/pug-load/index.js:44:24)
+    at compileBody (/home/lex/Workspace/nodejs/server/blog/node_modules/pug/lib/index.js:86:18)
+    at Object.exports.compile (/home/lex/Workspace/nodejs/server/blog/node_modules/pug/lib/index.js:243:16)
+    at handleTemplateCache (/home/lex/Workspace/nodejs/server/blog/node_modules/pug/lib/index.js:216:25)
+    at Object.exports.renderFile (/home/lex/Workspace/nodejs/server/blog/node_modules/pug/lib/index.js:428:10)
+    at Object.exports.renderFile (/home/lex/Workspace/nodejs/server/blog/node_modules/pug/lib/index.js:418:21)
+    at View.exports.__express [as engine] (/home/lex/Workspace/nodejs/server/blog/node_modules/pug/lib/index.js:465:11)
+    at View.render (/home/lex/Workspace/nodejs/server/blog/node_modules/express/lib/view.js:128:8)
+[Wed Jun 28 2017 13:51:37 GMT+0800 (CST)=========================================] /stylesheets/style.css
+Error: /home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/functions/index.styl:128:38
+   124| 
+   125| // darken by the given amount
+   126| 
+   127| darken(color, amount)
+   128|   adjust(color, 'lightness', - amount)
+---------------------------------------------^
+   129| 
+   130| // lighten by the given amount
+   131| 
+
+TypeError: expected rgba or hsla, but got ident:c
+    at "&:hover" (/home/lex/Workspace/nodejs/server/blog/public/stylesheets/style.styl:181:24)
+    at btn-color() (/home/lex/Workspace/nodejs/server/blog/public/stylesheets/style.styl:178:25)
+    at ".btn" (/home/lex/Workspace/nodejs/server/blog/public/stylesheets/style.styl:186:38)
+
+    at Object.exports.assertColor (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/utils.js:255:13)
+    at Evaluator.adjust (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/functions/adjust.js:14:9)
+    at Evaluator.invokeBuiltin (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/evaluator.js:1051:30)
+    at Evaluator.visitCall (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/evaluator.js:516:16)
+    at Evaluator.Visitor.visit (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/index.js:28:40)
+    at Evaluator.visit (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/evaluator.js:160:18)
+    at Evaluator.visitExpression (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/evaluator.js:644:26)
+    at Evaluator.Visitor.visit (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/index.js:28:40)
+    at Evaluator.visit (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/evaluator.js:160:18)
+    at Evaluator.eval (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/evaluator.js:1235:23)
+    at Evaluator.invoke (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/evaluator.js:1080:16)
+    at Evaluator.invokeFunction (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/evaluator.js:1012:15)
+    at Evaluator.visitCall (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/evaluator.js:522:16)
+    at Evaluator.Visitor.visit (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/index.js:28:40)
+    at Evaluator.visit (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/evaluator.js:160:18)
+    at Evaluator.visitExpression (/home/lex/Workspace/nodejs/server/blog/node_modules/stylus/lib/visitor/evaluator.js:644:26)
