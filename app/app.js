@@ -69,4 +69,4 @@ module.exports = (express, router, settings, flash, stylus, bodyParser, favicon,
 }
 
 module.exports['@singleton'] = true
-module.exports['@require'] = ['express', 'routes/router', 'settings', 'connect-flash', 'stylus', 'body-parser', 'serve-favicon', 'morgan', 'method-override', 'cookie-parser', 'express-session', 'connect-mongo', 'serve-static', 'rotating-file-stream']
+module.exports['@require'] = ['express', 'router', 'settings', 'connect-flash', 'stylus', 'body-parser', 'serve-favicon', 'morgan', 'method-override', 'cookie-parser', 'express-session', 'connect-mongo', 'serve-static', 'rotating-file-stream']
