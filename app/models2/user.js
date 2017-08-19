@@ -10,8 +10,6 @@ module.exports = (odm) => {
 
   const User = odm.model('User', userSchema, 'users')
 
-  console.log(User.schema === userSchema)
-
   return User
 }
 module.exports['@singleton'] = true

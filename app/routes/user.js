@@ -1,6 +1,7 @@
-module.exports = (User, Post, common, crypto) => {
+module.exports = (User, Post, common, crypto, avatar) => {
   const { checkNotLogin, checkLogin } = common
   const { md5WithSalt: encrypt } = crypto
+  const { makeAvatar } = avatar
 
   function login (req, res) {
     res.render('login', {
@@ -12,7 +13,7 @@ module.exports = (User, Post, common, crypto) => {
     try {
       // 生成加密密码
       let password = encrypt(req.body.password)
-      let user = await User.getByName({ name: req.body.name })
+      let user = await User.findOne({ name: req.body.name })
       if (!user || user.password !== password) {
         req.flash('error', '用户名或密码错误！')
         return res.redirect('back')
@@ -35,9 +36,10 @@ module.exports = (User, Post, common, crypto) => {
   }
 
   async function doReg (req, res) {
+    console.log(req.body)
     try {
-      let name = req.body.name
-      let email = req.body.email
+      let name = req.body.name.trim()
+      let email = req.body.email.trim()
       let password = req.body.password
       let repassword = req.body.repassword
 
@@ -45,7 +47,7 @@ module.exports = (User, Post, common, crypto) => {
       let fields = [ name, email, password, repassword ]
       let blankFields = 0
       for (let field of fields) {
-        if (!field || field.trim() === '') blankFields++
+        if (!field || field === '') blankFields++
       }
       if (blankFields !== 0) {
         req.flash('error', '信息填写不全！')
@@ -53,14 +55,14 @@ module.exports = (User, Post, common, crypto) => {
       }
 
       // 检查用户名是否已经存在
-      let existUser = await User.getByName({ name })
+      let existUser = await User.find({ name })
       if (existUser) {
         req.flash('error', '该用户名已被使用')
         return res.redirect('back')
       }
 
       // 检查邮箱是否已经被注册
-      let existEmail = await User.getByEmail({ email })
+      let existEmail = await User.find({ email })
       if (existEmail) {
         req.flash('error', '该邮箱已经被注册')
         return res.redirect('back')
@@ -72,7 +74,12 @@ module.exports = (User, Post, common, crypto) => {
         return res.redirect('back')
       }
 
-      let newUser = await new User({ name, email, password: encrypt(password) }).save()
+      let newUser = await new User({
+        name,
+        email,
+        password: encrypt(password),
+        avatar: makeAvatar(email)
+      }).save()
       req.session.user = newUser
       req.flash('success', '注册成功！')
       return res.redirect('/')
@@ -124,4 +131,4 @@ module.exports = (User, Post, common, crypto) => {
   ]
 }
 module.exports['@singleton'] = true
-module.exports['@require'] = [ 'modelsOld/user', 'modelsOld/post', 'routes/common', 'lib/encrypt' ]
+module.exports['@require'] = [ 'models/user', 'modelsOld/post', 'routes/common', 'lib/encrypt', 'lib/avatar' ]
