@@ -1,11 +1,5 @@
 extends layout.pug
 block page-header
-  h1= title
+  h1= `${title}`
 block content
-  .archive
-    if posts.length
-      ul
-        each post in posts      
-          li
-            time.text-muted= post.time.day
-            a(href='/p/' + post._id)= post.title
+  include post-list.pug
