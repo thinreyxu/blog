@@ -1,9 +1,9 @@
 module.exports = (Post, settings) => {
+  const { postsPerPage } = settings
   async function index (req, res, next) {
     try {
       // 判断是否是第一页，并把请求的页数转换成 number 类型
       let page = Math.max(req.query.p ? Number.parseInt(req.query.p) : 1)
-      let { postsPerPage } = settings
       // 查询并返回第 page 页的 n 篇文章
       let total = await Post.find().count()
       let posts = await Post.find().sort({ ctime: -1 }).page(page, postsPerPage)
