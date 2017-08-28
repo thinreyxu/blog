@@ -1,76 +1,79 @@
+// blog app
+const express = require('express')
+const routes = require('./routes/routes')
+const settings = require('./settings')
+const flash = require('connect-flash')
+const stylus = require('stylus')
+const bodyParser = require('body-parser')
+const multer = require('multer')
+const favicon = require('serve-favicon')
+const logger = require('morgan')
+const methodOverride = require('method-override')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
+const sstatic = require('serve-static')
+const rfs = require('rotating-file-stream')
 
-/**
- * Module dependencies.
- */
+const logfileOptions = {
+  interval: '1d',
+  path: './log'
+}
+const accessLog = rfs('access.log', logfileOptions)
+const errorLog = rfs('error.log', logfileOptions)
 
-var express = require('express')
-  , routes = require('./routes/routes')
-  , http = require('http')
-  , path = require('path')
-  , MongoStore = require('connect-mongo')(express)
-  , settings = require('./settings')
-  , flash = require('connect-flash')
-  , fs = require('fs');
+const app = express()
 
-var accessLog = fs.createWriteStream('./log/access.log', { flags: 'a' })
-  , errorLog = fs.createWriteStream('./log/error.log', { flags: 'a' });
+app.set('port', process.env.PORT || 3000)
+app.set('views', `${__dirname}/views`)
+app.set('view engine', 'ejs')
+app.set('upload', multer({ dest: './public/upload' }))
 
-var app = express();
-
-// all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-app.use(flash());
-// app.use(express.favicon());
-app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
-app.use(express.logger('dev'));  // 在终端现实日志信息
-app.use(express.logger({ stream: accessLog }));  // 将访问信息记录入文件
-app.use(express.bodyParser({
-  keepExtensions: true,  // 保留文件的扩展名
-  uploadDir: './public/upload'  // 文件上传的目录
-}));  // 用来解析请求体
-app.use(express.methodOverride());  // 伪装PUT、DELETE
-app.use(express.cookieParser());  // cookie解析中间件
-app.use(express.session({
-  secret: settings.cookieSecret,  //用来防止篡改 cookie
-  key: settings.db,  // cookie的名字
+app.use(flash())
+app.use(favicon(`${__dirname}/public/images/favicon.ico`))
+app.use(logger('dev')) // 终端输出访问信息
+app.use(logger('combined', { stream: accessLog }))  // 将访问信息记录入文件
+app.use(methodOverride())  // 伪装PUT、DELETE
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))  // 用来解析请求体
+app.use(cookieParser())  // cookie解析中间件
+app.use(session({
+  secret: settings.cookieSecret,  // 用来防止篡改 cookie
+  transformId: settings.app_name,  // cookie的名字
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },  // cookie的生存期30天
+  autoRemove: 'native',
+  resave: false,
+  saveUninitialized: false,
   store: new MongoStore({
-    db: settings.db
+    url: `mongodb://${settings.db_host}:${settings.db_port}/${settings.db_name}`
   })
-}));
-app.use(app.router); // 用于确定 router 中间件的调用顺序
-app.use(require('stylus').middleware(__dirname + '/public'));
-app.use(express.static(path.join(__dirname, 'public')));
-
-// development only
-if ('development' === app.get('env')) {
-  // 在 console 中 打印日志
-  app.use(express.errorHandler());
-}
-
-// production only
-if ('production' === app.get('env')) {
-  app.use(function (err, req, res, next) {
-    var meta = '[' + new Date() + ']' + req.url + '\n';
-    errorLog.write(meta + err.stack + '\n');
-    next();
-  });
-}
+}))
+routes(app);
+app.use(stylus.middleware(`${__dirname}/public/stylesheets`))
+app.use(sstatic(`${__dirname}/public`))
 
 // 处理 404 页面
-app.use(function (req, res) {
+app.use((req, res, next) => {
+  let err = new Error('Not Found')
+  err.status = 404
+  next(err)
+})
+
+// 处理错误
+app.use((err, req, res, next) => {
+  let meta = `[${new Date().toString().padEnd(80, '=')}] ${req.url}`
+  errorLog.write(`${meta}\n${err.stack}\n`)
+  console.error(err)
+
   res.render('404', {
-    title: "404",
+    title: '404',
     user: req.session.user,
     success: req.flash('success').toString(),
     error: req.flash('error').toString()
-  });
-});
+  })
+})
 
-routes(app);
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+// const server = http.createServer(app)
+app.listen(app.get('port'), () =>
+  console.log('Express server listening on port ' + app.get('port'))
+)

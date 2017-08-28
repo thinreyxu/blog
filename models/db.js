@@ -1,14 +1,13 @@
 var settings = require('../settings')
   , MongoDB = require('mongodb')
   , Db = MongoDB.Db
-  , Connection = MongoDB.Connection
   , Server = MongoDB.Server;
 
 exports.ObjectID = MongoDB.ObjectID;
 
 var mongodb = new Db(
-  settings.db,
-  new Server(settings.host, Connection.DEFAULT_PORT, {}),
+  settings.db_name,
+  new Server(settings.db_host, settings.db_port, {}),
   { w: 1 }
 );
 
