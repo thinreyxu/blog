@@ -1,0 +1,20 @@
+extends layout.pug
+block page-header
+  h1= `${title}`
+block content
+  form.form-horizontal(method=`POST`, autocomplete=`off`)
+    .form-group
+      label.col-sm-2.control-label(for=`inputTitle`)= `标题`
+      .col.col-sm-10.control-wrapper
+        input.form-control(id=`inputTitle`, type=`text`, name=`title`, value=`${post && post.title || ''}`)
+    .form-group
+      label.col-sm-2.control-label(for=`inputPost`)= `正文`
+      .col.col-sm-10.control-wrapper
+        textarea.form-control(id=`inputPost`, name=`content`, rows=`15`)= `${post && post.content || ''}`
+    .form-group
+      label.col-sm-2.control-label(for=`inputTags`)= `标签`
+      .col.col-sm-10.control-wrapper
+        input.form-control(id=`inputTags`, type=`text`, name=`tags`, value=`${post && post.tags ? post.tags.join(', ') : ''}`)
+    .form-group
+      .col.col-sm-10.col-sm-offset-2.opaque-label.control-wrapper.text-center
+        button.btn.btn-default(type=`submit`)= `${post ? '保存' : '发表'}`

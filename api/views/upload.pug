@@ -1,0 +1,13 @@
+extends layout.pug
+block page-header
+  h1= `${title}`
+block content
+  form.form-horizontal(method=`POST`, enctype=`multipart/form-data`)
+    each i in [1, 2, 3, 4, 5]
+      .form-group
+        label.col-sm-2.control.label(for=`inputFile${1}`)= `文件1`
+        .col.col-sm-10
+          input.form-control(type=`file`, name=`file`, accept=``, title=``, id=`inputFile${1}`)
+    .form-group
+      .col.col-sm-10.col-sm-offset-2
+        button.btn.btn-promary(type=`submit`)= `上传`

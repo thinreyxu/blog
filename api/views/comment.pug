@@ -1,0 +1,45 @@
+.comment
+  .page-header.text-center
+    h4= `评论`
+  .comment-compose
+    form.form-horizontal(method=`POST`, action=`/comment/${post._id}`, enctype=`application/x-www-form-urlencoded`)
+      if user
+        .form-group
+          label.col-sm-2.control-label(for=`inputName`)
+            a.form-control-static(href=`/u/${user.name}`)= `${user.name}`
+          .col.col-sm-8.control-wrapper
+            input.form-control(id=`inputName`, name=`name`, type=`hidden`, value=`${user.name}`)
+            input.form-control(id=`inputEmail`, name=`email`, type=`hidden`, value=`$(user.email)`)
+            textarea.form-control(id=`inputContent`, name=`content`, rows=`5`)
+      else
+        .form-group
+          label.col-sm-2.control-label(for=`inputName`)= `姓名`
+          .col.col-sm-8.control-wrapper
+            input.form-control(id=`inputName`, name=`name`, type=`text`)
+        .form-group
+          label.col-sm-2.control-label(for=`inputEmail`)= `邮箱`
+          .col.col-sm-8.control-wrapper
+            input.form-control(id=`inputEmail`, name=`email`, type=`text`)
+        .form-group
+          label.col-sm-2.control-label(for=`inputContent`)= `内容`
+          .col.col-sm-8.control-wrapper
+            textarea.form-control(id=`inputContent`, name=`content`, rows=`5`)
+      .form-group
+        .col.col-sm-8.col-sm-offset-2.control-wrapper.opaque-label
+          button.btn.btn-default(type=`submit`)= `留言`
+      
+          
+  if comments.length
+    ul.media-list.comment-list
+      each comment in comments
+        li.media.comment-item
+          a.avatar.pull-left(href=`#`)
+            img.media-object(src=`${comment.avatar}?s=40`, alt=``, width=`40`, height=`40`)
+          .media-body
+            h5.media-heading.comment-title
+              a(href=`${comment.website}`)= `${comment.name}`
+              span.info.text-muted= `评论于 ${comment.ctime}`
+            .comment-body= `${comment.content}`
+    include pager.pug
+  else
+    p.text-muted.text-center= `没有评论`

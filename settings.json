@@ -1,0 +1,14 @@
+{
+  "appName": "blog",
+  "dbName": "blog",
+  "dbHost": "localhost",
+  "dbPort": "27017",
+  "dbUser": "blog",
+  "dbPwd": "blog",
+  "dbAuth": "admin",
+  "encSalt": "just_salt",
+  "servePort": "3000",
+  "postsPerPage": 15,
+  "commentsPerPage": 7,
+  "resultsPerPage": 15
+}

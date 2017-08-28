@@ -1,0 +1,24 @@
+extends layout.pug
+block page-header
+  h1= `${title}`
+block content
+  form.form-horizontal(method=`POST`, autocomplete=`off`)
+    .form-group
+      label.col-sm-2.control-label(for=`inputName`)= `用户名`
+      .col.col-sm-4.control-wrapper.half
+        input.form-control.input-sm(id=`inputName`, type=`text`, name=`name`)
+    .form-group
+      label.col-sm-2.control-label(for=`inputPassword`)= `密码`
+      .col.col-sm-4.control-wrapper.half
+        input.form-control.input-sm(id=`inputPassword`, type=`password`, name=`password`)
+    .form-group
+      label.col-sm-2.control-label(for=`inputRepassword`)= `重复密码`
+      .col.col-sm-4.control-wrapper.half
+        input.form-control.input-sm(id=`inputRepassword`, type=`password`, name=`repassword`)
+    .form-group
+      label.col-sm-2.control-label(for=`inputEmail`)= `邮箱`
+      .col.col-sm-4.control-wrapper.half
+        input.form-control.input-sm(id=`inputEmail`, type=`text`, name=`email`)
+    .form-group
+      .col.col-sm-4.col-sm-offset-2.opaque-label.control-wrapper.half
+        button.btn.btn-default.btn-sm.btn-block(type=`submit`)= `注册`

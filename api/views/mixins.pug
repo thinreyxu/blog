@@ -1,0 +1,26 @@
+mixin navitem(url, text, icon)
+  a(href=`${url}`, title=`${text}`)
+    i.glyphicon(class=`glyphicon-${icon}`)
+    b= `${text}`
+
+mixin toDate(dateString, formatString)
+  - var date = new Date(dateString)
+  - var s = formatString
+  - s = s.replace(/YYYY/g, date.getFullYear())
+  - s = s.replace(/YY/g, date.getYear())
+  - s = s.replace(/MM/g, date.getMonth().toString().padStart(2, '0'))
+  - s = s.replace(/M/g, date.getMonth())
+  - s = s.replace(/DD/g, date.getDate().toString().padStart(2, '0'))
+  - s = s.replace(/D/g, date.getDate())
+  - s = s.replace(/hh/g, date.getDate().toString().padStart(2, '0'))
+  - s = s.replace(/h/g, date.getDate())
+  - s = s.replace(/mm/g, date.getDate().toString().padStart(2, '0'))
+  - s = s.replace(/m/g, date.getDate())
+  - s = s.replace(/ss/g, date.getDate().toString().padStart(2, '0'))
+  - s = s.replace(/s/g, date.getDate())
+  = `${s}`
+
+mixin link(title, description, url)
+  .media-body
+    a.media-heading(href=`${url}`)= `${title}`
+    p.text-muted= `${description}`

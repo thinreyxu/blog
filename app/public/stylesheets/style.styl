@@ -55,6 +55,7 @@ a
   color $linkcolor
   &:hover
     text-decoration underline
+    text-decoration-skip ink
     color $hovercolor
 
 .clearfix
@@ -64,7 +65,10 @@ a
     content ''
   &:after
     clear both
-
+.fl
+  float left
+.fr
+  float right
 .pull-left
   float left !important
 
@@ -168,6 +172,12 @@ h6
 
 .small
   font-size .85rem
+
+.block-container > *
+  display block
+
+.inline-container > *
+  display inline
 
 /* ------------------------------- */
 btn-size($pv, $ph, $bdr)
@@ -321,7 +331,7 @@ textarea.form-control
   @extend .text-center
   margin-bottom 40px
   padding 85px 0 28px
-  background url(../images/sep.png) center bottom no-repeat
+  // background url(../images/sep.png) center bottom no-repeat
 
   h1
     font-size 2.29rem
@@ -335,6 +345,7 @@ textarea.form-control
     background url(../images/logo.png) no-repeat
 
 .footer
+  font-size .75rem
   position relative
   margin 50px 0 0
   padding 15px 0
@@ -353,6 +364,8 @@ textarea.form-control
 
 .content
   min-height 150px
+  margin-right auto
+  margin-left auto
 
 .post
   margin 0 0 50px
@@ -374,13 +387,15 @@ textarea.form-control
   a
     color $headinglink
 
-.post-meta span
-  display block
+.post-meta.inline-container span
+  margin-right .5em
+  margin-left .5em
 
 .post-body
   @extend .text
   margin 25px 0
   padding 0 15px
+  text-align justify
 
 .post-options
   margin-top 14px
@@ -393,7 +408,7 @@ textarea.form-control
     padding-bottom 0
     background none
   .post-tags a
-    margin 0 0.3rem
+    margin 0 .3rem
   .post-body
     font-size 1rem
 
@@ -456,6 +471,10 @@ textarea.form-control
     border-bottom solid 1px #f2f2f2
     outline 0
 
+.tags
+  .tag
+    display inline-block
+
 .pager
   @extend .clearfix
   .prev
@@ -515,28 +534,22 @@ textarea.form-control
 
 
 @media (min-width 768px)
-  .container
+  .content
     width 600px
 
 @media (min-width 992px)
-  .container
+  .content
     width 600px
   .post-list
-    @extend .ibw
-    .post
-      @extend .ib
-      width 49%
-      &:nth-child(odd)
-        margin-right 1%
-      &:nth-child(even)
-        margin-left 1%
-      &:nth-child(-n+2)
-        width 100%
-        margin-right none
-        margin-left none
-    .post-body
-      overflow hidden
-      height 10.8rem
+    // .post
+    //   &:nth-child(odd)
+    //     margin-right 1%
+    //   &:nth-child(even)
+    //     margin-left 1%
+    //   &:nth-child(-n+2)
+    //     width 100%
+    //     margin-right none
+    //     margin-left none
     .post-hl
       width 100%
       margin-right 0

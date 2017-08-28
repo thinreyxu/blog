@@ -1,0 +1,12 @@
+extends layout.pug
+block page-header
+  h1= `${title}`
+block content
+  .links
+    ul.media-list
+      li.media
+        +link(`localhost`, `Lorem ipsum dolor sit amet.`, `http://lo/`)
+      li.media
+        +link(`Plugins`, `Lorem ipsum dolor sit amet.`, `http://lo/plugins`)
+      li.media
+        +link(`Curce`, `Lorem ipsum dolor sit amet.`, `http://curce/`)

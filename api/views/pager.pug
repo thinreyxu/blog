@@ -1,0 +1,5 @@
+ul.pager
+  unless isFirstPage
+    li: a.prev(href=`?p=${page - 1}`)= `上一页`
+  unless isLastPage
+    li: a.next(href=`?p=${page + 1}`)= `下一页`

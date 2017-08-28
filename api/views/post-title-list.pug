@@ -1,0 +1,17 @@
+dl.archive-list
+  - var year = 0
+  each post in posts
+    - var cyear = new Date(post.ctime).getFullYear()
+    if year !== cyear
+      - year = cyear
+      dt= `${cyear} 年`
+    dd
+      //- span
+      //-   +toMonthDate(post.ctime)
+      //- = ` - `
+      span
+        a(href=`/p/${post._id}`)= `${post.title}`
+      //- = ` - `
+      //- span
+      //-   = `${post.name}`
+//- include pager.pug

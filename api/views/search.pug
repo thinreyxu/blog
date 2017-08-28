@@ -1,0 +1,14 @@
+extends layout.pug
+block content
+  .search-bar
+    form.form-horizontal(method=`GET`, action=`/search`, enctype=`application/x-www-form-urlencoded`)
+      .form-group
+        .col.col-sm-8
+          input.form-control(id=`inputKeywords`, name=`q`, type=`text`, value=`${title}`, placeholder=`输入关键字进行搜索...`)
+        .col.col-sm-2
+          button.btn.btn-default(type=`submit`)= `搜索`
+  if posts.length
+    include post-list.pug
+  else
+    p.text-muted.text-center= `没有找到相关内容`
+    

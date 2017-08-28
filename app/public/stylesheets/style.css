@@ -38,6 +38,7 @@ a {
 }
 a:hover {
   text-decoration: underline;
+  text-decoration-skip: ink;
   color: #77a37a;
 }
 .clearfix,
@@ -58,6 +59,12 @@ a:hover {
 .form-horizontal .form-group:after,
 .pager:after {
   clear: both;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
 }
 .pull-left,
 .pager .prev {
@@ -89,16 +96,14 @@ a:hover {
   height: 100%;
   content: '';
 }
-.ibw,
-.post-list {
+.ibw {
   font-size: 0;
   line-height: 0;
   letter-spacing: -5px;
   *letter-spacing: normal;
   *word-spacing: -1px;
 }
-.ib,
-.post-list .post {
+.ib {
   *zoom: 1;
   *display: inline;
   font-size: 1rem;
@@ -173,6 +178,12 @@ h6 {
 }
 .small {
   font-size: 0.85rem;
+}
+.block-container > * {
+  display: block;
+}
+.inline-container > * {
+  display: inline;
 }
 /* ------------------------------- */
 .btn {
@@ -345,7 +356,6 @@ textarea.form-control {
 .header {
   margin-bottom: 40px;
   padding: 85px 0 28px;
-  background: url("../images/sep.png") center bottom no-repeat;
 }
 .header h1 {
   font-size: 2.29rem;
@@ -358,6 +368,7 @@ textarea.form-control {
   background: url("../images/logo.png") no-repeat;
 }
 .footer {
+  font-size: 0.75rem;
   position: relative;
   margin: 50px 0 0;
   padding: 15px 0;
@@ -378,6 +389,8 @@ textarea.form-control {
 }
 .content {
   min-height: 150px;
+  margin-right: auto;
+  margin-left: auto;
 }
 .post {
   margin: 0 0 50px;
@@ -398,12 +411,14 @@ textarea.form-control {
 .post-title a {
   color: #4c4c4a;
 }
-.post-meta span {
-  display: block;
+.post-meta.inline-container span {
+  margin-right: 0.5em;
+  margin-left: 0.5em;
 }
 .post-body {
   margin: 25px 0;
   padding: 0 15px;
+  text-align: justify;
 }
 .post-options {
   margin-top: 14px;
@@ -483,6 +498,9 @@ textarea.form-control {
   border-bottom: solid 1px #f2f2f2;
   outline: 0;
 }
+.tags .tag {
+  display: inline-block;
+}
 .pnf404 {
   line-height: 150px;
 }
@@ -492,8 +510,7 @@ textarea.form-control {
 }
 @media (max-width: 991px) {
   body,
-  .ib,
-  .post-list .post {
+  .ib {
     font-size: 18px;
     line-height: 1.8;
   }
@@ -540,31 +557,13 @@ textarea.form-control {
   }
 }
 @media (min-width: 768px) {
-  .container {
+  .content {
     width: 600px;
   }
 }
 @media (min-width: 992px) {
-  .container {
+  .content {
     width: 600px;
-  }
-  .post-list .post {
-    width: 49%;
-  }
-  .post-list .post:nth-child(odd) {
-    margin-right: 1%;
-  }
-  .post-list .post:nth-child(even) {
-    margin-left: 1%;
-  }
-  .post-list .post:nth-child(-n+2) {
-    width: 100%;
-    margin-right: none;
-    margin-left: none;
-  }
-  .post-list .post-body {
-    overflow: hidden;
-    height: 10.8rem;
   }
   .post-list .post-hl {
     width: 100%;
