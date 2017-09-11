@@ -1,0 +1,467 @@
+/* base */
+$linkcolor = #a5c2a7
+// $linkcolor = #58c261
+$hovercolor = darken($linkcolor, 15)
+$activecolor = darken($linkcolor, 5)
+$basecolor = #2dc460
+$textcolor = #81817d
+$mutedcolor = #b3b3ad
+$background = #f8f7f5
+$headinglink = #4c4c4a
+$headinghover = darken($headinglink, 15)
+$headingactive = darken($headinglink, 5)
+$bordercolor = #f0efe9
+$selectcolor = #d2d9d3
+
+$sansserif = 'Helvetica Neue', Arial, 'WenQuanYi Micro Hei', 'Microsoft Yahei', 'Hiragino Sans GB', STXihei, SimSun, sans-serif
+// $serif = 'Droid Serif', 'Times New Roman', SimSun, serif
+$serif = Neuton, 'Roboto Slab', Merriweather, 'Droid Serif', serif
+
+::-moz-selection
+  background-color $selectcolor
+  text-shadow none
+
+::selection
+  background-color $selectcolor
+  text-shadow none
+
+::-webkit-scrollbar
+  width 6px
+  height 6px
+
+::-webkit-scrollbar-track
+  background $background
+  -webkit-box-shadow inset 0 0 6px rgba(0, 0, 0, .1)
+
+::-webkit-scrollbar-thumb
+  background $selectcolor
+  -webkit-box-shadow inset 0 0 6px rgba(0, 0, 0, .1)
+
+::-webkit-scrollbar-track:window-inactive
+  background none
+  -webkit-box-shadow none
+
+::-webkit-scrollbar-thumb:window-inactive
+  background none
+  -webkit-box-shadow none
+html, body
+  height 100%
+body
+  font 1rem/1.8 $sansserif
+  color $textcolor
+  background $background
+
+a
+  text-decoration none
+  color $linkcolor
+  &:hover
+    text-decoration underline
+    text-decoration-skip ink
+    color $hovercolor
+
+.clearfix
+  *zoom 1
+  &:before, &:after
+    display table
+    content ''
+  &:after
+    clear both
+.fl
+  float left
+.fr
+  float right
+.pull-left
+  float left !important
+
+.pull-right
+  float right !important
+
+.hide
+  display none !important
+
+.show
+  display block !important
+
+.invisible
+  visibility hidden
+
+.ir
+  overflow hidden
+  border 0
+  background-color transparent
+  *text-indent -9999px
+  *white-space nowrap
+
+  &:before
+    display block
+    width 0
+    height 100%
+    content ''
+
+.ibw
+  font-size 0
+  line-height 0
+  letter-spacing -5px
+  *letter-spacing normal
+  *word-spacing -1px
+
+.ib
+  *zoom 1
+  *display inline
+  font-size 1rem
+  line-height 1.8
+  display inline-block
+  vertical-align top
+  letter-spacing normal
+  word-spacing normal
+
+center-block($left = auto, $right = auto)
+  display block
+  margin-right $right
+  margin-left $left
+
+.center-block
+  center-block()
+
+.left-block
+  center-block(0, auto)
+
+.right-block
+  center-block(auto, 0)
+
+.text-left
+  text-align left
+
+.text-right
+  text-align right
+
+.text-center
+  text-align center
+
+h1
+  font-size 2rem
+  margin .67rem 0
+
+h2
+  font-size 1.5rem
+  margin .83rem 0
+
+h3
+  font-size 1.17rem
+  margin 1rem 0
+
+h4
+  font-size 1rem
+  margin 1.33rem 0
+
+h5
+  font-size .83rem
+  margin 1.67rem 0
+
+h6
+  font-size .67rem
+  margin 2.33rem 0
+
+.heading
+  font 1.71rem/1.2 $sansserif
+
+.text
+  font 300 1.14rem/1.8 $sansserif
+
+.text-muted
+  color $mutedcolor
+
+.small
+  font-size .85rem
+
+/* ------------------------------- */
+btn-size($pv, $ph, $bdr)
+  padding $pv $ph
+  border-radius $bdr
+
+btn-color($c, $bdc, $bgc)
+  color $c
+  border-color $bdc
+  background-color $bgc
+  &:hover,
+  &:focus
+    color darken($c, 15)
+    border-color darken($bdc, 15)
+    background-color lighten($bgc, 15)
+
+.btn
+  border-width 1px
+  border-style solid
+  btn-color(#81817d, #f0efe9, #fff)
+  btn-size(10px, 14px, 4px)
+  line-height 1
+  position relative
+  z-index 1
+  margin 0 .3rem
+  outline-color $linkcolor
+  &:hover,
+  &:focus
+    z-index 10
+    text-decoration none
+
+.btn-xs
+  btn-size(2px, 6px, 3px)
+
+.btn-default
+  btn-color(#81817d, #f0efe9, #fff)
+
+.btn-group
+  .btn
+    margin-right 0
+    margin-left -1px
+  .btn:first-child
+    margin-left 0
+    border-top-right-radius 0
+    border-bottom-right-radius 0
+  .btn:last-child
+    border-right-width 1px
+    border-top-left-radius 0
+    border-bottom-left-radius 0
+
+.form-control
+  font-family $sansserif
+  width 100%
+  padding 10px
+  border solid 1px $bordercolor
+  border-radius 4px
+  outline-color $linkcolor
+  background #fff
+  &:hover,
+  &:focus
+    color darken($textcolor, 15)
+    border-color darken($bordercolor, 15)
+  box-shadow inset 1px 1px 1px lighten($bordercolor, 2)
+input.form-control
+  line-height 1
+  height 1rem
+textarea.form-control
+  line-height 1.2
+.control-label
+  line-height 1
+  height 1rem
+  padding 11px 0
+  text-align right
+.form-horizontal
+  .form-group
+    margin 10px 0
+    @extend .clearfix
+  .control-label
+    width 10%
+    margin-right 2%
+  .control-wrapper
+    width 75%
+    &.half
+      width 35%
+  .control-label,
+  .control-wrapper
+    float left
+  .opaque-label
+    margin-left 12%
+  .btn:first-child
+    margin-left 0
+  .btn:last-child
+    margin-right 0
+
+/* site */
+.container
+  display flex
+  flex-direction column
+  justify-content space-between
+  align-items auto
+  min-height 100%
+
+.nav
+    display inline-flex
+    flex-flow row nowrap
+    font-size .85rem
+    text-align center
+    background #333
+    .spacer
+      flex-grow 1
+    a
+      // display inline-block
+      padding .5em 1em
+      word-break keep-all
+      color #81817d
+    b, i
+      line-height 1
+    b
+      font-weight normal
+      display inline
+    i
+      float none
+      margin-right .5rem
+      margin-left 0
+.header
+  @extend .text-center
+  margin-bottom 40px
+  padding 85px 0 28px
+  // background url(../images/sep.png) center bottom no-repeat
+
+  h1
+    font-size 2.29rem
+    line-height 70px
+    margin 0
+
+  .logo
+    @extend .center-block
+    width 44px
+    height 70px
+    background url(../images/logo.png) no-repeat
+
+.footer
+  font-size .75rem
+  position relative
+  margin 50px 0 0
+  padding 15px 0
+  color #cfcec8
+  border-top solid 1px $bordercolor
+  p
+    margin 0
+  .foot-logo
+    position absolute
+    top -11px
+    left 50%
+    width 20px
+    height 20px
+    margin-left -10px
+    background url(../images/logo2.png) no-repeat
+
+.content
+  flex-grow 1
+  max-width 800px
+  margin 0 auto
+
+.post
+  margin 0 0 50px
+  header,
+  footer
+    @extend .text-center
+  &:first-child,
+  &>:first-child
+    margin-top 0
+  &:last-child
+  &>:last-child
+    margin-bottom 0
+
+.post-title
+  @extend .heading
+  font-size 1.71rem
+  margin-top 0
+  margin-bottom 0
+  a
+    color $headinglink
+
+.post-meta.inline-container span
+  margin-right .5em
+  margin-left .5em
+
+.post-body
+  @extend .text
+  margin 25px 0
+  text-align justify
+
+.post-options
+  margin-top 14px
+
+.post-list
+  display flex
+  flex-flow column nowrap
+  .post
+    display flex
+    flex-flow column nowrap
+    padding-bottom 25px
+    background url(../images/sep.png) center bottom no-repeat
+  .post-meta
+    display flex
+    flex-flow row nowrap
+    justify-content center
+    .spacer
+      flex-grow 1
+  header > .post-meta > *
+    margin-right .5em
+    margin-left .5em
+  .post-body
+    font-size 1rem
+
+
+.article
+  .post-meta
+    font-size .85rem
+    position absolute
+    top 228px
+    left 100%
+    width 160px
+    margin-left 30px
+  .post-tags a
+    margin none .6rem
+    &:first-child,
+    &:last-child
+      margin none
+  .post-body
+    font-size 1.14rem
+
+// 编辑与删除功能
+.edit
+  font-size 13px
+  margin 3px
+  padding 2px 5px
+  color #333
+  border-radius 3px
+  background-color #f3f3f3
+  &:hover
+    text-decoration none
+    color #fff
+    background-color $linkcolor
+
+.archive
+  ul
+    line-height 2
+    padding 0
+    list-style none
+  h4
+    text-align center
+  time
+    display inline-block
+    width 6rem
+
+.search
+  position absolute
+  top 23rem
+  right 100%
+  width 100px
+  margin-right 20px
+
+  .keyword
+    line-height 14px
+    box-sizing content-box
+    width 88px
+    height 14px
+    padding 3px 5px
+    color #666
+    border 0
+    border-bottom solid 1px #f2f2f2
+    outline 0
+
+.tags
+  .tag
+    display inline-block
+
+.pager
+  @extend .clearfix
+  .prev
+    @extend .pull-left
+  .next
+    @extend .pull-right
+
+.pnf404
+  line-height 150px
+
+.avatar
+  overflow hidden
+  border-radius 50%

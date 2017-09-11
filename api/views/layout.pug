@@ -6,26 +6,14 @@ html(lang=`zh`)
       meta(charset=`UTF-8`)
       meta(name=`viewport`, content=`width=device-width,initial-scale=1.0,user-scalable=no`)
       title= `${title}`
-      //- link(rel=`stylesheet`, href=`http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic`)
-      //- link(rel=`stylesheet`, href=`http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic`)
-      //- link(rel=`stylesheet`, href=`http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700`)
-      //- link(rel=`stylesheet`, href=`http://fonts.googleapis.com/css?family=Neuton:200,300,400,700`)
-      link(rel=`stylesheet`, href=`/stylesheets/glyphicon.css`)
-      link(rel=`stylesheet`, href=`/stylesheets/common.css`)
       link(rel=`stylesheet`, href=`/stylesheets/style.css`, media=`screen`)
-      link(rel=`stylesheet`, href=`/stylesheets/markdown.css`)
   body
     block body
-      .top
-        span.flag
       .container
-        //- navigation
+        header.header
+          block page-header
         nav.nav
-          +navitem(`/`, `主页`, `home`)
-          +navitem(`/search`, `搜索`, `search`)
-          +navitem(`/archive`, `存档`, `book`)
-          +navitem(`/tags`, `标签`, `tags`)
-          +navitem(`/links`, `链接`, `link`)
+          +navitem(`/`, `主页`, `home`)(class=`space-right`)
           if user
             +navitem(`/u/${user.name}`, `${user.name}`, `user`)
             +navitem(`/compose`, `发表`, `plus-sign`)
@@ -33,23 +21,20 @@ html(lang=`zh`)
           else
             +navitem(`/login`, `登陆`, `log-in`)
             +navitem(`/reg`, `注册`, `user`)
-        //- site header
-        header.header
-          block page-header
-        //- article
         article.content
-          if success
-            .alert.alert-success
-              button.close(type=`button`, data-dismiss=`alert`)= `&times;`
-              = `${success}`
-          if error
-            .alert.alert-block.alert-danger
-              button.close(type=`button`, data-dismiss=`alert`)= `&times;`
-              = `${error}`
           block content
-        //- site footer
+        aside.side
+          block aside
         footer.footer.text-center
           p
             != `&copy; `
             = `2013-2017 WLBXUX.`
             i.foot-logo
+      if success
+        .alert.alert-success
+          button.close(type=`button`, data-dismiss=`alert`)= `&times;`
+          = `${success}`
+      if error
+        .alert.alert-block.alert-danger
+          button.close(type=`button`, data-dismiss=`alert`)= `&times;`
+          = `${error}`

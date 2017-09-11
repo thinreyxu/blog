@@ -1,7 +1,14 @@
 extends layout.pug
 
 block page-header
-  h1.logo.ir= `${title}`
+  h1.logo
+    a(href=`/`)= `${title}WLBXUX`
 
 block content
   include post-list.pug
+
+block aside
+  include side-search.pug
+  include side-tags.pug
+  include side-archives.pug
+  include side-links.pug

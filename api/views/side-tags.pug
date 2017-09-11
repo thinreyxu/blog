@@ -1,0 +1,7 @@
+section.side-tags
+  header
+    h3= `标签`
+  article
+    .tags 
+      each tag in tags
+        a.btn.btn-xs.btn-default.tag(href=`/tag/${tag}`)= `${tag}`

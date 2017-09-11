@@ -1,7 +1,6 @@
 mixin navitem(url, text, icon)
-  a(href=`${url}`, title=`${text}`)
-    i.glyphicon(class=`glyphicon-${icon}`)
-    b= `${text}`
+  a.glyphicon(class=`glyphicon-${icon}`, href=`${url}`, title=`${text}`)&attributes(attributes)
+    = `${text}`
 
 mixin toDate(dateString, formatString)
   - var date = new Date(dateString)
@@ -21,6 +20,6 @@ mixin toDate(dateString, formatString)
   = `${s}`
 
 mixin link(title, description, url)
-  .media-body
-    a.media-heading(href=`${url}`)= `${title}`
-    p.text-muted= `${description}`
+  dt&attributes(attributes)
+    a(href=`${url}`)= `${title}`
+  dd= `${description}`

@@ -1,0 +1,22 @@
+link($type = '')
+  &
+    text-decoration-line none
+    text-decoration-style solid
+    text-decoration-skip ink
+    text-decoration-color lookup('$' + $type + 'decoration')
+    color lookup('$' + $type + 'link')
+    &:visited
+      color lookup('$' + $type + 'visited')
+    &:hover
+      text-decoration-line underline
+      color lookup('$' + $type + 'hover')
+    &:active
+      color lookup('$' + $type + 'active')
+
+button($type = '')
+  &
+    display inline-block
+    padding 0 .5em
+    color lookup('$' + $type + 'btn-text')
+    border-radius .125rem
+    background lookup('$' + $type + 'btn-bg')

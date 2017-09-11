@@ -1,0 +1,10 @@
+section.side-archives
+  header
+    h3= `存档`
+  article
+    ol
+      each archive in archives
+        li
+          a(href=`/archives/${archive.year}`)= `${archive.year} 年`
+          span= `${archive.count}`
+  

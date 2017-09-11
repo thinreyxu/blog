@@ -6,7 +6,7 @@ module.exports = (Post, settings) => {
       let keywords = (req.query.q || '').trim()
       let page = Math.max(req.query.p ? Number.parseInt(req.query.p) : 1)
       if (keywords) {
-        let query = Post.find().search(keywords)
+        let query = Post.search(keywords)
         total = await query.count()
         posts = await query.page(page, resultsPerPage)
       } else {

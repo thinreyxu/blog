@@ -1,0 +1,136 @@
+.nav
+  display flex
+  flex-flow row nowrap
+  justify-content center
+  font-size $m-text
+  a
+    // margin auto .5rem
+    // padding 0 .5rem
+    text-decoration-line none
+    &::before
+      font-size $xs-text
+      margin-right .5rem
+    &::after
+      display block
+      height .125rem
+      content ''
+      border-radius .0625rem
+      background $text
+    &.space-right
+      margin-right auto
+    &.space-left
+      margin-left auto
+.alert
+
+.header
+  text-align center
+  .logo
+    margin auto
+    a
+      display block
+      @extend .ir
+      width 44px
+      height 70px
+      margin auto
+      background url(../images/logo.png) no-repeat
+.content
+
+.side
+  font-size $s-text
+.footer
+  font-size $xs-text
+  position relative
+  text-align center
+  color $ltext
+  .foot-logo
+    position absolute
+    top -11px
+    left 50%
+    width 20px
+    height 20px
+    margin-left -10px
+    background url(../images/logo2.png) no-repeat
+.post-body
+  text-align justify
+
+.post-list
+  .post
+    display flex
+    flex-flow column nowrap
+    justify-content stretch
+    align-items flex-start
+  .post-time
+    order 1
+    font-size $xs-text
+    color $ltext
+  .post-title
+    order 2
+    font-size $xl-text
+    line-height 1.5
+  .post-author
+    order 3
+    font-size $xs-text
+    link(l)
+  .post-body
+    order 4
+    // font-family $serif
+  .post-tags
+    order 5
+    font-size $xs-text
+    a
+      // link(l)
+      display inline-block
+      button(l)
+      margin 0 .5rem .5rem 0
+      &:last-of-type
+        margin-right 0
+  .keepOnReading
+    order 6
+    button()
+    font-size $xs-text
+
+.form-horizontal
+  .form-group
+    display flex
+    flex-flow row nowrap
+    align-items stretch
+  .col
+    margin-right .5rem
+    &:last-of-type
+      margin-right 0
+  .col-fixed
+    flex-grow 0
+  .col-stretch
+    flex-grow 1
+    .form-control
+      box-sizing border-box
+      width 100%
+
+.side-tags
+  .tags
+    a
+      display inline-block
+      word-break keep-all
+      button(l)
+      margin 0 .5rem .5rem 0
+      &:last-of-type
+        margin-right 0
+
+.side-archives
+  ol
+    padding-left 0
+    list-style none
+    span
+      margin-left .5rem
+      color $ltext
+      &::before
+        content '['
+      &::after
+        content ']'
+
+.side-links
+  dl
+    dt
+    dd
+      margin-left 0
+      color $ltext

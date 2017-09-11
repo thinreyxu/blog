@@ -1,0 +1,8 @@
+section.side-search
+  article
+    form.form-horizontal(method=`GET`, action=`/search`, enctype=`application/x-www-form-urlencoded`)
+      .form-group
+        .col.col-stretch
+          input.form-control(id=`inputKeywords`, name=`q`, type=`text`, value=``, placeholder=`输入关键字进行搜索...`)
+        .col.col-fixed
+          button.btn.btn-default(type=`submit`)= `搜索`

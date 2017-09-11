@@ -1,0 +1,67 @@
+$header-h = 15rem
+$nav-h = 0
+$footer-h = 15rem
+$content-w = 38rem
+$side-w = 14rem
+$gap = 4rem
+$gap-thin = 2rem
+
+// mobile first
+.container
+  display grid
+  grid-template-columns 1fr auto 1fr
+  grid-template-rows $header-h $nav-h auto auto $footer-h
+  grid-template-areas\
+    '.  header .'\
+    '.    nav  .'\
+    '. content .'\
+    '.  side   .'\
+    '.  footer .'
+  grid-gap 0 $gap-thin
+  min-height 100%
+.header
+  grid-area header
+  align-self center
+.nav
+  grid-area nav
+  &>a
+    margin auto .5rem
+    margin-top -($header-h / 1)
+    &:first-of-type
+      margin-left 0
+    &:last-of-type
+      margin-right 0
+.content
+  grid-area content
+  max-width $content-w
+.side
+  grid-area side
+  display grid
+  grid-template-columns repeat(auto-fit, minmax($side-w, 1fr))
+  grid-gap $gap-thin
+  align-content start
+.footer
+  grid-area footer
+  align-self end
+// .side
+//   display grid
+//   grid-template-columns repeat(auto-fit, minmax(auto, auto))
+//   grid-gap 2rem
+//   align-content start
+.post-list
+  display grid
+  grid-template-columns auto
+  grid-gap $gap 0
+
+// desktop
+// @media (min-width: 64rem)
+@media (min-width: 1280px)
+  .container
+    grid-template-columns auto $content-w $side-w auto
+    grid-template-rows $header-h $nav-h auto $footer-h
+    grid-template-areas\
+      '. header   header .'\
+      '. nav         nav .'\
+      '. content    side .'\
+      '. footer   footer .'
+    grid-gap 0 $gap

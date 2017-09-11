@@ -10,5 +10,6 @@
   "servePort": "3000",
   "postsPerPage": 15,
   "commentsPerPage": 7,
-  "resultsPerPage": 15
+  "resultsPerPage": 15,
+  "tagsPreviewCount": 15
 }

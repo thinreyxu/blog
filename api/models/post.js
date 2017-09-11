@@ -1,12 +1,12 @@
 module.exports = (odm, Comment) => {
   const postSchema = new odm.Schema({
     name: { type: String, required: true },
-    ctime: { type: Date, default: Date.now, required: true },
+    ctime: { type: Date, default: Date.now, index: true, required: true },
     utimes: [{ type: Date, default: Date.now }],
     title: { type: String, required: true },
     content: { type: String, required: true },
     summary: { type: String, required: true },
-    tags: [{ type: String }],
+    tags: [{ type: String, index: true }],
     comments: [{ type: Comment.schema }], // newest 10 comment
     pv: { type: Number, default: 0 },
     titleSearch: [{ type: String, index: true, required: true }]
@@ -28,12 +28,37 @@ module.exports = (odm, Comment) => {
   //   })
   // }
 
-  postSchema.query.search = function (keywords) {
+  postSchema.statics.search = function (keywords) {
     let keywordsArray = keywords.trim().replace(/\s+/g, ' ')
     return this.find({ titleSearch: { $all: keywordsArray } })
   }
 
-  postSchema.query.groupByYear = function () {
+  postSchema.statics.groupByYear = function () {
+    return this.aggregate([
+      {
+        $project: {
+          year: { $year: '$ctime' },
+          month: { $month: '$ctime' },
+          post: '$$CURRENT',
+          _id: 1,
+          title: 1
+        }
+      },
+      {
+        $group: {
+          _id: { year: '$year', month: '$month' },
+          count: { $sum: 1 },
+          posts: { $addToSet: { _id: '$_id', title: '$title' } }
+        }
+      },
+      {
+        $addFields: {
+          _id: null,
+          year: '$_id.year',
+          month: '$_id.month'
+        }
+      }
+    ])
   }
 
   const Post = odm.model('Post', postSchema, 'posts')
