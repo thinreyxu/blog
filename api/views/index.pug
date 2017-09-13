@@ -2,12 +2,12 @@ extends layout.pug
 
 block page-header
   h1.logo
-    a(href=`/`)= `${title}WLBXUX`
+    a(href=`/`)= `${title}`
 
 block content
   include post-list.pug
 
-block aside
+block side
   include side-search.pug
   include side-tags.pug
   include side-archives.pug

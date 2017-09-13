@@ -20,3 +20,30 @@ button($type = '')
     color lookup('$' + $type + 'btn-text')
     border-radius .125rem
     background lookup('$' + $type + 'btn-bg')
+
+underline($type = '')
+  &::after
+    display block
+    height .125rem
+    content ''
+    border-radius .0625rem
+    background lookup('$' + $type + 'text')
+
+overline($type = '')
+  &::before
+    display block
+    height .125rem
+    content ''
+    border-radius .0625rem
+    background lookup('$' + $type + 'text')
+
+predot($type = '')
+  &::before
+    display inline-block
+    width .25rem
+    height .25rem
+    margin-right .5rem
+    content ''
+    vertical-align middle
+    border-radius .125rem
+    background lookup('$' + $type + 'text')

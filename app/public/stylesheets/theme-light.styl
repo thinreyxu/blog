@@ -3,24 +3,22 @@
   flex-flow row nowrap
   justify-content center
   font-size $m-text
-  a
-    // margin auto .5rem
-    // padding 0 .5rem
+  &>a
+    margin -($header-h / 1) .5rem auto
+    &:first-of-type
+      margin-left 0
+    &:last-of-type
+      margin-right 0
     text-decoration-line none
     &::before
       font-size $xs-text
       margin-right .5rem
-    &::after
-      display block
-      height .125rem
-      content ''
-      border-radius .0625rem
-      background $text
-    &.space-right
+    &:nth-of-type(1)
+      button()
+    &:nth-of-type(1)
+      border-top-left-radius 0
+      border-top-right-radius 0
       margin-right auto
-    &.space-left
-      margin-left auto
-.alert
 
 .header
   text-align center
@@ -33,7 +31,6 @@
       height 70px
       margin auto
       background url(../images/logo.png) no-repeat
-.content
 
 .side
   font-size $s-text
@@ -42,6 +39,7 @@
   position relative
   text-align center
   color $ltext
+  // background $hbg
   .foot-logo
     position absolute
     top -11px
@@ -54,6 +52,9 @@
   text-align justify
 
 .post-list
+  display grid
+  grid-template-columns auto
+  grid-gap 6rem 0
   .post
     display flex
     flex-flow column nowrap
@@ -63,6 +64,10 @@
     order 1
     font-size $xs-text
     color $ltext
+    margin-bottom -1rem
+    // predot(h)
+    // button(l)
+    // overline(l)
   .post-title
     order 2
     font-size $xl-text
@@ -108,6 +113,7 @@
 
 .side-tags
   .tags
+    margin-right -.5rem
     a
       display inline-block
       word-break keep-all

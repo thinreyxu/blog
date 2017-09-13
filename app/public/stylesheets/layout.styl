@@ -16,7 +16,7 @@ $gap-thin = 2rem
     '.    nav  .'\
     '. content .'\
     '.  side   .'\
-    '.  footer .'
+    'footer  footer footer'
   grid-gap 0 $gap-thin
   min-height 100%
 .header
@@ -24,13 +24,6 @@ $gap-thin = 2rem
   align-self center
 .nav
   grid-area nav
-  &>a
-    margin auto .5rem
-    margin-top -($header-h / 1)
-    &:first-of-type
-      margin-left 0
-    &:last-of-type
-      margin-right 0
 .content
   grid-area content
   max-width $content-w
@@ -48,10 +41,6 @@ $gap-thin = 2rem
 //   grid-template-columns repeat(auto-fit, minmax(auto, auto))
 //   grid-gap 2rem
 //   align-content start
-.post-list
-  display grid
-  grid-template-columns auto
-  grid-gap $gap 0
 
 // desktop
 // @media (min-width: 64rem)
@@ -63,5 +52,5 @@ $gap-thin = 2rem
       '. header   header .'\
       '. nav         nav .'\
       '. content    side .'\
-      '. footer   footer .'
+      'footer footer   footer footer'
     grid-gap 0 $gap
